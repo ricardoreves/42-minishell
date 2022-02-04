@@ -23,8 +23,8 @@ Expression ::= '(' Expression ')'
 
 Redirection ::= '<' Filename
 			  | '>' Filename
-			  | '>>' Filename
-			  | '<<' Word
+			  | '>' ('>')? Filename
+			  | '<' '<' Word
 			  | '|' Expression
 			  | '&' Expression
 			  | ';' Expression
