@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/04 09:07:44 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/04 10:55:09 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ typedef struct s_parse_tree
 	int		line;
 	int		pos;
 }	t_parse_tree;
+int				ft_is_redirection(int c);
+int				ft_is_pipe(int c);
+int				ft_is_and(int c);
+int				ft_is_eoe(int c);
 char			**ft_parse_token(char *str);
 t_parse_tree	*ft_parse_tree(char **str);
 #endif
