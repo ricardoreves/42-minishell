@@ -59,7 +59,25 @@ int	ft_is_and(int c)
  */
 int	ft_is_eoe(int c)
 {
-	if (c == '&')
+	if (c == ';' || c == '\n')
 		return (1);
 	return (0);
 }
+
+/**
+ * @brief retourne vrai si le carctère est un caractère d'espace.
+ * ATTENTION : le retour à la ligne '\n' ou '\r' n'est pas considéré comme
+ * espace.
+ * 
+ * @param c 
+ * @return int 
+ */
+int	ft_isspace(char c)
+{
+	if (c == '\t' || c == '\v')
+		return (1);
+	if (c == '\f' || c == ' ')
+		return (1);
+	return (0);
+}
+

@@ -6,22 +6,13 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/04 15:26:49 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/04 15:29:33 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libparser.h"
 #include "libft.h"
 #include <stdlib.h>
-
-char	**ft_parse_token(char  *str)
-{
-	char	**ret;
-
-	ft_isalpha(*str);
-	ret = malloc(sizeof(char *));
-	return (ret);
-}
 
 t_parse_tree	*ft_parse_tree(char __attribute__((unused)) **str)
 {

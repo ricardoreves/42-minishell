@@ -28,11 +28,15 @@ int	main(int __attribute__((unused)) argc, char __attribute__((unused)) **argv)
  */
 int	tocken_tester(void)
 {
-	char	**ret;
+	// char	**ret;
 	char	*input;
+	int		count;
+	int		value;
 
-	input = "une commande de ouf";
-	ret = ft_parse_token(input);
-	free(ret);
+	input = "une commande | de ouf >> test";
+	value = 8;
+	count = ft_token_count(input, SEPARATOR, SEPARATOR_COUNTED);
+	printf("%d, %d\n", count, value);
+	// free(ret);
 	return (1);
 }
