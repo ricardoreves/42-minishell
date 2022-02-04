@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/04 11:07:00 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/04 15:26:49 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-char **ft_parse_token(char __attribute__((unused)) *str)
+char	**ft_parse_token(char  *str)
 {
 	char	**ret;
 
