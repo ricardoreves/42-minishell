@@ -14,27 +14,35 @@
 RM         = rm -rf
 CC         = gcc
 CDEBUG     = -g3 -fsanitize=address
-CFLAGS     = -Werror -Wextra -Wall $(CDEBUG)
+CFLAGS     = -Werror -Wextra -Wall
 CLIBS      = 
 NORM       = norminette
 AR         = ar -rcs
 
 ### FILES ###
 NAME       = libparser.a
-INCS_DIR   = ./incs
+INCS_DIR   = -I ../libft
 SRCS_DIR   = ./srcs
-SRCS_NAME  = ft_parser.c
+SRCS_NAME  = ft_parser.c \
+			 ft_ascii.c
 SRCS       = $(addprefix $(SRCS_DIR)/, $(SRCS_NAME))
 OBJS       = $(SRCS:.c=.o)
+LIBFT_DIR  = ../libft
+LIBFT_A    = $(LIBFT_DIR)/libft.a
 
 ### RULES ###
 all: $(NAME)
 
 .c.o:
-	$(CC) $(CFLAGS) -I $(INCS_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCS_DIR) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(AR) $(NAME) $(OBJS)
+
+debug: CFLAGS += $(CDEBUG)
+debug: $(NAME)
+
+dev: debug
 
 clean:
 	$(RM) $(OBJS)
@@ -47,4 +55,4 @@ re: fclean all
 norm:
 	$(NORM)
 	
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re debug dev
