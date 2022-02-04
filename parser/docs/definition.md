@@ -7,7 +7,7 @@ terminal a executé.
 les mots que l'on retrouve dans la commande.
 
 A partir de là, on va créer un arbre d'execution de la commande selon la
-grammaire illustré sur le schéma suivant : [diagram](diagram.xhml) *
+grammaire illustré sur le schéma suivant : [diagram](diagram.xhtml) *
 
 Il est possible aussi de consulter La [grammaire au format EBNF](grammar.txt).
 
