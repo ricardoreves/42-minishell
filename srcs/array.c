@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   array.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,43 +12,50 @@
 
 #include "minishell.h"
 
-char *ft_strsjoin(char *s1, char *s2, char *sep)
+void print_array(char *array[])
 {
-    char *str;
-    char *tmp;
-
-    tmp = ft_strjoin(s1, sep);
-    if (!tmp)
-        return (0);
-    str = ft_strjoin(tmp, s2);
-    free(tmp);
-    if (!str)
-        return (0);
-    return (str);
-}
-
-char *ft_strndup(char *s1, size_t n)
-{
-    size_t i;
-    char *dup;
-
-    if (!s1 || n < 1)
-        return (0);
-    dup = ft_calloc(sizeof(char), n + 1);
-    if (!dup)
-        return (0);
-    i = -1;
-    while (++i < n)
-        dup[i] = s1[i];
-    return (dup);
-}
-
-int ft_strcmp(char *s1, char *s2)
-{
-    size_t i;
+    int i;
 
     i = 0;
-    while (s1[i] && s2[i] && s1[i] == s2[i])
+    while (array && array[i])
+        printf("%s\n", array[i++]);
+}
+
+void free_array(char *array[])
+{
+    int i;
+
+    i = 0;
+    if (array)
+    {
+        while (array[i])
+            free(array[i++]);
+        free(array);
+    }
+}
+
+int array_length(char *array[])
+{
+    int i;
+
+    i = 0;
+    while (array && array[i])
         i++;
-    return (s1[i] - s2[i]);
+    return (i);
+}
+
+char **clone_array(char *array[])
+{
+    int i;
+    char **dup;
+
+    i = 0;
+    while (array && array[i])
+        i++;
+    dup = ft_calloc(sizeof(*array), i + 1);
+    if (!dup)
+        return (0);
+    while (i--)
+        dup[i] = ft_strdup(array[i]);
+    return (dup);
 }

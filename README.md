@@ -4,10 +4,10 @@
 ![](imgs/minishell.png)
 
 - [readline](https://man7.org/linux/man-pages/man3/readline.3.html)
-- [rl_clear_history]() 
-- [rl_on_new_line]()
-- [rl_replace_line]() 
-- [rl_redisplay]() 
+- [rl_clear_history]() Clear the history list by deleting all of the entries, in the same manner as the History library's clear_history() function. This differs from clear_history because it frees private data Readline saves in the history list. 
+- [rl_on_new_line]() Tell the update functions that we have moved onto a new (empty) line, usually after outputting a newline. 
+- [rl_replace_line]() Replace the contents of rl_line_buffer with text. The point and mark are preserved, if possible. If clear_undo is non-zero, the undo list associated with the current line is cleared. 
+- [rl_redisplay]() If non-zero, Readline will call indirectly through this pointer to update the display with the current contents of the editing buffer. By default, it is set to rl_redisplay, the default Readline redisplay function (see section 2.4.6 Redisplay). 
 - [add_history]()
 - [printf]() 
 - [malloc]() 
@@ -21,7 +21,7 @@
 - [wait](https://man7.org/linux/man-pages/man2/wait.2.html) 
 - [waitpid]()  
 - [wait3]()  
-- [wait4]()  
+- [wait4]() 
 - [signal]() 
 - [sigaction]()  
 - [kill]()  
@@ -67,9 +67,20 @@ https://www.youtube.com/watch?v=l-UhKLdh4aY
 https://stackoverflow.com/questions/50610781/implementing-pipe-and-redirection-together-in-c
 https://thoughtbot.com/blog/input-output-redirection-in-the-shell
 https://www.guru99.com/linux-redirection.html
+https://linuxhint.com/c-execve-function-usage/
+http://brunogarcia.chez.com/Unix/Docs/Signaux.html
 
+
+
+https://en.wikipedia.org/wiki/ASCII#ASCII_control_characters
 https://github.com/iciamyplant/Minishell
 https://github.com/j53rran0/minishell
+
+
+https://github.com/AbderrSfa/minishell/blob/main/minishell.c
+
+https://patorjk.com/software/taag/#p=testall&f=Graffiti&t=Minishell
+https://gist.github.com/RabaDabaDoba/145049536f815903c79944599c6f952a
 
 
 #include<stdio.h>
@@ -149,6 +160,7 @@ echo "$(cat data.txt)"
 
 
 " ' | < >
+bash: export: `42': not a valid identifier
 
 
 
@@ -243,3 +255,36 @@ main(int argc, char *argv[])
 }
 
  
+
+ void intHandler(int) {
+    keepRunning = false;
+}
+
+int main(int argc, char *argv[]) {
+    struct sigaction act;
+    act.sa_handler = intHandler;
+    sigaction(SIGINT, &act, NULL);
+
+    while (keepRunning) {
+        // main loop
+    }
+}
+
+
+
+Ctrl+C - SIGINT
+Ctrl+\ - SIGQUIT
+
+
+
+int check_access(char *pathname)
+{
+    int fd = access(pathname, F_OK);
+    if (fd == -1)
+    {
+        //perror("No such file or directory");
+        printf("%s: %s: %s: %s\n", PROMPT_PREFIX, "cmd", pathname, strerror(errno));
+        return (1);
+    }
+    return 0;
+}
