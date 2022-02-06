@@ -74,5 +74,6 @@ test: LDFLAGS += $(TESTS_LNK)
 test: INCS_DIR += $(TESTS_INCS)
 test: $(NAME) $(LIBFT_A) $(TESTS_OBJS)
 	$(CC) $(CFLAGS) $(TESTS_INCS) $(TESTS_OBJS) $(LDFLAGS) -o $(TEST)
+	./$(TEST)
 
 .PHONY: all clean fclean re debug dev

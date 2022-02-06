@@ -14,96 +14,142 @@
 #include "libft.h"
 #include <stdlib.h>
 
-/**
- * @brief Effectue une allocation de mémoire du nombre d'élément nécessaire
- * pour enregitrer tous les jetons
- * 
- * @param str 
- * @param sep liste des caractères qui seront utilisés comme séparateur
- * @param sepcmpt liste des caractères qui seront utilisés comme séparateur
- * @return char** 
- */
-int	ft_token_count(char const *str, char *sep, char *sepcmpt)
+void	ft_move_space_forward(char const *s, int *pos)
 {
-	int	is_sep;
-	int	count;
-
-	count = 0;
-	is_sep = 1;
-	while (*str)
-	{
-		if (is_sep && !ft_strchr(sep, *str))
-		{
-			is_sep = 0;
-			count++;
-		}
-		else if (ft_strchr(sep, *str))
-		{
-			is_sep = 1;
-			if (ft_strchr(sepcmpt, *str))
-				count++;
-		}
-		str++;
-	}
-	return (count);
+	while (s[*pos] && ft_strchr(SPACE_SEPARATOR, s[*pos]))
+		(*pos)++;
 }
 
-void	ft_move_forward(char const **s, char *sep, int not)
+void	ft_add_token(t_token **token, char *start, int len, int pos)
 {
-	if (not)
-	{
-		while (**s && !ft_strchr(sep, **s))
-			(*s)++;
-		if (ft_strchr(SEPARATOR_COUNTED, **s))
-			(*s)++;
-	}
+	t_token	*t;
+	t_token	*t2;
+	int		i;
+printf("[%d]\n",len);
+if(len == 0) exit(0);
+
+	t = malloc(sizeof(t_token));
+	if (!t)
+		return ;
+	t->next = 0;
+	t->position = pos;
+	t->str = malloc((len) + 1);
+	if(!t->str)
+		return ;
+	i = -1;
+	while (++i < len)
+		t->str[i] = start[i];
+	t->str[i] = 0;
+	if (!(*token))
+		*token = t;
 	else
 	{
-		while (**s && ft_strchr(sep, **s))
-			(*s)++;
+		t2 = (*token);
+		while (t2->next)
+			t2 = t2->next;
+		t2->next = t;
 	}
 }
 
-void	ft_pos_memcpy(char const *start, char const *end, char *mem)
+void	ft_token_dispose(t_token **token)
 {
-	int	x;
+	t_token	*t;
+	t_token	*p;
 
-	x = 0;
-	while (start != end && mem)
+	t = *token;
+	while (t)
 	{
-		mem[x++] = *start;
-		start++;
+		p = t;
+		t = t->next;
+		free(p->str);
+		free(p);
 	}
-	mem[x] = 0;
+	*token = 0;
 }
 
-char	**ft_parse_token(char  *str)
+t_token	*ft_parse_token(char *str)
 {
-	char const	*start;
-	char const	*end;
-	char		**token;
-	int			count;
-	int			y;
+	char 	*current;
+	t_token	*token;
+	int		pos;
+	int		start_pos;
+	int		final;
 
-	count = ft_token_count(str, SEPARATOR, SEPARATOR_COUNTED);
-	token = malloc((count + 1) * sizeof(char *));
-	if (!token)
+	token = 0;
+	pos = 0;
+	if (!str || !*str)
 		return (0);
-	start = str;
-	end = str;
-	y = 0;
-	while (*end && token)
+	current = str;
+	while (current[pos])
 	{
-		ft_move_forward(&start, SEPARATOR, 0);
-		end = start;
-		ft_move_forward(&end, SEPARATOR, 1);
-		if (end - start)
+
+		ft_move_space_forward(current, &pos);
+printf("[%c][%d]\n",current[pos], current[pos]);
+		start_pos = pos;
+		if (current[pos] && current[pos] == '"')
 		{
-			token[y] = malloc((end - start) + 1);
-			ft_pos_memcpy(start, end, token[y++]);
+			final = 0;
+			while (current[pos] && !final)
+			{
+				pos++;
+				if (current[pos] == '\\')
+				{
+					pos++;
+					if (current[pos] == '"')
+						pos++;
+				} 
+				else if (current[pos] == '"')
+					final = 1;
+			}
+			if (final)
+			{
+				ft_add_token(&token, (current + start_pos), pos - start_pos + 1, pos);
+				pos++;
+			}
 		}
-		start = end;
+		else if (current[pos] && current[pos] == '<')
+		{
+			if (current[pos + 1] == '<')
+				pos++;
+			ft_add_token(&token, (current + start_pos), (pos - start_pos) + 1, pos);
+			pos++;
+		}
+		else if (current[pos] && current[pos] == '>')
+		{
+			if (current[pos + 1] == '>')
+				pos++;
+			ft_add_token(&token, (current + start_pos), (pos - start_pos) + 1, pos);
+			pos++;
+		}
+		else if (current[pos] && current[pos] == '|')
+		{
+			ft_add_token(&token, (current + start_pos), 1, pos);
+			pos++;
+		}
+		else if (current[pos] && current[pos] == ';')
+		{
+			ft_add_token(&token, (current + start_pos), 1, pos);
+			pos++;
+		}
+		else if (current[pos] && current[pos] == '&')
+		{
+			if (current[pos + 1] == '&')
+				pos++;
+			ft_add_token(&token, (current + start_pos), (pos - start_pos) + 1, pos);
+			pos++;
+		}
+		else if(current[pos])
+		{
+			final = 0;
+			while (current[pos] && !final)
+			{
+				if (!ft_strchr(NON_CHAR_IDENTIFIER, current[pos]))
+					pos++;
+				else
+					final = 1;
+			}
+			ft_add_token(&token, (current + start_pos), pos - start_pos, pos);
+		}
 	}
-	token[y] = 0;
-	return (token);	
+	return (token);
 }

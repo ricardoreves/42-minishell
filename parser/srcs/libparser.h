@@ -6,14 +6,15 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/04 17:26:23 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/06 15:31:57 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBPARSER_H
 # define LIBPARSER_H
-# define SEPARATOR " \t\v\f!><|;&()" 
-# define SEPARATOR_COUNTED "!><|;&()"
+# define SPACE_SEPARATOR " \t\v\f\n" 
+# define NON_CHAR_IDENTIFIER " ()<>|&;!><'\"\t\v\f\n"
+# include <stdio.h>
 typedef enum e_expression_type
 {
 	expression,
@@ -25,13 +26,19 @@ typedef struct s_parse_tree
 	int		line;
 	int		pos;
 }	t_parse_tree;
-int				ft_token_count(char const *str, char *sep, char *sepcmpt);
-void			ft_move_forward(char const **s, char *sep, int not);
-void			ft_pos_memcpy(char const *start, char const *end, char *mem);
+typedef struct s_token
+{
+	int				position;
+	char			*str;
+	struct s_token	*next;
+}	t_token;
+void			ft_move_space_forward(char const *s, int *pos);
+void			ft_token_dispose(t_token **token);
+void			ft_add_token(t_token **token, char *start, int len, int pos);
 int				ft_is_redirection(int c);
 int				ft_is_pipe(int c);
 int				ft_is_and(int c);
 int				ft_is_eoe(int c);
-char			**ft_parse_token(char *str);
+t_token			*ft_parse_token(char *str);
 t_parse_tree	*ft_parse_tree(char **str);
 #endif

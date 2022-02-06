@@ -15,11 +15,12 @@
 Command ::= Expression* EOC
 
 Expression ::= '(' Expression ')'
-			 | Builtins (Redirection)?
-			 | Variable (Redirection)?
-			 | Filename (Parameter*)? (Redirection)?
-			 | Filename (Parameter*)? (Redirection)?
-			 | Filename (Parameter*)? (Redirection)?
+			 | (")? Builtins (")? (Redirection)?
+			 | (")? Variable (")? (Redirection)?
+			 | (")? Variable (")? (Redirection)?
+			 | (")? Filename (")? (Parameter*)? (Redirection)?
+			 | (")? Filename (")? (Parameter*)? (Redirection)?
+			 | (")? Filename (")? (Parameter*)? (Redirection)?
 
 Redirection ::= '<' Filename
 			  | '>' Filename
@@ -37,7 +38,7 @@ Builtins ::= 'echo' ('-n')?
 		   | 'env'
 		   | 'exit'
 
-Parameter ::= [a-zA-Z0-9\-_\\/] [a-zA-Z0-9\-_\\/]*
+Parameter ::= (")? [a-zA-Z0-9\-_\\/] [a-zA-Z0-9\-_\\/]* (")?
 
 Variable ::= [$] [a-zA-Z0-9\-_\\/]*
 

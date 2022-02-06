@@ -12,7 +12,9 @@
 
 #ifndef LIBPARSER_TESTER_H
 # define LIBPARSER_TESTER_H
+# include "libparser.h"
 
-int	main(int argc, char **argv);
-int	tocken_tester(void);
+int		main(int argc, char **argv);
+int		token_tester(char *input);
+void	token_print(t_token *token);
 #endif

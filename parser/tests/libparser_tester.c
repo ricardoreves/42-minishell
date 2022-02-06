@@ -17,8 +17,24 @@
 
 int	main(int __attribute__((unused)) argc, char __attribute__((unused)) **argv)
 {
-	tocken_tester();
+	token_tester("read -p \"Entrez un numéro : \" int1\n");
+	token_tester("echo \"out\">>fichier");
+	token_tester("commande>fichier");
+	token_tester("commande<fichier");
+	token_tester("commande|fichier");
+	token_tester("commande |fichier");
+	token_tester("commande |fichier << test >autre; ls /test/truc && autre");
+	token_tester("commande << fichier");
 	return (0);
+}
+
+void	token_print(t_token *token)
+{
+	while (token)
+	{
+		printf("token : %s\n", token->str);
+		token = token->next;
+	}
 }
 
 /**
@@ -26,17 +42,14 @@ int	main(int __attribute__((unused)) argc, char __attribute__((unused)) **argv)
  * 
  * @return int 
  */
-int	tocken_tester(void)
+int	token_tester(char *input)
 {
-	// char	**ret;
-	char	*input;
-	int		count;
-	int		value;
+	t_token	*token;
 
-	input = "une commande | de ouf >> test";
-	value = 8;
-	count = ft_token_count(input, SEPARATOR, SEPARATOR_COUNTED);
-	printf("%d, %d\n", count, value);
-	// free(ret);
+	printf("\ninput : %s\n\n", input);
+	token = ft_parse_token(input);
+	token_print(token);
+	ft_token_dispose(&token);
+	printf("\n\n");
 	return (1);
 }
