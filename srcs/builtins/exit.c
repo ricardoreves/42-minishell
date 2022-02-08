@@ -6,13 +6,13 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 02:06:42 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/06 17:12:44 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/07 18:27:35 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	execute_exit(t_shell *shell)
+int	exec_exit(t_shell *shell)
 {
 	(void)shell;
 	exit(0);

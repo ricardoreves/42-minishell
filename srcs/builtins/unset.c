@@ -6,13 +6,13 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 02:07:49 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/06 17:13:13 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/07 19:14:58 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int execute_unset(t_shell *shell, char **args)
+int exec_unset(t_shell *shell, char *args[])
 {
 	if (args[1])
 		unset_env(shell, args[1]);

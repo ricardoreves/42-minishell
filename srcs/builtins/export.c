@@ -6,13 +6,13 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 02:07:34 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/06 17:12:51 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/07 19:13:56 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int parse_export(char **args, char **name, char **value)
+int parse_export(char *args[], char **name, char **value)
 {
 	size_t i;
 
@@ -23,7 +23,7 @@ int parse_export(char **args, char **name, char **value)
 		i++;
 	if (i == ft_strlen(args[1]))
 		return (0);
-	(*name) = ft_strndup(args[1], i);
+	(*name) = str_duplicate_nbytes(args[1], i);
 	if (!(*name))
 		return (0);
 	(*value) = ft_strdup(args[1] + i + 1);
@@ -32,18 +32,17 @@ int parse_export(char **args, char **name, char **value)
 	return (1);
 }
 
-int execute_export(t_shell *shell, char **args)
+int exec_export(t_shell *shell, char *args[])
 {
 	char *name;
 	char *value;
 
-	if (!parse_export(args, &name, &value))
+	if (parse_export(args, &name, &value))
 	{
-		printf("export: not a valid identifier\n");
-		return (0);
+		if (get_env(shell, name))
+			return (set_env(shell, name, value));
+		else
+			return (add_env(shell, name, value));
 	}
-	if (get_env(shell, name))
-		return (set_env(shell, name, value));
-	else
-		return (add_env(shell, name, value));
+	return (0);
 }

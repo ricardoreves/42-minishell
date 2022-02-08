@@ -6,16 +6,11 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 20:47:22 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/06 18:17:36 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/07 17:25:47 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
-
-
-
 
 void free_envlst(t_env **envs)
 {
@@ -56,7 +51,7 @@ int init_envslst(t_shell *shell, char *envs[])
 		j = 0;
 		while (envs[i][j] != 0 && envs[i][j] != '=')
 			j++;
-		env = new_envlst(ft_strndup(envs[i], j), ft_strdup(envs[i] + j + 1));
+		env = new_envlst(str_duplicate_nbytes(envs[i], j), ft_strdup(envs[i] + j + 1));
 		// printf("|%s|\n%s %s\n", envs[i], env->name, env->value);
 		add_envlst(&shell->envslst, env);
 	}

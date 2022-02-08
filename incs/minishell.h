@@ -6,14 +6,15 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/06 18:17:36 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/08 14:51:44 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define PROMPT "\e[1;33mminishell\e[0m:$ "
+# define NAME "\e[1;33mminishell\e[0m:"
+# define DOLLAR "\e[1;37m$ \e[0m"
 # define READ_END 0
 # define WRITE_END 1
 
@@ -30,26 +31,24 @@
 # include <sys/wait.h>
 # include <signal.h>
 
-typedef struct s_env
-{
-	char			*name;
-	char			*value;
-	struct s_env	*next;
-}					t_env;
-	   
 typedef struct s_shell
 {
 	char	*cmdline;
 	char	**cmds;
 	char	**envs;
-	t_env	*envslst;
+	int		error;
 }	t_shell;
 
-void print_array(char *array[]);
-void free_array(char *array[]);
-int array_length(char *array[]);
-char **clone_array(char *array[]);
+void print_array(char *arr[]);
+void free_array(char *arr[]);
+int array_length(char *arr[]);
+char **clone_array(char *arr[]);
 
+char *get_varenv_value(t_shell *shell, char *str, int *i);
+char *eval_varenv_str(t_shell *shell, char *str, int k);
+char **eval_varenv_map(t_shell *shell, char *arr[]);
+
+int contain_env(char *str, char *name);
 int add_env(t_shell *shell, char *name, char *value);
 char *get_env(t_shell *shell, char *name);
 int set_env(t_shell *shell, char *name, char *value);
@@ -59,27 +58,34 @@ int init_envs(t_shell *shell, char *envp[]);
 void signal_handler(int signum);
 void override_signals(void);
 
-char *ft_strsjoin(char *str1, char *str2, char *sep);
-char *ft_strndup(char *str, size_t n);
-int ft_strcmp(char *s1, char *s2);
+char *str_joinsep(char *str1, char *str2, char *sep);
+char *str_duplicate_nbytes(char *str, size_t n);
+int str_compare(char *str1, char *str2);
+int put_command_error(t_shell *shell, char *cmd, char *msg);
 
-int	execute_cd(t_shell *shell, char **args);
-int execute_echo(t_shell *shell, char **args);
-int execute_env(t_shell *shell);
-int	execute_exit(t_shell *shell);
-int execute_export(t_shell *shell, char **args);
-int execute_pwd(t_shell *shell);
-int execute_unset(t_shell *shell, char **args);
+int	exec_cd(t_shell *shell, char **args);
+int exec_echo(t_shell *shell, char **args);
+int exec_env(t_shell *shell);
+int	exec_exit(t_shell *shell);
+int exec_export(t_shell *shell, char **args);
+int exec_pwd(t_shell *shell);
+int exec_unset(t_shell *shell, char **args);
 
-
-void show_ascii_art(void);
-char *get_bin_pathname(t_shell *shell, char *name);
+void init_prompt(t_shell *shell);
+void init_asciiart(void);
 int is_builtin(char **args);
-void execute_builtin(t_shell *shell, char **args);
-int execute_command(t_shell *shell);
-
+void exec_builtin(t_shell *shell, char **args);
+int exec_command(t_shell *shell);
+char *get_command_path(t_shell *shell, char *name);
 
 // Not used
+typedef struct s_env
+{
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+}					t_env;
+	   
 void free_envlst(t_env **envs);
 void print_envlst(t_env **envs);
 t_env *new_envlst(char *name, char *value);
