@@ -25,8 +25,6 @@ void	ft_add_token(t_token **token, char *start, int len, int pos)
 	t_token	*t;
 	t_token	*t2;
 	int		i;
-printf("[%d]\n",len);
-if(len == 0) exit(0);
 
 	t = malloc(sizeof(t_token));
 	if (!t)
@@ -82,9 +80,7 @@ t_token	*ft_parse_token(char *str)
 	current = str;
 	while (current[pos])
 	{
-
 		ft_move_space_forward(current, &pos);
-printf("[%c][%d]\n",current[pos], current[pos]);
 		start_pos = pos;
 		if (current[pos] && current[pos] == '"')
 		{
@@ -99,6 +95,27 @@ printf("[%c][%d]\n",current[pos], current[pos]);
 						pos++;
 				} 
 				else if (current[pos] == '"')
+					final = 1;
+			}
+			if (final)
+			{
+				ft_add_token(&token, (current + start_pos), pos - start_pos + 1, pos);
+				pos++;
+			}
+		}
+		if (current[pos] && current[pos] == '\'')
+		{
+			final = 0;
+			while (current[pos] && !final)
+			{
+				pos++;
+				if (current[pos] == '\\')
+				{
+					pos++;
+					if (current[pos] == '\'')
+						pos++;
+				} 
+				else if (current[pos] == '\'')
 					final = 1;
 			}
 			if (final)

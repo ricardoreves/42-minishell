@@ -23,6 +23,7 @@ int	main(int __attribute__((unused)) argc, char __attribute__((unused)) **argv)
 	token_tester("commande<fichier");
 	token_tester("commande|fichier");
 	token_tester("commande |fichier");
+	token_tester("commande | \"fichier\"");
 	token_tester("commande |fichier << test >autre; ls /test/truc && autre");
 	token_tester("commande << fichier");
 	return (0);
