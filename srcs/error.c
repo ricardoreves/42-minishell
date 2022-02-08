@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/06 01:47:35 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/07 18:27:21 by rpinto-r         ###   ########.fr       */
+/*   Created: 2022/02/07 18:41:02 by rpinto-r          #+#    #+#             */
+/*   Updated: 2022/02/08 01:51:25 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int exec_env(t_shell *shell)
+int put_command_error(t_shell *shell, char *cmd, char *msg)
 {
-	print_array(shell->envs);
+	(void)shell;
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(msg, 2);
+	ft_putendl_fd("", 2);
 	return (0);
 }

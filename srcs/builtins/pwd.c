@@ -6,13 +6,13 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 02:07:43 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/06 17:13:13 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/07 18:28:04 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int execute_pwd(t_shell *shell)
+int exec_pwd(t_shell *shell)
 {
 	char *pwd;
 
