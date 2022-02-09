@@ -6,7 +6,7 @@
 #    By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 01:47:02 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/02/09 16:12:49 by rpinto-r         ###   ########.fr        #
+#    Updated: 2022/02/10 00:18:43 by rpinto-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,7 @@ SRC_NAME  += builtins/cd.c builtins/echo.c builtins/env.c builtins/exit.c builti
 SRCS       = $(addprefix $(SRC_DIR)/, $(SRC_NAME))
 OBJS       = $(SRCS:.c=.o)
 
-LIBRL_FLAG := -lreadline
-
+LIBRL_FLAG = -lreadline
 ifeq ($(shell uname), Linux)
     LIBRL_DIR = /usr/
     LIBRL_INC = /usr/include
@@ -60,12 +59,13 @@ fclean: clean
 
 re: fclean all
 
+run:
+	./$(NAME)
+
 norm:
 	$(NORM)
 
-dev:
-	$(MAKE) -C $(LIBFT_DIR)
-	$(CC) $(SRCS) $(DEBUG_FLAG) $(LIBRL_FLAG) -L $(LIBRL_DIR) -I $(LIBRL_INC) -I $(INC) $(LIBFT_A) -o $(NAME) && ./$(NAME)
+dev: re all
 
 sandbox:
 	$(CC) sandbox/pipe_fout.c $(DEBUG_FLAG) $(LIBRL_FLAG) -I $(INC) -I $(LIBRL_INC) $(LIBFT_A) -o $(NAME) && ./$(NAME) hello world
