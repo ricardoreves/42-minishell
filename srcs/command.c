@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/08 16:24:37 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/10 00:14:01 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int find_command(t_shell *shell, char *name, char **pathname)
 	int i;
 	char *path;
 	char **paths;
-	int ret;
 
 	i = 0;
 	path = get_env(shell, "PATH");
