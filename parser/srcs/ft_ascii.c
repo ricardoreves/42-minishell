@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 10:42:15 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/04 10:42:15 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/10 07:50:24 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	ft_is_eoe(int c)
  * @param c 
  * @return int 
  */
-int	ft_isspace(char c)
+int	ft_is_space(int c)
 {
 	if (c == '\t' || c == '\v')
 		return (1);

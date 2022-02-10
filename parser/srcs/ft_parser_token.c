@@ -14,12 +14,27 @@
 #include "libft.h"
 #include <stdlib.h>
 
+/**
+ * @brief déplace le curseur de position de la chaine tant qu'il
+ * s'agit 
+ * 
+ * @param s 
+ * @param pos 
+ */
 void	ft_move_space_forward(char const *s, int *pos)
 {
-	while (s[*pos] && ft_strchr(SPACE_SEPARATOR, s[*pos]))
+	while (s[*pos] && ft_is_space(s[*pos]))
 		(*pos)++;
 }
 
+/**
+ * @brief Ajoute un jeton dans la structure des jeton.
+ * 
+ * @param token liste de jeton
+ * @param start position de départ de la chaine
+ * @param len longueur de la chaine
+ * @param pos position dans la chaine de départ
+ */
 void	ft_add_token(t_token **token, char *start, int len, int pos)
 {
 	t_token	*t;
@@ -84,6 +99,7 @@ t_token	*ft_parse_token(char *str)
 		start_pos = pos;
 		if (current[pos] && current[pos] == '"')
 		{
+			pos++;
 			final = 0;
 			while (current[pos] && !final)
 			{
@@ -99,11 +115,11 @@ t_token	*ft_parse_token(char *str)
 			}
 			if (final)
 			{
-				ft_add_token(&token, (current + start_pos), pos - start_pos + 1, pos);
+				ft_add_token(&token, (current + start_pos), pos - start_pos + 1, start_pos);
 				pos++;
 			}
 		}
-		if (current[pos] && current[pos] == '\'')
+		else if (current[pos] && current[pos] == '\'')
 		{
 			final = 0;
 			while (current[pos] && !final)
@@ -120,7 +136,7 @@ t_token	*ft_parse_token(char *str)
 			}
 			if (final)
 			{
-				ft_add_token(&token, (current + start_pos), pos - start_pos + 1, pos);
+				ft_add_token(&token, (current + start_pos), pos - start_pos + 1, start_pos);
 				pos++;
 			}
 		}
@@ -128,31 +144,31 @@ t_token	*ft_parse_token(char *str)
 		{
 			if (current[pos + 1] == '<')
 				pos++;
-			ft_add_token(&token, (current + start_pos), (pos - start_pos) + 1, pos);
+			ft_add_token(&token, (current + start_pos), (pos - start_pos) + 1, start_pos);
 			pos++;
 		}
 		else if (current[pos] && current[pos] == '>')
 		{
 			if (current[pos + 1] == '>')
 				pos++;
-			ft_add_token(&token, (current + start_pos), (pos - start_pos) + 1, pos);
+			ft_add_token(&token, (current + start_pos), (pos - start_pos) + 1, start_pos);
 			pos++;
 		}
 		else if (current[pos] && current[pos] == '|')
 		{
-			ft_add_token(&token, (current + start_pos), 1, pos);
+			ft_add_token(&token, (current + start_pos), 1, start_pos);
 			pos++;
 		}
 		else if (current[pos] && current[pos] == ';')
 		{
-			ft_add_token(&token, (current + start_pos), 1, pos);
+			ft_add_token(&token, (current + start_pos), 1, start_pos);
 			pos++;
 		}
 		else if (current[pos] && current[pos] == '&')
 		{
 			if (current[pos + 1] == '&')
 				pos++;
-			ft_add_token(&token, (current + start_pos), (pos - start_pos) + 1, pos);
+			ft_add_token(&token, (current + start_pos), (pos - start_pos) + 1, start_pos);
 			pos++;
 		}
 		else if(current[pos])
@@ -165,7 +181,7 @@ t_token	*ft_parse_token(char *str)
 				else
 					final = 1;
 			}
-			ft_add_token(&token, (current + start_pos), pos - start_pos, pos);
+			ft_add_token(&token, (current + start_pos), pos - start_pos, start_pos);
 		}
 	}
 	return (token);

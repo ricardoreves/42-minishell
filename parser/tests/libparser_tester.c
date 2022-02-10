@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 15:15:55 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/04 15:15:55 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/09 08:32:33 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ int	main(int __attribute__((unused)) argc, char __attribute__((unused)) **argv)
 	token_tester("commande |fichier");
 	token_tester("commande | \"fichier\"");
 	token_tester("commande |fichier << test >autre; ls /test/truc && autre");
-	token_tester("commande << fichier");
+	token_tester("commande <<sep");
+	token_tester("'commande' fichier");
+	token_tester("echo te'st'");
+	token_tester("echo te\"st\";echo merci");
+	token_tester("ls *.c");
 	return (0);
 }
 
@@ -33,7 +37,7 @@ void	token_print(t_token *token)
 {
 	while (token)
 	{
-		printf("token : %s\n", token->str);
+		printf("token : [%-15s], start : [%2d]\n", token->str, token->position);
 		token = token->next;
 	}
 }

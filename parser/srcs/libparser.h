@@ -6,14 +6,14 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/06 18:01:28 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/10 07:50:11 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBPARSER_H
 # define LIBPARSER_H
 # define SPACE_SEPARATOR " \t\v\f\n" 
-# define NON_CHAR_IDENTIFIER " ()<>|&;!><'\"\t\v\f\n"
+# define NON_CHAR_IDENTIFIER " ()<>|&;!><\t\v\f\n"
 # include <stdio.h>
 typedef enum e_expression_type
 {
@@ -39,6 +39,7 @@ int				ft_is_redirection(int c);
 int				ft_is_pipe(int c);
 int				ft_is_and(int c);
 int				ft_is_eoe(int c);
+int				ft_is_space(int c);
 t_token			*ft_parse_token(char *str);
 t_parse_tree	*ft_parse_tree(char **str);
 #endif
