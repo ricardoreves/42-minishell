@@ -1,22 +1,2 @@
-total 1408
--rw-rw-r-- 1 reek reek       0 Feb  8 03:03 a.out
--rw-rw-r-- 1 reek reek 1307290 Jan 26 20:43 en.subject.pdf
-drwxrwxr-x 2 reek reek    4096 Feb  8 19:05 imgs
-drwxrwxr-x 2 reek reek    4096 Feb  6 18:31 incs
-drwxrwxr-x 2 reek reek    4096 Feb  8 00:43 libft
--rw-rw-r-- 1 reek reek    2244 Feb  8 19:01 Makefile
--rwxrwxr-x 1 reek reek   99304 Feb  8 20:20 minishell
-drwxrwxr-x 5 reek reek    4096 Feb  6 18:30 parser
-drwxrwxr-x 2 reek reek    4096 Feb  8 18:40 sandbox
-drwxrwxr-x 4 reek reek    4096 Feb  8 18:41 srcs
-total 1408
--rw-rw-r-- 1 reek reek       0 Feb  8 03:03 a.out
--rw-rw-r-- 1 reek reek 1307290 Jan 26 20:43 en.subject.pdf
-drwxrwxr-x 2 reek reek    4096 Feb  8 19:05 imgs
-drwxrwxr-x 2 reek reek    4096 Feb  6 18:31 incs
-drwxrwxr-x 2 reek reek    4096 Feb  8 00:43 libft
--rw-rw-r-- 1 reek reek    2240 Feb  8 20:26 Makefile
--rwxrwxr-x 1 reek reek   99136 Feb  8 20:26 minishell
-drwxrwxr-x 5 reek reek    4096 Feb  6 18:30 parser
-drwxrwxr-x 2 reek reek    4096 Feb  8 20:22 sandbox
-drwxrwxr-x 4 reek reek    4096 Feb  8 18:41 srcs
+11
+11
