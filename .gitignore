@@ -3,4 +3,5 @@
 .vscode
 *.dSYM
 .DS_Store
+a.out
 minishell
