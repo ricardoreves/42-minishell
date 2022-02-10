@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 10:42:15 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/10 07:50:24 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/10 08:30:42 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	ft_is_eoe(int c)
 
 /**
  * @brief retourne vrai si le carctère est un caractère d'espace.
- * ATTENTION : le retour à la ligne '\n' ou '\r' n'est pas considéré comme
  * espace.
  * 
  * @param c 
@@ -74,7 +73,7 @@ int	ft_is_eoe(int c)
  */
 int	ft_is_space(int c)
 {
-	if (c == '\t' || c == '\v')
+	if (c == '\t' || c == '\v' | c == '\n')
 		return (1);
 	if (c == '\f' || c == ' ')
 		return (1);
