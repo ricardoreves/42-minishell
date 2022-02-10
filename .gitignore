@@ -3,5 +3,6 @@
 .vscode
 *.dSYM
 .DS_Store
+*.a
 a.out
 minishell
