@@ -26,6 +26,8 @@ INCS_DIR   = -I ../libft
 SRCS_DIR   = ./srcs
 SRCS_NAME  = parser.c \
 			 parser_token.c \
+			 parser_readline.c \
+			 parser_automaton.c \
 			 ascii.c
 SRCS       = $(addprefix $(SRCS_DIR)/, $(SRCS_NAME))
 OBJS       = $(SRCS:.c=.o)

@@ -17,6 +17,11 @@
 
 int	main(int __attribute__((unused)) argc, char __attribute__((unused)) **argv)
 {
+	t_automaton *oto;
+
+	oto = automaton_factory("tests/automate.conf");
+	free (oto);
+return (0);
 	token_tester("read -p \"Entrez un numéro : \" int1\n");
 	token_tester("echo \"out\">>fichier");
 	token_tester("commande>fichier");
@@ -52,9 +57,9 @@ int	token_tester(char *input)
 	t_token	*token;
 
 	printf("\ninput : %s\n\n", input);
-	token = ft_parse_token(input);
+	token = parse_token(input);
 	token_print(token);
-	ft_token_dispose(&token);
+	token_dispose(&token);
 	printf("\n\n");
 	return (1);
 }

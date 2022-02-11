@@ -32,14 +32,24 @@ typedef struct s_token
 	char			*str;
 	struct s_token	*next;
 }	t_token;
-void			ft_move_space_forward(char const *s, int *pos);
-void			ft_token_dispose(t_token **token);
-void			ft_add_token(t_token **token, char *start, int len, int pos);
-int				ft_is_redirection(int c);
-int				ft_is_pipe(int c);
-int				ft_is_and(int c);
-int				ft_is_eoe(int c);
-int				ft_is_space(int c);
-t_token			*ft_parse_token(char *str);
-t_parse_tree	*ft_parse_tree(char **str);
+typedef struct s_automaton
+{
+	int		rows;
+	int		step_len;
+	char*	char_indexes;
+	int**	transitions;
+	int*	accepting;
+}	t_automaton;
+void			move_space_forward(char const *s, int *pos);
+void			token_dispose(t_token **token);
+void			add_token(t_token **token, char *start, int len, int pos);
+int				is_redirection(int c);
+int				is_pipe(int c);
+int				is_and(int c);
+int				is_eoe(int c);
+int				is_space(int c);
+t_token			*parse_token(char *str);
+t_parse_tree	*parse_tree(char **str);
+char			*get_nextline(int fd);
+t_automaton		*automaton_factory(char *filename);
 #endif

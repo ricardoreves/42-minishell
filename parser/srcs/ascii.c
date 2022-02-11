@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ascii.c                                         :+:      :+:    :+:   */
+/*   ascii.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -18,7 +18,7 @@
  * @param c 
  * @return int 
  */
-int	ft_is_redirection(int c)
+int	is_redirection(int c)
 {
 	if (c == '<' || c == '>')
 		return (1);
@@ -31,7 +31,7 @@ int	ft_is_redirection(int c)
  * @param c 
  * @return int 
  */
-int	ft_is_pipe(int c)
+int	is_pipe(int c)
 {
 	if (c == '|')
 		return (1);
@@ -44,7 +44,7 @@ int	ft_is_pipe(int c)
  * @param c 
  * @return int 
  */
-int	ft_is_and(int c)
+int	is_and(int c)
 {
 	if (c == '&')
 		return (1);
@@ -57,7 +57,7 @@ int	ft_is_and(int c)
  * @param c 
  * @return int 
  */
-int	ft_is_eoe(int c)
+int	is_eoe(int c)
 {
 	if (c == ';' || c == '\n')
 		return (1);
@@ -71,9 +71,9 @@ int	ft_is_eoe(int c)
  * @param c 
  * @return int 
  */
-int	ft_is_space(int c)
+int	is_space(int c)
 {
-	if (c == '\t' || c == '\v' | c == '\n')
+if (c == '\t' || c == '\v' || c == '\n')
 		return (1);
 	if (c == '\f' || c == ' ')
 		return (1);
