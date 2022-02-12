@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/11 03:04:27 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/12 15:58:48 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int exec_command(t_shell *shell)
 	pid_t cpid;
 	char **args;
 	char *pathname;
+	
+	pathname = 0;
 
 	args = eval_varenv_map(shell, ft_split(shell->cmdline, ' '));
 	// args = ft_split(shell->cmdline, ' ');
