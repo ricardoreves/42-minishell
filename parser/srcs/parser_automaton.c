@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:55:31 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/12 17:52:29 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/12 19:30:54 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,24 @@ void	automaton_dispose(t_automaton *au)
 	free(au->transitions);
 	free(au->accepting);
 	free(au);
+}
+
+int	automaton_validator(t_automaton *au, char *str)
+{
+	int	step;
+	int	last_step;
+	int col;
+
+	step = 0;
+	last_step = 0;
+	while (step != au->rows && str)
+	{
+		last_step = step;
+		col = au->char_indexes[(int)*str];
+		step = au->transitions[col + (step * au->cols)];
+		str++;
+	}
+	if (step == au->rows)
+		return (0);
+	return au->accepting[last_step];
 }

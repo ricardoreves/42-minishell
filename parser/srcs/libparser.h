@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/12 14:15:38 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/12 19:28:54 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,5 @@ t_parse_tree	*parse_tree(char **str);
 char			*get_nextline(int fd);
 t_automaton		*automaton_factory(char *filename);
 void			automaton_dispose(t_automaton *au);
+int				automaton_validator(t_automaton *au, char *str);
 #endif

@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 15:15:55 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/12 17:58:02 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/12 19:41:09 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,17 @@ int	main(int __attribute__((unused)) argc, char __attribute__((unused)) **argv)
 	token_tester("echo te\"st\";echo merci");
 	token_tester("ls *.c");
 	return (0);
+}
+
+void	valid_automaton(char *str)
+{
+	t_automaton	*oto;
+	int			ret;
+
+	oto = automaton_factory("tests/automate.conf");
+	ret = automaton_validator(oto, str);
+	printf("return : %d\n", ret);
+	automaton_dispose(oto);
 }
 
 void	test_automaton(void)

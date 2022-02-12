@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:55:31 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/12 17:46:40 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/12 19:26:50 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ void		auto_load_accepting(char *str, t_automaton *au);
 int			allocate_automaton(t_automaton	*au);
 t_automaton	*automaton_factory(char *filename);
 void		automaton_dispose(t_automaton *au);
+int			automaton_validator(t_automaton *au, char *str);
 #endif
