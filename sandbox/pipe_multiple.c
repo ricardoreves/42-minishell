@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:03 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/12 04:42:50 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/12 18:12:26 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ void create_child(int i, char **cmd, char *envp[], int *pipefd, int num_pipes, i
         pid_t cpid;
         int out;
         int in;
+
+        int pipe1[2];
+        int pipe2[2];
+
         // int pipefd[2];
 
         char cmds[4][3][10] = {{"/bin/ls\0", "-l\0", 0},
@@ -63,43 +67,46 @@ void create_child(int i, char **cmd, char *envp[], int *pipefd, int num_pipes, i
                 if (i == 0)
                 {
                         printf("first: %s\n", cmds1[0]);
-                        close(pipefd[in]);
-                        dup2(pipefd[out], STDOUT_FILENO);
+                        dup2(pipe1[1], 1);
+                        close(pipe1[0]);
+                        close(pipe1[1]);
+                        close(pipe2[0]);
+                        close(pipe2[1]);
                         // execve(cmds[i][0], (char **)cmds[i], envp);
                         execve(cmds1[0], cmds1, envp);
-                        close(pipefd[out]);
-                        // exit(0);
                 }
                 else if (i == num_cmds - 1)
                 {
                         printf("last: %s\n", cmds2[0]);
-                        close(pipefd[out]);
-                        dup2(pipefd[in], STDIN_FILENO);
+
+                        dup2(pipe2[0], 0);
+                        close(pipe1[0]);
+                        close(pipe1[1]);
+                        close(pipe2[0]);
+                        close(pipe2[1]);
                         execve(cmds3[0], cmds3, envp);
                         // execve(cmds[i][0], (char **)cmds[i], envp);
-                        close(pipefd[in]);
-
-                        // exit(0);
                 }
                 else
                 {
                         printf("middle: %s\n", cmds3[0]);
-                        dup2(pipefd[in], STDIN_FILENO);
-                        dup2(pipefd[out], STDOUT_FILENO);
+                        dup2(pipe1[0], 0);
+                        dup2(pipe2[1], 1);
+                        close(pipe1[0]);
+                        close(pipe1[1]);
+                        close(pipe2[0]);
+                        close(pipe2[1]);
                         // execve(cmds[i][0], (char **)cmds[i], envp);
                         execve(cmds2[0], cmds2, envp);
-                        // close(pipefd[in]);
-                        // close(pipefd[out]);
-                        //  exit(0);
                 }
         }
-        else
-        {
-                waitpid(-1, &status, 0);
-                printf("parent process %d\n", i);
-                close(pipefd[out]);
-                // close(pipefd[out + 1]);
-        }
+
+        waitpid(-1, &status, 0);
+        printf("parent process %d\n", i);
+        close(pipe1[0]);
+        close(pipe1[1]);
+        close(pipe2[0]);
+        close(pipe2[1]);
 
         // close(pipefd[in]);
         // close(pipefd[out]);
@@ -167,6 +174,6 @@ int main(int argc, char *argv[], char *envp[])
                 create_child(i, (char **)cmds[i], envp, pipefd, num_pipes, num_cmds);
                 i++;
         }
-        // waitpid(-1, &status, 0);
+        waitpid(-1, &status, 0);
         return 0;
 }
