@@ -6,9 +6,14 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:03 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/10 19:00:48 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/12 04:42:50 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+ls -l > output.txt | cat -e
+ls -l | grep pdf | cat -e
+ */
 
 #include "../incs/minishell.h"
 
@@ -26,103 +31,142 @@ void close_pipes(void)
 {
 }
 
-void create_child(int i, char **cmd, char *envp[], int *pipefd1)
+void create_child(int i, char **cmd, char *envp[], int *pipefd, int num_pipes, int num_cmds)
 {
         int fd;
         int status;
         pid_t cpid;
-        int pipefd[2];
+        int out;
+        int in;
+        // int pipefd[2];
 
-        char *args[] = {"/bin/ls", "-l", 0};
-        char *cmd2[] = {"/bin/echo", "hello", 0};
-        pipe(pipefd);
+        char cmds[4][3][10] = {{"/bin/ls\0", "-l\0", 0},
+                               {"/bin/cat\0", "-e\0", 0},
+                               {"/bin/grep\0", "pdf\0", 0},
+                               {"/bin/wc\0", "-l\0", 0}};
+
+        char *cmds1[] = {"/bin/ls\0", "-l\0", 0};
+        char *cmds2[] = {"/bin/grep\0", "pdf\0", 0};
+        char *cmds3[] = {"/bin/cat\0", "-e\0", 0};
+
+        in = 0;
+        out = 1;
+        // pipe(pipefd);
         cpid = fork();
-        if (cpid == -1) // parent
+        if (cpid == -1)
         {
                 perror("Error: fork() failed");
         }
-        else if (cpid == 0) // child 1
+        else if (cpid == 0) // child
         {
+                // printf("child: %d %d %d %d %d\n", i, num_cmds, in, out, cpid);
                 if (i == 0)
                 {
-                        close(pipefd[0]);
+                        printf("first: %s\n", cmds1[0]);
+                        close(pipefd[in]);
+                        dup2(pipefd[out], STDOUT_FILENO);
+                        // execve(cmds[i][0], (char **)cmds[i], envp);
+                        execve(cmds1[0], cmds1, envp);
+                        close(pipefd[out]);
+                        // exit(0);
                 }
-                if (strcmp(cmd[2], ">") == 0)
+                else if (i == num_cmds - 1)
                 {
-                        fd = open(cmd[3], O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
-                        dup2(fd, STDOUT_FILENO);
-                }
-                else if (strcmp(cmd[2], ">>") == 0)
-                {
-                        fd = open(cmd[3], O_CREAT | O_WRONLY | O_APPEND, S_IRWXU);
-                        dup2(fd, STDOUT_FILENO);
-                }
-                else if (strcmp(cmd[2], "<") == 0)
-                {
-                        fd = open(cmd[3], O_RDONLY, S_IRWXU);
-                        dup2(fd, STDIN_FILENO);
-                }
-                //dup2(pipefd[1], STDOUT_FILENO);
+                        printf("last: %s\n", cmds2[0]);
+                        close(pipefd[out]);
+                        dup2(pipefd[in], STDIN_FILENO);
+                        execve(cmds3[0], cmds3, envp);
+                        // execve(cmds[i][0], (char **)cmds[i], envp);
+                        close(pipefd[in]);
 
-                execve(cmd[0], args, envp);
-
-                close(pipefd[1]);
-                close(fd);
+                        // exit(0);
+                }
+                else
+                {
+                        printf("middle: %s\n", cmds3[0]);
+                        dup2(pipefd[in], STDIN_FILENO);
+                        dup2(pipefd[out], STDOUT_FILENO);
+                        // execve(cmds[i][0], (char **)cmds[i], envp);
+                        execve(cmds2[0], cmds2, envp);
+                        // close(pipefd[in]);
+                        // close(pipefd[out]);
+                        //  exit(0);
+                }
         }
         else
         {
                 waitpid(-1, &status, 0);
-                close(pipefd[1]);
-                dup2(pipefd[0], STDIN_FILENO);
-                
-                execve(cmd2[0], cmd2, envp);
-
-                close(pipefd[0]);
+                printf("parent process %d\n", i);
+                close(pipefd[out]);
+                // close(pipefd[out + 1]);
         }
+
+        // close(pipefd[in]);
+        // close(pipefd[out]);
+        //  i = 0;
+        //  while (i <= in)
+        //  {
+        //          close(pipefd[i]);
+        //          i++;
+        //  }
+        //  else
+        //  {
+        //          // waitpid(-1, &status, 0);
+        //          close(pipefd[1]);
+
+        //         // dup2(pipefd[0], STDIN_FILENO);
+        //         // // fd = open(redi1[1], O_RDONLY, S_IRWXU);
+        //         // // dup2(fd, STDIN_FILENO);
+        //         // // dup2(fd, STDIN_FILENO);
+
+        //         // execve(cmd2[0], cmd2, envp);
+
+        //         close(pipefd[0]);
+        // }
 }
 
 int main(int argc, char *argv[], char *envp[])
 {
-        int *pipefd;
-        int num_cmds;
-        int num_pipes;
-        int filefd[3];
-        int status;
         int i;
+        int status;
         pid_t cpid;
 
-        // char cmds[2][4] = {{"/bin/ls", "-l", ">", "output", 0},
-        //                 {"/bin/wc", "-l", "<", "output", 0}};
+        int *pipefd;
+        int filefd[3];
+        int num_cmds;
+        int num_pipes;
 
-        char *cmds[] = {"/bin/ls", "-l", ">", "output.txt", 0};
+        char cmds[4][3][10] = {{"/bin/ls\0", "-l\0", 0},
+                               {"/bin/cat\0", "-e\0", 0},
+                               {"/bin/grep\0", "pdf\0", 0},
+                               {"/bin/wc\0", "-l\0", 0}};
 
-        num_cmds = 2;
+        num_cmds = 3;
+        // while (cmds[num_cmds])
+        //          num_cmds++;
+
         num_pipes = 2 * num_cmds - 1; // two cmds 1 pipe, three cmds 2 pipes...
+        printf("num_cmds: %d num_pipes: %d\n", num_cmds, num_pipes);
         pipefd = ft_calloc(sizeof(int), num_pipes);
 
         i = 0;
         while (i < num_cmds - 1)
         {
-           
+                printf("%d\n", 2 * i);
                 if (pipe(pipefd + (2 * i)) == -1)
                 {
                         perror("Error: pipe() failed");
                         exit(EXIT_FAILURE);
                 }
-            
-                //printf("%d\n", *(pipefd + (1 * i)));
-                //printf("%d\n", *(pipefd + (2 * i)));
-                //printf("%d\n", *(pipefd + (2 * i)));
                 i++;
         }
         i = 0;
-        create_child(i, cmds, envp, pipefd);
-        // while (i < num_cmds-1)
-        // {
-        //         create_child(i, cmds, envp, pipefd);
-        //         i++;
-        // }
-
-        //waitpid(-1, &status, 0);
+        while (i < num_cmds)
+        {
+                // printf("cmd: %d %s\n", i, cmds[i][0]);
+                create_child(i, (char **)cmds[i], envp, pipefd, num_pipes, num_cmds);
+                i++;
+        }
+        // waitpid(-1, &status, 0);
         return 0;
 }

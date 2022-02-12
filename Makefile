@@ -6,7 +6,7 @@
 #    By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 01:47:02 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/02/11 01:14:16 by rpinto-r         ###   ########.fr        #
+#    Updated: 2022/02/12 00:42:33 by rpinto-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,9 +69,9 @@ norm:
 dev: re all run
 
 sandbox:
-	$(CC) sandbox/pipe_multiple.c $(DEBUG_FLAG) $(LIBRL_FLAG) -I $(INC) -I $(LIBRL_INC) $(LIBFT_A) -o $(NAME) && ./$(NAME) hello world
+	$(CC) sandbox/pipe_multiple.c  -I $(INC) $(LIBFT_A) -o $(NAME) && ./$(NAME) hello world
 
 fd:
-	ls -la /proc/$$/fd
+	ls -la /proc/$$$/fd
 
 .PHONY: all clean fclean re sandbox
