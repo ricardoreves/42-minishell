@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_infile.c                                      :+:      :+:    :+:   */
+/*   fork_variables.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:03 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/10 03:12:18 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/12 09:56:13 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,18 @@ int main(int argc, char *argv[], char *envp[])
 	}
 	else if (cpid == 0) // child 1
 	{
+		(*pc)++;
 		printf("child : change [c] to [%c]\n", ++c);
 		printf("child : change [pc] [%p]\n", pc);
-		printf("child : change [pc] to [%c]\n", ++(*pc));
+		printf("child : change [pc] to [%c]\n", *pc);
 	}
 	else // parent
 	{
+//		sleep(1);
+		(*pc)++;
 		printf("parent : change [c] to [%c]\n", ++c);
 		printf("parent : change [pc] [%p]\n", pc);
-		printf("parent : change [pc] to [%c]\n", ++(*pc));
+		printf("parent : change [pc] to [%c]\n", *pc);
 	}
 	if (cpid)
 	{
