@@ -52,21 +52,22 @@ int	is_and(int c)
 }
 
 /**
- * @brief retourne vrai si il s'agit du caractère ; (end of expression)
+ * @brief retourne vrai si il s'agit du caractère de type digit avec le + et -
  * 
  * @param c 
  * @return int 
  */
-int	is_eoe(int c)
+int	is_digit(int c)
 {
-	if (c == ';' || c == '\n')
+	if (c >= '0' && c <= '9')
+		return (1);
+	if (c == '+' || c == '-')
 		return (1);
 	return (0);
 }
 
 /**
  * @brief retourne vrai si le carctère est un caractère d'espace.
- * espace.
  * 
  * @param c 
  * @return int 

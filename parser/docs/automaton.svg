@@ -8,7 +8,7 @@
    version="1.1"
    id="svg5"
    inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
-   sodipodi:docname="automate.svg"
+   sodipodi:docname="automaton.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,13 +25,13 @@
      showgrid="false"
      inkscape:snap-to-guides="true"
      inkscape:zoom="1.8116734"
-     inkscape:cx="-6.6237103"
-     inkscape:cy="183.80796"
-     inkscape:window-width="1920"
-     inkscape:window-height="1129"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
+     inkscape:cx="384.17521"
+     inkscape:cy="221.61831"
+     inkscape:window-width="1918"
+     inkscape:window-height="1120"
+     inkscape:window-x="-7"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
      inkscape:current-layer="layer1" />
   <defs
      id="defs2">
@@ -218,7 +218,7 @@
          style="font-size:14.6667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect33291)"><tspan
            x="199.05664"
            y="99.212054"
-           id="tspan68781">\</tspan></text>
+           id="tspan4186">\</tspan></text>
     </g>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -231,7 +231,7 @@
        style="font-size:14.6667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect46041)"><tspan
          x="165.49023"
          y="242.84487"
-         id="tspan68783">&quot;</tspan></text>
+         id="tspan4188">&quot;</tspan></text>
     <text
        xml:space="preserve"
        transform="scale(0.26458333)"
@@ -239,9 +239,9 @@
        style="font-size:14.6667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect49911)"><tspan
          x="138.94922"
          y="82.038226"
-         id="tspan68787"><tspan
+         id="tspan4192"><tspan
            dx="0 8.8733473 5.2946796 9.0640211 8.272007"
-           id="tspan68785">other</tspan></tspan></text>
+           id="tspan4190">other</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,17.14256,3.7176634)"
@@ -249,7 +249,7 @@
        style="font-size:14.6667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect53165)"><tspan
          x="89.769531"
          y="48.47182"
-         id="tspan68789">other, &quot;</tspan></text>
+         id="tspan4194">other, &quot;</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-11.738231,-18.196761)"
@@ -257,7 +257,7 @@
        style="font-size:14.6667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect46041-9)"><tspan
          x="165.49023"
          y="242.84487"
-         id="tspan68791">&quot;</tspan></text>
+         id="tspan4196">&quot;</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 38.415855,37.796243 C 35.111266,26.23018 25.862765,26.70357 23.958275,31.806675 c -3.853866,10.326479 13.166727,9.655597 13.166727,9.655597"
@@ -270,7 +270,7 @@
        style="font-size:14.6667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect53165-1)"><tspan
          x="89.769531"
          y="48.47182"
-         id="tspan68793">other</tspan></text>
+         id="tspan4198">other</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,9.5006955,0.41307373)"
@@ -278,7 +278,7 @@
        style="font-size:14.6667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect60731)"><tspan
          x="120.99414"
          y="158.53823"
-         id="tspan68795">1</tspan></text>
+         id="tspan4200">1</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,35.695719,-17.63562)"
@@ -286,7 +286,7 @@
        style="font-size:14.6667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect60731-5)"><tspan
          x="120.99414"
          y="158.53823"
-         id="tspan68797">1</tspan></text>
+         id="tspan4202">2</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,37.55455,6.7357297)"
@@ -294,7 +294,7 @@
        style="font-size:14.6667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect60731-5-5)"><tspan
          x="120.99414"
          y="158.53823"
-         id="tspan68799">1</tspan></text>
+         id="tspan4204">3</tspan></text>
     <text
        xml:space="preserve"
        transform="scale(0.26458333)"
@@ -302,6 +302,6 @@
        style="font-size:16px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect64725)"><tspan
          x="80.037109"
          y="244.1791"
-         id="tspan68801">chaine entre guillemet</tspan></text>
+         id="tspan4206">chaine entre guillemet</tspan></text>
   </g>
 </svg>

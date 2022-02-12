@@ -20,7 +20,8 @@ int	main(int __attribute__((unused)) argc, char __attribute__((unused)) **argv)
 	t_automaton *oto;
 
 	oto = automaton_factory("tests/automate.conf");
-	free (oto);
+	printf("%d %d \n", oto->cols, oto->rows);
+	automaton_dispose(oto);
 return (0);
 	token_tester("read -p \"Entrez un numéro : \" int1\n");
 	token_tester("echo \"out\">>fichier");

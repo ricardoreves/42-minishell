@@ -35,7 +35,7 @@ typedef struct s_token
 typedef struct s_automaton
 {
 	int		rows;
-	int		step_len;
+	int		cols;
 	char*	char_indexes;
 	int**	transitions;
 	int*	accepting;
@@ -46,10 +46,11 @@ void			add_token(t_token **token, char *start, int len, int pos);
 int				is_redirection(int c);
 int				is_pipe(int c);
 int				is_and(int c);
-int				is_eoe(int c);
+int				is_digit(int c);
 int				is_space(int c);
 t_token			*parse_token(char *str);
 t_parse_tree	*parse_tree(char **str);
 char			*get_nextline(int fd);
 t_automaton		*automaton_factory(char *filename);
+void			automaton_dispose(t_automaton *au);
 #endif
