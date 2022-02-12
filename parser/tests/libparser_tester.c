@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 15:15:55 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/09 08:32:33 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/12 10:25:48 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int __attribute__((unused)) argc, char __attribute__((unused)) **argv)
 
 	oto = automaton_factory("tests/automate.conf");
 	printf("%d %d \n", oto->cols, oto->rows);
+	printf("%d \n", oto->char_indexes['"']);
 	automaton_dispose(oto);
 return (0);
 	token_tester("read -p \"Entrez un numéro : \" int1\n");

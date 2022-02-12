@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/10 07:50:11 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/12 10:09:24 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBPARSER_H
 # define SPACE_SEPARATOR " \t\v\f\n" 
 # define NON_CHAR_IDENTIFIER " ()<>|&;!><\t\v\f\n"
+# define CHAR_INDEXES_LEN 256
 # include <stdio.h>
 typedef enum e_expression_type
 {
