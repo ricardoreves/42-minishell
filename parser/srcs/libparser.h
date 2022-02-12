@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/12 10:09:24 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/12 14:15:38 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define NON_CHAR_IDENTIFIER " ()<>|&;!><\t\v\f\n"
 # define CHAR_INDEXES_LEN 256
 # include <stdio.h>
+
 typedef enum e_expression_type
 {
 	expression,
@@ -37,16 +38,16 @@ typedef struct s_automaton
 {
 	int		rows;
 	int		cols;
-	char*	char_indexes;
-	int**	transitions;
-	int*	accepting;
+	char	*char_indexes;
+	int		*transitions;
+	int		*accepting;
 }	t_automaton;
 void			move_space_forward(char const *s, int *pos);
 void			token_dispose(t_token **token);
 void			add_token(t_token **token, char *start, int len, int pos);
 int				is_redirection(int c);
 int				is_pipe(int c);
-int				is_and(int c);
+int				is_empy_line(char *str);
 int				is_digit(int c);
 int				is_space(int c);
 t_token			*parse_token(char *str);

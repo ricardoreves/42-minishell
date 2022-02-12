@@ -39,14 +39,18 @@ int	is_pipe(int c)
 }
 
 /**
- * @brief retourne vrai si il s'agit du caractère &
+ * @brief retourne vrai si toute la ligne ne comporte que du vide
  * 
  * @param c 
  * @return int 
  */
-int	is_and(int c)
+int	is_empy_line(char *str)
 {
-	if (c == '&')
+	if (!str)
+		return (0);
+	while (*str && is_space(*str))
+		str++;
+	if (!*str)
 		return (1);
 	return (0);
 }
@@ -74,10 +78,9 @@ int	is_digit(int c)
  */
 int	is_space(int c)
 {
-if (c == '\t' || c == '\v' || c == '\n')
+	if (c == '\t' || c == '\v' || c == '\n')
 		return (1);
-	if (c == '\f' || c == ' ')
+	if (c == '\f' || c == ' ' || c == '\r')
 		return (1);
 	return (0);
 }
-

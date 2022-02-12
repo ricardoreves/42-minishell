@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libparser_tester.h                                 :+:      :+:    :+:   */
+/*   parser_readline.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/04 15:15:55 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/12 17:36:49 by dthalman         ###   ########.fr       */
+/*   Created: 2022/02/11 10:57:54 by dthalman          #+#    #+#             */
+/*   Updated: 2022/02/12 17:26:37 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBPARSER_TESTER_H
-# define LIBPARSER_TESTER_H
-# include "libparser.h"
+#ifndef PARSER_READLINE_H
+# define PARSER_READLINE_H
+# define BUFFER_SIZE 2
 
-int		main(int argc, char **argv);
-void	test_automaton(void);
-int		token_tester(char *input);
-void	token_print(t_token *token);
+typedef struct s_buffer_read
+{
+	int		fd;
+	int		pos;
+	int		pos_end;
+	int		size;
+	int		last_read;
+	char	buffer[BUFFER_SIZE + 1];
+}	t_buffer_read;
+int		slen(char *s);
+char	*join(char *s1, char *s2, int l2);
+void	read_buffer(int fd, t_buffer_read *buf);
+char	*get_nextline(int fd);
 #endif
