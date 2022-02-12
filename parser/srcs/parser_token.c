@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parser_token.c                                 :+:      :+:    :+:   */
+/*   parser_token.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -21,9 +21,9 @@
  * @param s 
  * @param pos 
  */
-void	ft_move_space_forward(char const *s, int *pos)
+void	move_space_forward(char const *s, int *pos)
 {
-	while (s[*pos] && ft_is_space(s[*pos]))
+	while (s[*pos] && is_space(s[*pos]))
 		(*pos)++;
 }
 
@@ -35,7 +35,7 @@ void	ft_move_space_forward(char const *s, int *pos)
  * @param len longueur de la chaine
  * @param pos position dans la chaine de départ
  */
-void	ft_add_token(t_token **token, char *start, int len, int pos)
+void	add_token(t_token **token, char *start, int len, int pos)
 {
 	t_token	*t;
 	t_token	*t2;
@@ -64,7 +64,7 @@ void	ft_add_token(t_token **token, char *start, int len, int pos)
 	}
 }
 
-void	ft_token_dispose(t_token **token)
+void	token_dispose(t_token **token)
 {
 	t_token	*t;
 	t_token	*p;
@@ -80,7 +80,7 @@ void	ft_token_dispose(t_token **token)
 	*token = 0;
 }
 
-t_token	*ft_parse_token(char *str)
+t_token	*parse_token(char *str)
 {
 	char 	*current;
 	t_token	*token;
@@ -95,7 +95,7 @@ t_token	*ft_parse_token(char *str)
 	current = str;
 	while (current[pos])
 	{
-		ft_move_space_forward(current, &pos);
+		move_space_forward(current, &pos);
 		start_pos = pos;
 		if (current[pos] && current[pos] == '"')
 		{
@@ -115,7 +115,7 @@ t_token	*ft_parse_token(char *str)
 			}
 			if (final)
 			{
-				ft_add_token(&token, (current + start_pos), pos - start_pos + 1, start_pos);
+				add_token(&token, (current + start_pos), pos - start_pos + 1, start_pos);
 				pos++;
 			}
 		}
@@ -136,7 +136,7 @@ t_token	*ft_parse_token(char *str)
 			}
 			if (final)
 			{
-				ft_add_token(&token, (current + start_pos), pos - start_pos + 1, start_pos);
+				add_token(&token, (current + start_pos), pos - start_pos + 1, start_pos);
 				pos++;
 			}
 		}
@@ -144,31 +144,31 @@ t_token	*ft_parse_token(char *str)
 		{
 			if (current[pos + 1] == '<')
 				pos++;
-			ft_add_token(&token, (current + start_pos), (pos - start_pos) + 1, start_pos);
+			add_token(&token, (current + start_pos), (pos - start_pos) + 1, start_pos);
 			pos++;
 		}
 		else if (current[pos] && current[pos] == '>')
 		{
 			if (current[pos + 1] == '>')
 				pos++;
-			ft_add_token(&token, (current + start_pos), (pos - start_pos) + 1, start_pos);
+			add_token(&token, (current + start_pos), (pos - start_pos) + 1, start_pos);
 			pos++;
 		}
 		else if (current[pos] && current[pos] == '|')
 		{
-			ft_add_token(&token, (current + start_pos), 1, start_pos);
+			add_token(&token, (current + start_pos), 1, start_pos);
 			pos++;
 		}
 		else if (current[pos] && current[pos] == ';')
 		{
-			ft_add_token(&token, (current + start_pos), 1, start_pos);
+			add_token(&token, (current + start_pos), 1, start_pos);
 			pos++;
 		}
 		else if (current[pos] && current[pos] == '&')
 		{
 			if (current[pos + 1] == '&')
 				pos++;
-			ft_add_token(&token, (current + start_pos), (pos - start_pos) + 1, start_pos);
+			add_token(&token, (current + start_pos), (pos - start_pos) + 1, start_pos);
 			pos++;
 		}
 		else if(current[pos])
@@ -176,12 +176,12 @@ t_token	*ft_parse_token(char *str)
 			final = 0;
 			while (current[pos] && !final)
 			{
-				if (!ft_strchr(NON_CHAR_IDENTIFIER, current[pos]))
+				if (!strchr(NON_CHAR_IDENTIFIER, current[pos]))
 					pos++;
 				else
 					final = 1;
 			}
-			ft_add_token(&token, (current + start_pos), pos - start_pos, start_pos);
+			add_token(&token, (current + start_pos), pos - start_pos, start_pos);
 		}
 	}
 	return (token);

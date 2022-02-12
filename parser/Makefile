@@ -24,9 +24,11 @@ AR         = ar -rcs
 NAME       = libparser.a
 INCS_DIR   = -I ../libft
 SRCS_DIR   = ./srcs
-SRCS_NAME  = ft_parser.c \
-			 ft_parser_token.c \
-			 ft_ascii.c
+SRCS_NAME  = parser.c \
+			 parser_token.c \
+			 parser_readline.c \
+			 parser_automaton.c \
+			 ascii.c
 SRCS       = $(addprefix $(SRCS_DIR)/, $(SRCS_NAME))
 OBJS       = $(SRCS:.c=.o)
 LIBFT_DIR  = ../libft

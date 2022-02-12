@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/10 07:50:11 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/12 10:09:24 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBPARSER_H
 # define SPACE_SEPARATOR " \t\v\f\n" 
 # define NON_CHAR_IDENTIFIER " ()<>|&;!><\t\v\f\n"
+# define CHAR_INDEXES_LEN 256
 # include <stdio.h>
 typedef enum e_expression_type
 {
@@ -32,14 +33,25 @@ typedef struct s_token
 	char			*str;
 	struct s_token	*next;
 }	t_token;
-void			ft_move_space_forward(char const *s, int *pos);
-void			ft_token_dispose(t_token **token);
-void			ft_add_token(t_token **token, char *start, int len, int pos);
-int				ft_is_redirection(int c);
-int				ft_is_pipe(int c);
-int				ft_is_and(int c);
-int				ft_is_eoe(int c);
-int				ft_is_space(int c);
-t_token			*ft_parse_token(char *str);
-t_parse_tree	*ft_parse_tree(char **str);
+typedef struct s_automaton
+{
+	int		rows;
+	int		cols;
+	char*	char_indexes;
+	int**	transitions;
+	int*	accepting;
+}	t_automaton;
+void			move_space_forward(char const *s, int *pos);
+void			token_dispose(t_token **token);
+void			add_token(t_token **token, char *start, int len, int pos);
+int				is_redirection(int c);
+int				is_pipe(int c);
+int				is_and(int c);
+int				is_digit(int c);
+int				is_space(int c);
+t_token			*parse_token(char *str);
+t_parse_tree	*parse_tree(char **str);
+char			*get_nextline(int fd);
+t_automaton		*automaton_factory(char *filename);
+void			automaton_dispose(t_automaton *au);
 #endif
