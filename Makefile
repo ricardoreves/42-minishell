@@ -6,14 +6,13 @@
 #    By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 01:47:02 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/02/10 03:03:20 by rpinto-r         ###   ########.fr        #
+#    Updated: 2022/02/11 01:14:16 by rpinto-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ### VARIABLES ###
 CC         = gcc
 WARN_FLAG  = -Werror -Wextra -Wall
-DEBUG_FLAG = -g3 -fsanitize=leak
 RM         = rm -rf
 NORM       = norminette
 
@@ -28,11 +27,13 @@ OBJS       = $(SRCS:.c=.o)
 
 LIBRL_FLAG = -lreadline
 ifeq ($(shell uname), Linux)
-    LIBRL_DIR = /usr/lib
-    LIBRL_INC = /usr/include
+    LIBRL_DIR  = /usr/lib
+    LIBRL_INC  = /usr/include
+	DEBUG_FLAG = -g3 -fsanitize=leak
 else
-    LIBRL_DIR = $(HOME)/.brew/opt/readline/lib
-    LIBRL_INC = $(HOME)/.brew/opt/readline/include
+    LIBRL_DIR  = $(HOME)/.brew/opt/readline/lib
+    LIBRL_INC  = $(HOME)/.brew/opt/readline/include
+	DEBUG_FLAG = -g3 -fsanitize=address
 endif
 
 LIBFT_FLAG = -lft
@@ -47,7 +48,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR)
-	$(CC) $(OBJS) $(LIBRL_FLAG) $(LIBFT_FLAG) -L $(LIBFT_DIR) -L $(LIBRL_DIR) -o $(NAME) 
+	$(CC) $(OBJS) $(DEBUG_FLAG) $(LIBRL_FLAG) $(LIBFT_FLAG) -L $(LIBFT_DIR) -L $(LIBRL_DIR) -o $(NAME) 
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
@@ -65,9 +66,12 @@ run:
 norm:
 	$(NORM)
 
-dev: re all
+dev: re all run
 
 sandbox:
-	$(CC) sandbox/pipe_infile.c $(DEBUG_FLAG) $(LIBRL_FLAG) -I $(INC) -I $(LIBRL_INC) $(LIBFT_A) -o $(NAME) && ./$(NAME) hello world
-	
+	$(CC) sandbox/pipe_multiple.c $(DEBUG_FLAG) $(LIBRL_FLAG) -I $(INC) -I $(LIBRL_INC) $(LIBFT_A) -o $(NAME) && ./$(NAME) hello world
+
+fd:
+	ls -la /proc/$$/fd
+
 .PHONY: all clean fclean re sandbox

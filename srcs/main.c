@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:03 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/08 14:40:11 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/11 03:09:06 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,32 +43,33 @@ void init_prompt(t_shell *shell)
 
 int main(int argc, char *argv[], char *envs[])
 {
-    t_shell shell;
+    t_shell *shell;
 
     (void)argc;
     (void)argv;
-    ft_memset(&shell, 0, sizeof(shell));
+    shell = ft_calloc(sizeof(t_shell), 1);
+    //ft_memset(shell, 0, sizeof(shell));
     init_asciiart();
-    init_envs(&shell, envs);
+    init_envs(shell, envs);
 
     // test env_utils
-    set_env(&shell, ft_strdup("PATH"), str_joinsep(getenv("PATH"), getenv("PWD"), ":"));
+    set_env(shell, ft_strdup("PATH"), str_joinsep(getenv("PATH"), getenv("PWD"), ":"));
 
-    add_env(&shell, ft_strdup("OLDPWD"), ft_strdup("/"));
-    add_env(&shell, ft_strdup("MARVIN"), ft_strdup("21"));
-    // printf("%s\n", get_env(&shell, "MARVIN"));
+    add_env(shell, ft_strdup("OLDPWD"), ft_strdup("/"));
+    add_env(shell, ft_strdup("MARVIN"), ft_strdup("21"));
+    // printf("%s\n", get_env(shell, "MARVIN"));
 
-    set_env(&shell, ft_strdup("MARVIN"), ft_strdup("42"));
-    // printf("%s\n", get_env(&shell, "MARVIN"));
+    set_env(shell, ft_strdup("MARVIN"), ft_strdup("42"));
+    // printf("%s\n", get_env(shell, "MARVIN"));
 
-    // unset_env(&shell, "MARVIN");
-    // printf("%s\n", get_env(&shell, "MARVIN"));
+    // unset_env(shell, "MARVIN");
+    // printf("%s\n", get_env(shell, "MARVIN"));
     // //print_array(shell.envs);
 
-    // printf("%s\n", eval_variable(&shell, "Hi $USERNAME, Welcome$FAKE to $HOME$FAKE!\0", 0));
+    // printf("%s\n", eval_variable(shell, "Hi $USERNAME, Welcome$FAKE to $HOME$FAKE!\0", 0));int g_num = 0;
 
     // override_signals();
-    init_prompt(&shell);
+    init_prompt(shell);
     // free_array(shell.envs);
     return (0);
 }
