@@ -6,7 +6,7 @@
 #    By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 01:47:02 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/02/12 00:42:33 by rpinto-r         ###   ########.fr        #
+#    Updated: 2022/02/15 01:22:29 by rpinto-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ CC         = gcc
 WARN_FLAG  = -Werror -Wextra -Wall
 RM         = rm -rf
 NORM       = norminette
-
 NAME       = minishell
 INC        = ./incs
 SRC_DIR    = ./srcs
@@ -69,7 +68,7 @@ norm:
 dev: re all run
 
 sandbox:
-	$(CC) sandbox/pipe_multiple.c  -I $(INC) $(LIBFT_A) -o $(NAME) && ./$(NAME) hello world
+	$(CC) sandbox/pipe_unlimited.c  -I $(INC) $(LIBFT_A) -o $(NAME) && ./$(NAME) hello world
 
 fd:
 	ls -la /proc/$$$/fd
