@@ -27,6 +27,7 @@ int redirect_input(char *filename, char *redirect)
         dup2(fd, 0);
         close(fd);
     }
+    return (0);
 }
 
 int redirect_output(char *filename, char *redirect)
@@ -42,6 +43,7 @@ int redirect_output(char *filename, char *redirect)
         dup2(fd, 1);
         close(fd);
     }
+    return (0);
 }
 
 int child_process(int idx, int **pipes, int num_pipes, char **args, int num_cmds, char **redis)
@@ -111,16 +113,18 @@ int main(void)
 
     char *redis[][50] = {{"<", "sandbox/infile.txt", 0},
                          {"42", "42", 0},
-                         {">>", "sandbox/output.txt", 0}};
+                         {">>", "sandbox/output.txt", 0},
+                         {0}};
 
     char *cmds[][50] = {{"cat", 0},
                         {"grep", "Hello", 0},
-                        {"cat", "-e", 0}};
+                        {"cat", "-e", 0},
+                        {0}};
 
     // Number of commands
     num_cmds = 0;
     while (cmds[num_cmds][0])
-        cmds[num_cmds++];
+        num_cmds++;
 
     printf("num_cmds: %d\n", num_cmds);
 
@@ -149,6 +153,6 @@ int main(void)
         i++;
     }
     close_pipes(pipes, num_pipes);
-    waitpid(-1, &status, 0);
+    waitpid(-1, &status, WCONTINUED);
     return (0);
 }
