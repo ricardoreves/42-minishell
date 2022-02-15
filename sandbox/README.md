@@ -36,6 +36,8 @@ https://github.com/AbderrSfa/minishell/blob/main/minishell.c
 https://patorjk.com/software/taag/#p=testall&f=Graffiti&t=Minishell
 https://gist.github.com/RabaDabaDoba/145049536f815903c79944599c6f952a
 
+https://linuxhint.com/bash-heredoc-tutorial/
+
 
 Your shell must implement the following builtins:
 ◦echo with option -n
@@ -132,3 +134,5 @@ EOF
 
 ## Tools
 https://www.diagrameditor.com/
+
+echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo | echo | echo | echo | echo | echo | echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo | echo | echo | echo | echo | echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo | echo | echo | echo | echo | echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo| echo | echo | echo | echo | echo | echo
