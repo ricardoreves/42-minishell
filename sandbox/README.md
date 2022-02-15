@@ -9,12 +9,13 @@
 = [n-pn](https://n-pn.fr/t/2318-c--programmation-systeme-execve-fork-et-pipe) programmation-systeme-execve-fork-et-pipe
 
 https://www.rozmichelle.com/pipes-forks-dups/comment-page-1/
-
-
+https://putaindecode.io/articles/maitriser-les-redirections-shell/
+https://www.baeldung.com/linux/error-too-many-open-files
 
 https://harm-smits.github.io/42docs/projects/minishell
 https://percona.community/blog/2021/01/04/fork-exec-wait-and-exit/
 https://linuxhint.com/using_pipe_function_c_language/
+https://linuxhint.com/linux-pipe-command-examples/
 https://github.com/Swoorup/mysh
 https://www.youtube.com/watch?v=l-UhKLdh4aY
 https://stackoverflow.com/questions/50610781/implementing-pipe-and-redirection-together-in-c
@@ -111,3 +112,23 @@ cat <<<'hello world'
 - [tgetstr]() 
 - [tgoto]()  
 - [tputs]() 
+
+https://tldp.org/LDP/abs/html/here-docs.html
+cat <<-ENDOFMESSAGE
+	This is line 1 of the message.
+	This is line 2 of the message.
+	This is line 3 of the message.
+	This is line 4 of the message.
+	This is the last line of the message.
+ENDOFMESSAGE
+
+
+cat << EOF > /tmp/yourfilehere
+These contents will be written to the file.
+        This line is indented.
+EOF
+
+
+
+## Tools
+https://www.diagrameditor.com/
