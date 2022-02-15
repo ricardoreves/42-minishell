@@ -6,38 +6,55 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/08 14:51:44 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/15 00:09:49 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-# define MINISHELL_H
+#define MINISHELL_H
 
-# define NAME "\e[1;33mminishell\e[0m:"
-# define DOLLAR "\e[1;37m$ \e[0m"
-# define READ_END 0
-# define WRITE_END 1
+#define NAME "\e[1;33mminishell\e[0m:"
+#define DOLLAR "\e[1;37m$ \e[0m"
+#define READ_END 0
+#define WRITE_END 1
 
-# include "../libft/libft.h"
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <errno.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <signal.h>
+#include "../libft/libft.h"
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <sys/wait.h>
+#include <signal.h>
 
 typedef struct s_shell
 {
-	char	*cmdline;
-	char	**cmds;
-	char	**envs;
-	int		error;
-}	t_shell;
+	char *cmdline;
+	char **cmds;
+	char **envs;
+	int error;
+} t_shell;
+
+typedef enum e_redirect
+{
+	NO_REDIRECT,   // 0
+	INPUT_SINGLE,  // <
+	INPUT_DOUBLE,  // <<
+	OUTPUT_SINGLE, // >
+	OUTPUT_DOUBLE  // >>
+} t_redirect;
+
+typedef struct s_cmd
+{
+	char *name;
+	char **args;
+	t_redirect redirect;
+	char *filename;
+} t_cmd;
 
 void print_array(char *arr[]);
 void free_array(char *arr[]);
@@ -63,10 +80,10 @@ char *str_duplicate_nbytes(char *str, size_t n);
 int str_compare(char *str1, char *str2);
 int put_command_error(t_shell *shell, char *cmd, char *msg);
 
-int	exec_cd(t_shell *shell, char **args);
+int exec_cd(t_shell *shell, char **args);
 int exec_echo(t_shell *shell, char **args);
 int exec_env(t_shell *shell);
-int	exec_exit(t_shell *shell);
+int exec_exit(t_shell *shell);
 int exec_export(t_shell *shell, char **args);
 int exec_pwd(t_shell *shell);
 int exec_unset(t_shell *shell, char **args);
@@ -81,17 +98,17 @@ char *get_command_path(t_shell *shell, char *name);
 // Not used
 typedef struct s_env
 {
-	char			*name;
-	char			*value;
-	struct s_env	*next;
-}					t_env;
-	   
+	char *name;
+	char *value;
+	struct s_env *next;
+} t_env;
+
 void free_envlst(t_env **envs);
 void print_envlst(t_env **envs);
 t_env *new_envlst(char *name, char *value);
 t_env *get_envlst(t_env **envs, char *name);
 int init_envslst(t_shell *shell, char *envs[]);
-int	add_envlst(t_env **envs, t_env *env);
-int	set_envlst(t_env **envs, char *name, char *value);
-int	unset_envlst(t_env **envs, char *name); // bug
+int add_envlst(t_env **envs, t_env *env);
+int set_envlst(t_env **envs, char *name, char *value);
+int unset_envlst(t_env **envs, char *name); // bug
 #endif
