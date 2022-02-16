@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:03 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/12 09:56:13 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/16 08:49:16 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int main(int argc, char *argv[], char *envp[])
 	int cpid;
 	int wstatus;
 	char c = 'c';
-	char *pc = 0;
+	char *pc = NULL;
 	
 	pc = malloc(1);
 	*pc = 'c';
