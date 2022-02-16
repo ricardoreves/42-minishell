@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:55:31 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/12 19:30:54 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/16 08:24:20 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	allocate_automaton(t_automaton	*au)
 
 t_automaton	*automaton_factory(char *filename)
 {
-	char		*line;
 	int			fd;
 	t_automaton	*oto;
 
@@ -41,11 +40,10 @@ t_automaton	*automaton_factory(char *filename)
 	{
 		auto_load_size(fd, oto);
 		allocate_automaton(oto);
-		read_ignore_comment(&line, fd);
-		auto_load_indexes(line, oto);
+		auto_load_indexes(fd, oto);
 		auto_load_transitions(fd, oto);
-		read_ignore_comment(&line, fd);
-		auto_load_accepting(line, oto);
+		auto_load_accepting(fd, oto);
+		dispose_list_line();
 	}
 	close(fd);
 	return (oto);

@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:55:31 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/12 18:00:38 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/16 08:08:14 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,12 @@
 #include "parser_automaton.h"
 #include "libft.h"
 
-void	read_ignore_comment(char **line, int fd)
-{
-	*line = get_nextline(fd);
-	while (*line && (is_empy_line(*line) || **line == '#'))
-	{
-		free(*line);
-		*line = get_nextline(fd);
-	}
-}
-
 void	auto_load_size(int fd, t_automaton *au)
 {
 	char	*str;
 	char	*line;
 
-	read_ignore_comment(&line, fd);
+	line = read_ignore_comment(fd);
 	str = line;
 	au->cols = ft_atoi(str);
 	while (*str && is_space(*str))
@@ -42,14 +32,15 @@ void	auto_load_size(int fd, t_automaton *au)
 	while (*str && is_digit(*str))
 		str++;
 	au->rows = ft_atoi(str);
-	free(line);
 }
 
-void	auto_load_indexes(char *str, t_automaton *au)
+void	auto_load_indexes(int fd, t_automaton *au)
 {
 	int	c;
 	int	idx;
+	char *str;
 
+	str = read_ignore_comment(fd);
 	while (str && *str)
 	{
 		c = ft_atoi(str);
@@ -80,7 +71,7 @@ void	auto_load_transitions(int fd, t_automaton *au)
 	row = -1;
 	while (++row < au->rows)
 	{
-		read_ignore_comment(&str, fd);
+		str = read_ignore_comment(fd);
 		if (!str || !*str)
 			break ;
 		col = -1;
@@ -99,12 +90,14 @@ void	auto_load_transitions(int fd, t_automaton *au)
 	}
 }
 
-void	auto_load_accepting(char *str, t_automaton *au)
+void	auto_load_accepting(int fd, t_automaton *au)
 {
 	int	v;
 	int	idx;
+	char *str;
 
 	idx = -1;
+	str = read_ignore_comment(fd);
 	while (str && *str && ++idx < au->rows)
 	{
 		v = ft_atoi(str);

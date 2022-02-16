@@ -6,7 +6,7 @@
 #    By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/04 10:12:36 by dthalman          #+#    #+#              #
-#    Updated: 2022/02/12 12:40:34 by dthalman         ###   ########.fr        #
+#    Updated: 2022/02/16 08:02:55 by dthalman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS_NAME  = parser.c \
 			 parser_readline.c \
 			 parser_automaton.c \
 			 parser_automaton_utils.c \
+			 parser_automaton_reader.c \
 			 ascii.c
 SRCS       = $(addprefix $(SRCS_DIR)/, $(SRCS_NAME))
 OBJS       = $(SRCS:.c=.o)

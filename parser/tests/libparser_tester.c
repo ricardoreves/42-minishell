@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 15:15:55 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/12 19:41:09 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/16 08:26:18 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 int	main(int __attribute__((unused)) argc, char __attribute__((unused)) **argv)
 {
 	test_automaton();
+	valid_automaton("blabla");
 	return (0);
 	token_tester("read -p \"Entrez un numéro : \" int1\n");
 	token_tester("echo \"out\">>fichier");
@@ -42,7 +43,7 @@ void	valid_automaton(char *str)
 
 	oto = automaton_factory("tests/automate.conf");
 	ret = automaton_validator(oto, str);
-	printf("return : %d\n", ret);
+	printf("value : {%s} return : %d\n", str, ret);
 	automaton_dispose(oto);
 }
 
@@ -53,7 +54,7 @@ void	test_automaton(void)
 	int			j;
 
 	oto = automaton_factory("tests/automate.conf");
-	printf("%d %d \n", oto->cols, oto->rows);
+	printf("size\n%d %d \n", oto->cols, oto->rows);
 	printf("%d \n", oto->char_indexes['"']);
 	i = -1;
 	printf("transitions \n");
