@@ -22,7 +22,7 @@ int redirect_input(char *filename, char *redirect)
         fd = open(filename, O_RDONLY, S_IRWXU);
     if (strcmp(redirect, "<<") == 0)
         fd = open(filename, O_RDONLY, S_IRWXU);
-    if (fd)
+    if (fd != -1)
     {
         dup2(fd, 0);
         close(fd);
@@ -38,7 +38,7 @@ int redirect_output(char *filename, char *redirect)
         fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
     if (strcmp(redirect, ">>") == 0)
         fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, S_IRWXU);
-    if (fd)
+    if (fd != -1)
     {
         dup2(fd, 1);
         close(fd);
@@ -112,13 +112,13 @@ int main(void)
     //                     {"tr", "a-z", "A-Z", 0}};
 
     char *redis[][50] = {{"<", "sandbox/infile.txt", 0},
-                         {"42", "42", 0},
-                         {">>", "sandbox/output.txt", 0},
+                         //{"42", "42", 0},
+                         //{">>", "sandbox/output.txt", 0},
                          {0}};
 
     char *cmds[][50] = {{"cat", 0},
-                        {"grep", "Hello", 0},
-                        {"cat", "-e", 0},
+                        //{"grep", "Hello", 0},
+                        //{"cat", "-e", 0},
                         {0}};
 
     // Number of commands
