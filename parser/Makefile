@@ -6,7 +6,7 @@
 #    By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/04 10:12:36 by dthalman          #+#    #+#              #
-#    Updated: 2022/02/16 08:02:55 by dthalman         ###   ########.fr        #
+#    Updated: 2022/02/16 20:25:51 by dthalman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,11 @@ TESTS_INCS = -I./srcs
 TESTS_LNK  = -L. -lparser -L$(LIBFT_DIR) -lft 
 TESTS_SRCS = $(addprefix $(TESTS_DIR)/, $(TESTS_NAME))
 TESTS_OBJS = $(TESTS_SRCS:.c=.o)
-
+ifeq ($(shell uname), Linux)
+	LEAKS = 
+else
+	LEAKS = leaks -atExit --
+endif
 ### RULES ###
 all: $(NAME)
 
@@ -78,6 +82,6 @@ test: LDFLAGS += $(TESTS_LNK)
 test: INCS_DIR += $(TESTS_INCS)
 test: $(NAME) $(LIBFT_A) $(TESTS_OBJS)
 	$(CC) $(CFLAGS) $(TESTS_INCS) $(TESTS_OBJS) $(LDFLAGS) -o $(TEST)
-	./$(TEST)
+	$(LEAKS) ./$(TEST)
 
 .PHONY: all clean fclean re debug dev

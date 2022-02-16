@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:55:31 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/16 14:44:22 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/16 20:29:52 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ t_token	*automaton_token(t_automaton *au, char *str)
 	while (str[ppos.end_pos])
 	{
 		ppos.start_pos = ppos.end_pos;
-		ppos.col = ppos.len;
+		ppos.col += ppos.len;
 		ppos.step = 0;
 		ppos.last_step = 0;
 		while (ppos.step != au->rows && str[ppos.end_pos])
@@ -108,7 +108,6 @@ t_token	*automaton_token(t_automaton *au, char *str)
 			ppos.last_step = ppos.step;
 			col = get_char_index((int)str[ppos.end_pos], au);
 			ppos.step = au->transitions[col + (ppos.step * au->cols)];
-			printf("%d:%c:%d:%ds%d\n", ppos.end_pos, str[ppos.end_pos], str[ppos.end_pos], col, ppos.step);
 			ppos.end_pos++;
 		}
 		if (ppos.last_step != au->rows)
@@ -116,7 +115,7 @@ t_token	*automaton_token(t_automaton *au, char *str)
 			ppos.id = au->accepting[ppos.last_step];
 			if (ppos.id)
 			{
-				ppos.len = ppos.end_pos - ppos.start_pos + 1;
+				ppos.len = ppos.end_pos - ppos.start_pos -1;
 				add_token(&token, &ppos);				
 			}
 		}
