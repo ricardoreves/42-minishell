@@ -22,7 +22,12 @@ int redirect_input(char *filename, char *redirect)
         fd = open(filename, O_RDONLY, S_IRWXU);
     if (strcmp(redirect, "<<") == 0)
         fd = open(filename, O_RDONLY, S_IRWXU);
-    if (fd != -1)
+    if (fd == -1)
+    {
+        perror("Error: open() failed");
+        exit(1);
+    }
+    else if (fd > 0)
     {
         dup2(fd, 0);
         close(fd);
@@ -38,7 +43,12 @@ int redirect_output(char *filename, char *redirect)
         fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
     if (strcmp(redirect, ">>") == 0)
         fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, S_IRWXU);
-    if (fd != -1)
+    if (fd == -1)
+    {
+        perror("Error: open() failed");
+        exit(1);
+    }
+    else if (fd > 0)
     {
         dup2(fd, 1);
         close(fd);
@@ -111,7 +121,7 @@ int main(void)
     //                     {"sed", "s/en.subject.pdf/fr.subject.txt/", 0},
     //                     {"tr", "a-z", "A-Z", 0}};
 
-    char *redis[][50] = {{"<", "sandbox/infile.txt", 0},
+    char *redis[][50] = {{"<", "sandbox/infile.txt0", 0},
                          //{"42", "42", 0},
                          //{">>", "sandbox/output.txt", 0},
                          {0}};
