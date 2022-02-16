@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+         #
+#    By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 14:49:05 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/01/31 02:47:11 by rpinto-r         ###   ########.fr        #
+#    Updated: 2022/02/16 07:58:01 by dthalman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,8 @@ all: $(NAME)
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJS)
-	$(AR) $(NAME) $(OBJS)
+$(NAME): $(OBJS) ${OBJS_BONUS}
+	$(AR) $(NAME) $(OBJS) ${OBJS_BONUS}
 
 bonus: ${OBJS} ${OBJS_BONUS}
 	$(AR) $(NAME) $(OBJS) ${OBJS_BONUS}
