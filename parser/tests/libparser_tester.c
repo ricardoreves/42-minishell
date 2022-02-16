@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 15:15:55 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/16 08:26:18 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/16 15:08:27 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@
 
 int	main(int __attribute__((unused)) argc, char __attribute__((unused)) **argv)
 {
-	test_automaton();
+	//test_automaton();
 	valid_automaton("blabla");
+	valid_automaton("\"blabla\"");
+	token_automaton_tester("read -p \"Entrez un numero : \"int1\n");
 	return (0);
 	token_tester("read -p \"Entrez un numéro : \" int1\n");
 	token_tester("echo \"out\">>fichier");
@@ -71,7 +73,7 @@ void	test_automaton(void)
 	i = -1;
 	printf("accepting \n");
 	while (++i < oto->rows)
-		printf("[%d] ", oto->accepting[i]);
+		printf("%d ", oto->accepting[i]);
 	automaton_dispose(oto);
 }
 
@@ -79,7 +81,8 @@ void	token_print(t_token *token)
 {
 	while (token)
 	{
-		printf("token : [%-15s], start : [%2d]\n", token->str, token->position);
+		printf("token : [%-15s], start : [%2d], id : [%2d]\n", token->str, 
+			token->col, token->id);
 		token = token->next;
 	}
 }
@@ -95,6 +98,25 @@ int	token_tester(char *input)
 
 	printf("\ninput : %s\n\n", input);
 	token = parse_token(input);
+	token_print(token);
+	token_dispose(&token);
+	printf("\n\n");
+	return (1);
+}
+
+/**
+ * @brief vérfication de la génération de jeton
+ * 
+ * @return int 
+ */
+int	token_automaton_tester(char *input)
+{
+	t_token		*token;
+	t_automaton	*oto;
+
+	oto = automaton_factory("tests/automate.conf");
+	printf("\ninput : %s\n\n", input);
+	token = automaton_token(oto, input);
 	token_print(token);
 	token_dispose(&token);
 	printf("\n\n");

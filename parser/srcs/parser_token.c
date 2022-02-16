@@ -12,6 +12,7 @@
 
 #include "libparser.h"
 #include "libft.h"
+#include "parser_automaton.h"
 #include <stdlib.h>
 
 /**
@@ -35,22 +36,27 @@ void	move_space_forward(char const *s, int *pos)
  * @param len longueur de la chaine
  * @param pos position dans la chaine de départ
  */
-void	add_token(t_token **token, char *start, int len, int pos)
+void	add_token(t_token **token, t_parse_pos *ppos)
 {
 	t_token	*t;
 	t_token	*t2;
 	int		i;
+	char	*start;
 
+	start = ppos->str + ppos->start_pos;
 	t = malloc(sizeof(t_token));
 	if (!t)
 		return ;
 	t->next = 0;
-	t->position = pos;
-	t->str = malloc((len) + 1);
+	t->col = ppos->col;
+	t->id = ppos->id;
+	ppos->col += ppos->len;
+	t->row = ppos->row;
+	t->str = malloc((ppos->end_pos - ppos->start_pos + 1) + 1);
 	if(!t->str)
 		return ;
 	i = -1;
-	while (++i < len)
+	while (++i < ppos->len)
 		t->str[i] = start[i];
 	t->str[i] = 0;
 	if (!(*token))
@@ -82,106 +88,123 @@ void	token_dispose(t_token **token)
 
 t_token	*parse_token(char *str)
 {
-	char 	*current;
-	t_token	*token;
-	int		pos;
-	int		start_pos;
-	int		final;
+	t_token		*token;
+	t_parse_pos	ppos;
+	int			final;
 
+	init_parse_pos(&ppos, str);
 	token = 0;
-	pos = 0;
 	if (!str || !*str)
 		return (0);
-	current = str;
-	while (current[pos])
+	ppos.str = str;
+	ppos.id = 0;
+	while (ppos.str[ppos.end_pos])
 	{
-		move_space_forward(current, &pos);
-		start_pos = pos;
-		if (current[pos] && current[pos] == '"')
+		move_space_forward(ppos.str, &ppos.end_pos);
+		ppos.start_pos = ppos.end_pos;
+		if (ppos.str[ppos.end_pos] && ppos.str[ppos.end_pos] == '"')
 		{
-			pos++;
+			ppos.end_pos++;
 			final = 0;
-			while (current[pos] && !final)
+			while (ppos.str[ppos.end_pos] && !final)
 			{
-				pos++;
-				if (current[pos] == '\\')
+				ppos.end_pos++;
+				if (ppos.str[ppos.end_pos] == '\\')
 				{
-					pos++;
-					if (current[pos] == '"')
-						pos++;
+					ppos.end_pos++;
+					if (ppos.str[ppos.end_pos] == '"')
+					{
+						ppos.end_pos++;
+					}
 				} 
-				else if (current[pos] == '"')
+				else if (ppos.str[ppos.end_pos] == '"')
 					final = 1;
 			}
 			if (final)
 			{
-				add_token(&token, (current + start_pos), pos - start_pos + 1, start_pos);
-				pos++;
+				ppos.len = ppos.end_pos - ppos.start_pos + 1;
+				add_token(&token, &ppos);
+				ppos.end_pos++;
 			}
 		}
-		else if (current[pos] && current[pos] == '\'')
+		else if (ppos.str[ppos.end_pos] && ppos.str[ppos.end_pos] == '\'')
 		{
 			final = 0;
-			while (current[pos] && !final)
+			while (ppos.str[ppos.end_pos] && !final)
 			{
-				pos++;
-				if (current[pos] == '\\')
+				ppos.end_pos++;
+				if (ppos.str[ppos.end_pos] == '\\')
 				{
-					pos++;
-					if (current[pos] == '\'')
-						pos++;
+					ppos.end_pos++;
+					if (ppos.str[ppos.end_pos] == '\'')
+					{
+						ppos.end_pos++;
+					}
 				} 
-				else if (current[pos] == '\'')
+				else if (ppos.str[ppos.end_pos] == '\'')
 					final = 1;
 			}
 			if (final)
 			{
-				add_token(&token, (current + start_pos), pos - start_pos + 1, start_pos);
-				pos++;
+				ppos.len = ppos.end_pos - ppos.start_pos + 1;
+				add_token(&token, &ppos);
+				ppos.end_pos++;
 			}
 		}
-		else if (current[pos] && current[pos] == '<')
+		else if (ppos.str[ppos.end_pos] && ppos.str[ppos.end_pos] == '<')
 		{
-			if (current[pos + 1] == '<')
-				pos++;
-			add_token(&token, (current + start_pos), (pos - start_pos) + 1, start_pos);
-			pos++;
+			if (ppos.str[ppos.end_pos + 1] == '<')
+			{
+				ppos.end_pos++;
+			}
+			ppos.len = ppos.end_pos - ppos.start_pos + 1;
+			add_token(&token, &ppos);
+			ppos.end_pos++;
 		}
-		else if (current[pos] && current[pos] == '>')
+		else if (ppos.str[ppos.end_pos] && ppos.str[ppos.end_pos] == '>')
 		{
-			if (current[pos + 1] == '>')
-				pos++;
-			add_token(&token, (current + start_pos), (pos - start_pos) + 1, start_pos);
-			pos++;
+			if (ppos.str[ppos.end_pos + 1] == '>')
+				ppos.end_pos++;
+			ppos.len = ppos.end_pos - ppos.start_pos + 1;
+			add_token(&token, &ppos);
+			ppos.end_pos++;
 		}
-		else if (current[pos] && current[pos] == '|')
+		else if (ppos.str[ppos.end_pos] && ppos.str[ppos.end_pos] == '|')
 		{
-			add_token(&token, (current + start_pos), 1, start_pos);
-			pos++;
+			ppos.len = 1;
+			add_token(&token, &ppos);
+			ppos.end_pos++;
 		}
-		else if (current[pos] && current[pos] == ';')
+		else if (ppos.str[ppos.end_pos] && ppos.str[ppos.end_pos] == ';')
 		{
-			add_token(&token, (current + start_pos), 1, start_pos);
-			pos++;
+			ppos.len = 1;
+			add_token(&token, &ppos);
+			ppos.end_pos++;
 		}
-		else if (current[pos] && current[pos] == '&')
+		else if (ppos.str[ppos.end_pos] && ppos.str[ppos.end_pos] == '&')
 		{
-			if (current[pos + 1] == '&')
-				pos++;
-			add_token(&token, (current + start_pos), (pos - start_pos) + 1, start_pos);
-			pos++;
+			if (ppos.str[ppos.end_pos + 1] == '&')
+			{
+				ppos.end_pos++;
+			}
+			ppos.len = ppos.end_pos - ppos.start_pos + 1;
+			add_token(&token, &ppos);
+			ppos.end_pos++;
 		}
-		else if(current[pos])
+		else if(ppos.str[ppos.end_pos])
 		{
 			final = 0;
-			while (current[pos] && !final)
+			while (ppos.str[ppos.end_pos] && !final)
 			{
-				if (!strchr(NON_CHAR_IDENTIFIER, current[pos]))
-					pos++;
+				if (!strchr(NON_CHAR_IDENTIFIER, ppos.str[ppos.end_pos]))
+				{
+					ppos.end_pos++;	
+				}
 				else
 					final = 1;
 			}
-			add_token(&token, (current + start_pos), pos - start_pos, start_pos);
+			ppos.len = ppos.end_pos - ppos.start_pos + 1;
+			add_token(&token, &ppos);
 		}
 	}
 	return (token);

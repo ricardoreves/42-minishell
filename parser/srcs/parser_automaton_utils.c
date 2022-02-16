@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:55:31 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/16 08:08:14 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/16 14:36:58 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,12 @@ void	auto_load_accepting(int fd, t_automaton *au)
 		if (!is_space(*str) && !is_digit(*str))
 			break ;
 	}
+}
+
+int	get_char_index(const int c, t_automaton *au)
+{
+	if (c < 0 || c > CHAR_INDEXES_LEN - 1)
+		return (0);
+	else
+		return (au->char_indexes[c]);
 }

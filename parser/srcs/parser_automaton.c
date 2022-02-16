@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:55:31 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/16 08:24:20 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/16 14:44:22 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,58 @@ int	automaton_validator(t_automaton *au, char *str)
 	while (step != au->rows && str)
 	{
 		last_step = step;
-		col = au->char_indexes[(int)*str];
+		col = get_char_index((int)*str, au);
 		step = au->transitions[col + (step * au->cols)];
 		str++;
 	}
-	if (step == au->rows)
+	if (last_step == au->rows)
 		return (0);
 	return au->accepting[last_step];
+}
+
+void	init_parse_pos(t_parse_pos *ppos, char *str)
+{
+	ppos->col = 0;
+	ppos->start_pos = 0;
+	ppos->end_pos = 0;
+	ppos->last_step = 0;
+	ppos->row = 0;
+	ppos->step = 0;
+	ppos->len = 0;
+	ppos->str = str;
+}
+
+t_token	*automaton_token(t_automaton *au, char *str)
+{
+	t_parse_pos	ppos;
+	t_token		*token;
+	int			col;
+
+	token = 0;
+	init_parse_pos(&ppos, str);
+	while (str[ppos.end_pos])
+	{
+		ppos.start_pos = ppos.end_pos;
+		ppos.col = ppos.len;
+		ppos.step = 0;
+		ppos.last_step = 0;
+		while (ppos.step != au->rows && str[ppos.end_pos])
+		{
+			ppos.last_step = ppos.step;
+			col = get_char_index((int)str[ppos.end_pos], au);
+			ppos.step = au->transitions[col + (ppos.step * au->cols)];
+			printf("%d:%c:%d:%ds%d\n", ppos.end_pos, str[ppos.end_pos], str[ppos.end_pos], col, ppos.step);
+			ppos.end_pos++;
+		}
+		if (ppos.last_step != au->rows)
+		{
+			ppos.id = au->accepting[ppos.last_step];
+			if (ppos.id)
+			{
+				ppos.len = ppos.end_pos - ppos.start_pos + 1;
+				add_token(&token, &ppos);				
+			}
+		}
+	}
+	return (token);
 }

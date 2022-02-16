@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 15:15:55 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/12 17:36:49 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/16 13:38:37 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 int		main(int argc, char **argv);
 void	test_automaton(void);
+void	valid_automaton(char *str);
 int		token_tester(char *input);
+int		token_automaton_tester(char *input);
 void	token_print(t_token *token);
 #endif
