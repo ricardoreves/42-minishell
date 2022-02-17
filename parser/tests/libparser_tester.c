@@ -15,26 +15,27 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+//test_automaton();
 int	main(int __attribute__((unused)) argc, char __attribute__((unused)) **argv)
 {
-	//test_automaton();
 	valid_automaton("blabla");
 	valid_automaton("\"blabla\"");
 	token_automaton_tester("read -p | \"Entrez |un numero : \"i|nt1\n");
 	return (0);
-	token_tester("read -p \"Entrez un numéro : \" int1\n");
-	token_tester("echo \"out\">>fichier");
-	token_tester("commande>fichier");
-	token_tester("commande<fichier");
-	token_tester("commande|fichier");
-	token_tester("commande |fichier");
-	token_tester("commande | \"fichier\"");
-	token_tester("commande |fichier << test >autre; ls /test/truc && autre");
-	token_tester("commande <<sep");
-	token_tester("'commande' fichier");
-	token_tester("echo te'st'");
-	token_tester("echo te\"st\";echo merci");
-	token_tester("ls *.c");
+	token_automaton_tester("read -p \"Entrez un numéro : \" int1\n");
+	token_automaton_tester("echo \"out\">>fichier");
+	token_automaton_tester("commande>fichier");
+	token_automaton_tester("commande<fichier");
+	token_automaton_tester("commande|fichier");
+	token_automaton_tester("commande |fichier");
+	token_automaton_tester("commande | \"fichier\"");
+	token_automaton_tester
+		("commande |fichier << test >autre; ls /test/truc && autre");
+	token_automaton_tester("commande <<sep");
+	token_automaton_tester("'commande' fichier");
+	token_automaton_tester("echo te'st'");
+	token_automaton_tester("echo te\"st\";echo merci");
+	token_automaton_tester("ls *.c");
 	return (0);
 }
 
@@ -81,27 +82,10 @@ void	token_print(t_token *token)
 {
 	while (token)
 	{
-		printf("token : [%-15s], start : [%2d], id : [%2d]\n", token->str, 
+		printf("token : [%-15s], start : [%2d], id : [%2d]\n", token->str,
 			token->col, token->id);
 		token = token->next;
 	}
-}
-
-/**
- * @brief vérfication de la génération de jeton
- * 
- * @return int 
- */
-int	token_tester(char *input)
-{
-	t_token	*token;
-
-	printf("\ninput : %s\n\n", input);
-	token = parse_token(input);
-	token_print(token);
-	token_dispose(&token);
-	printf("\n\n");
-	return (1);
 }
 
 /**
@@ -119,6 +103,7 @@ int	token_automaton_tester(char *input)
 	token = automaton_token(oto, input);
 	token_print(token);
 	token_dispose(&token);
+	automaton_dispose(oto);
 	printf("\n\n");
 	return (1);
 }

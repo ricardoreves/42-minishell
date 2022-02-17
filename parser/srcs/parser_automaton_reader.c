@@ -19,31 +19,31 @@
 
 char	*read_ignore_comment(int fd)
 {
-	char *line;
-	t_list *list;
+	char	*line;
+	t_list	**list;
 
 	list = get_list_line();
 	line = get_nextline(fd);
-	ft_lstadd_front(&list, ft_lstnew(line));
+	ft_lstadd_front(list, ft_lstnew(line));
 	while (line && (is_empy_line(line) || *line == '#'))
 	{
 		line = get_nextline(fd);
-		ft_lstadd_front(&list, ft_lstnew(line));
+		ft_lstadd_front(list, ft_lstnew(line));
 	}
 	return (line);
 }
 
-t_list	*get_list_line(void)
+t_list	**get_list_line(void)
 {
 	static t_list	*list;
 
-	return (list);
+	return (&list);
 }
 
 void	dispose_list_line(void)
 {
-	t_list	*list;
+	t_list	**list;
 
 	list = get_list_line();
-	ft_lstclear(&list, free);
+	ft_lstclear(list, free);
 }

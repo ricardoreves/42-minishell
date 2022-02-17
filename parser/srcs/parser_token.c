@@ -28,6 +28,27 @@ void	move_space_forward(char const *s, int *pos)
 		(*pos)++;
 }
 
+t_token	*new_token(t_parse_pos *ppos)
+{
+	t_token	*t;
+
+	t = malloc(sizeof(t_token));
+	if (t)
+	{
+		t->next = 0;
+		t->col = ppos->col;
+		t->id = ppos->id;
+		t->row = ppos->row;
+		t->str = malloc(ppos->len + 1);
+		if (!t->str)
+		{
+			free(t);
+			t = 0;
+		}
+	}
+	return (t);
+}
+
 /**
  * @brief Ajoute un jeton dans la structure des jeton.
  * 
@@ -44,16 +65,8 @@ void	add_token(t_token **token, t_parse_pos *ppos)
 	char	*start;
 
 	start = ppos->str + ppos->start_pos;
-	t = malloc(sizeof(t_token));
+	t = new_token(ppos);
 	if (!t)
-		return ;
-	t->next = 0;
-	t->col = ppos->col;
-	t->id = ppos->id;
-	ppos->col += ppos->len;
-	t->row = ppos->row;
-	t->str = malloc((ppos->end_pos - ppos->start_pos + 1) + 1);
-	if(!t->str)
 		return ;
 	i = -1;
 	while (++i < ppos->len)
@@ -86,6 +99,7 @@ void	token_dispose(t_token **token)
 	*token = 0;
 }
 
+/*
 t_token	*parse_token(char *str)
 {
 	t_token		*token;
@@ -209,3 +223,4 @@ t_token	*parse_token(char *str)
 	}
 	return (token);
 }
+*/

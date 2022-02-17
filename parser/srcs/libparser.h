@@ -21,8 +21,8 @@ typedef struct s_parse_pos
 {
 	int		step;
 	int		last_step;
-	int 	col;
-	int 	row;
+	int		col;
+	int		row;
 	int		start_pos;
 	int		end_pos;
 	int		len;
@@ -64,7 +64,6 @@ int				is_pipe(int c);
 int				is_empy_line(char *str);
 int				is_digit(int c);
 int				is_space(int c);
-t_token			*parse_token(char *str);
 t_parse_tree	*parse_tree(char **str);
 char			*get_nextline(int fd);
 t_automaton		*automaton_factory(char *filename);

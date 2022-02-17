@@ -16,7 +16,7 @@
 # include "libft.h"
 
 char		*read_ignore_comment(int fd);
-t_list		*get_list_line(void);
+t_list		**get_list_line(void);
 void		dispose_list_line(void);
 void		auto_load_size(int fd, t_automaton *au);
 void		auto_load_indexes(int fd, t_automaton *au);

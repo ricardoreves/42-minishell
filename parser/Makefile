@@ -29,6 +29,7 @@ SRCS_NAME  = parser.c \
 			 parser_readline.c \
 			 parser_automaton.c \
 			 parser_automaton_utils.c \
+			 parser_automaton_token.c \
 			 parser_automaton_reader.c \
 			 ascii.c
 SRCS       = $(addprefix $(SRCS_DIR)/, $(SRCS_NAME))

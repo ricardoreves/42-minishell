@@ -36,9 +36,9 @@ void	auto_load_size(int fd, t_automaton *au)
 
 void	auto_load_indexes(int fd, t_automaton *au)
 {
-	int	c;
-	int	idx;
-	char *str;
+	int		c;
+	int		idx;
+	char	*str;
 
 	str = read_ignore_comment(fd);
 	while (str && *str)
@@ -92,9 +92,9 @@ void	auto_load_transitions(int fd, t_automaton *au)
 
 void	auto_load_accepting(int fd, t_automaton *au)
 {
-	int	v;
-	int	idx;
-	char *str;
+	int		v;
+	int		idx;
+	char	*str;
 
 	idx = -1;
 	str = read_ignore_comment(fd);
