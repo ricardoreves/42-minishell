@@ -76,7 +76,6 @@ void	init_parse_pos(t_parse_pos *ppos, char *str)
 void	automaton_token(t_token **token, t_automaton *au, char *str)
 {
 	t_parse_pos	ppos;
-	
 	int			ret;
 
 	*token = 0;
