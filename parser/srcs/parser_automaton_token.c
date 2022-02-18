@@ -28,14 +28,14 @@ void	automaton_token_analys(t_parse_pos *ppos, t_token **token,
 	ppos->col += ppos->len;
 	ppos->step = 0;
 	ppos->last_step = 0;
-	while (ppos->step != au->rows && str[ppos->end_pos])
+	while (ppos->step < au->rows && str[ppos->end_pos])
 	{
 		ppos->last_step = ppos->step;
 		col = get_char_index((int)str[ppos->end_pos], au);
 		ppos->step = au->transitions[col + (ppos->step * au->cols)];
 		ppos->end_pos++;
 	}
-	if (ppos->last_step != au->rows)
+	if (ppos->last_step < au->rows)
 	{
 		ppos->id = au->accepting[ppos->last_step];
 		if (ppos->id)

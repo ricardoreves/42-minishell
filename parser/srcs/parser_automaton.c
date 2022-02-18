@@ -65,14 +65,15 @@ int	automaton_validator(t_automaton *au, char *str)
 
 	step = 0;
 	last_step = 0;
-	while (step != au->rows && str)
+	while (step < au->rows && str)
 	{
 		last_step = step;
+		printf("last_step: %d, *str : %c\n",last_step, *str);
 		col = get_char_index((int)*str, au);
 		step = au->transitions[col + (step * au->cols)];
 		str++;
 	}
-	if (last_step == au->rows)
+	if (last_step >= au->rows)
 		return (0);
 	return (au->accepting[last_step]);
 }
