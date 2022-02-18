@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "libparser.h"
 
 int find_command(t_shell *shell, char *name, char **pathname)
 {
@@ -49,7 +50,8 @@ int exec_command(t_shell *shell)
 	
 	pathname = 0;
 
-	args = eval_varenv_map(shell, ft_split(shell->cmdline, ' '));
+	args = parse(shell->cmdline, ".config/parser/bash.conf");
+	// args = eval_varenv_map(shell, ft_split(shell->cmdline, ' '));
 	// args = ft_split(shell->cmdline, ' ');
 	if (is_builtin(args))
 	{

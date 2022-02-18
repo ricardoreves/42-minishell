@@ -39,15 +39,21 @@ LIBFT_FLAG = -lft
 LIBFT_DIR  = ./libft
 LIBFT_A    = ./libft/libft.a
 
+LIBPARSER_INC = ./parser/inc
+LIBPARSER_FLAG = -lparser
+LIBPARSER_DIR  = ./parser
+LIBPARSER  = ./parser/libparser.a
+
 ### RULES ###
 all: $(NAME)
 
 .c.o:
-	$(CC) $(WARN_FLAG) -I $(INC) -I $(LIBRL_INC) -c $< -o $@
+	$(CC) $(WARN_FLAG) -I $(INC) -I $(LIBRL_INC) -I $(LIBPARSER_INC) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR)
-	$(CC) $(OBJS) $(DEBUG_FLAG) $(LIBRL_FLAG) $(LIBFT_FLAG) -L $(LIBFT_DIR) -L $(LIBRL_DIR) -o $(NAME) 
+	$(MAKE) -C $(LIBPARSER_DIR)
+	$(CC) $(OBJS) $(DEBUG_FLAG) $(LIBRL_FLAG) $(LIBPARSER_FLAG) $(LIBFT_FLAG) -L $(LIBPARSER_DIR) -L $(LIBFT_DIR) -L $(LIBRL_DIR) -o $(NAME) 
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
@@ -55,6 +61,7 @@ clean:
 
 fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean
+	$(MAKE) -C $(LIBPARSER_DIR) fclean
 	$(RM) $(NAME)
 
 re: fclean all
@@ -68,7 +75,7 @@ norm:
 dev: re all run
 
 sandbox:
-	$(CC) sandbox/pipe_unlimited.c  -I $(INC) $(LIBFT_A) -o $(NAME) && ./$(NAME) hello world
+	$(CC) sandbox/pipe_unlimited.c  -I $(INC) $(LIBFT_A) $(LIBPARSER) -o $(NAME) && ./$(NAME) hello world
 
 fd:
 	ls -la /proc/$$$/fd
