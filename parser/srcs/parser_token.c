@@ -15,19 +15,6 @@
 #include "parser_automaton.h"
 #include <stdlib.h>
 
-/**
- * @brief déplace le curseur de position de la chaine tant qu'il
- * s'agit 
- * 
- * @param s 
- * @param pos 
- */
-void	move_space_forward(char const *s, int *pos)
-{
-	while (s[*pos] && is_space(s[*pos]))
-		(*pos)++;
-}
-
 t_token	*new_token(t_parse_pos *ppos)
 {
 	t_token	*t;
@@ -49,13 +36,23 @@ t_token	*new_token(t_parse_pos *ppos)
 	return (t);
 }
 
+int	count_token(t_token *token)
+{
+	int	count;
+
+	count = 0;
+	while (token)
+	{
+		count++;
+		token = token->next;
+	}
+	return (count);
+}
+
 /**
  * @brief Ajoute un jeton dans la structure des jeton.
  * 
  * @param token liste de jeton
- * @param start position de départ de la chaine
- * @param len longueur de la chaine
- * @param pos position dans la chaine de départ
  */
 void	add_token(t_token **token, t_parse_pos *ppos)
 {
@@ -100,6 +97,13 @@ void	token_dispose(t_token **token)
 }
 
 /*
+
+void	move_space_forward(char const *s, int *pos)
+{
+	while (s[*pos] && is_space(s[*pos]))
+		(*pos)++;
+}
+
 t_token	*parse_token(char *str)
 {
 	t_token		*token;

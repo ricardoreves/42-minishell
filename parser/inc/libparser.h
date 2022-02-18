@@ -17,10 +17,26 @@
 # define CHAR_INDEXES_LEN 256
 # include <stdio.h>
 
+enum e_bash_tokenid
+{
+	id_blank = -1,
+	id_dbl_quotes = 1,
+	id_single_quotes,
+	id_out_write,
+	id_out_append,
+	id_in_file,
+	id_in_std,
+	id_pipe,
+	id_start_parenthesis,
+	id_end_parenthesis,
+	id_and,
+	id_or,
+	id_word
+};
 typedef struct s_parse_pos
 {
 	int		step;
-	int		last_step;
+	int		accepting;
 	int		col;
 	int		row;
 	int		start_pos;
@@ -56,18 +72,19 @@ typedef struct s_automaton
 	int		*transitions;
 	int		*accepting;
 }	t_automaton;
-void			move_space_forward(char const *s, int *pos);
 void			token_dispose(t_token **token);
+int				count_token(t_token *token);
 void			add_token(t_token **token, t_parse_pos *ppos);
 int				is_redirection(int c);
 int				is_pipe(int c);
 int				is_empy_line(char *str);
 int				is_digit(int c);
 int				is_space(int c);
+char			**parse(char *str, char *config);
 t_parse_tree	*parse_tree(char **str);
 char			*get_nextline(int fd);
 t_automaton		*automaton_factory(char *filename);
 void			automaton_dispose(t_automaton *au);
 int				automaton_validator(t_automaton *au, char *str);
-t_token			*automaton_token(t_automaton *au, char *str);
+void			automaton_token(t_token **token, t_automaton *au, char *str);
 #endif

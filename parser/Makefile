@@ -22,7 +22,7 @@ AR         = ar -rcs
 
 ### FILES ###
 NAME       = libparser.a
-INCS_DIR   = -I ../libft
+INCS_DIR   = -I ../libft -I ./inc
 SRCS_DIR   = ./srcs
 SRCS_NAME  = parser.c \
 			 parser_token.c \
@@ -66,9 +66,11 @@ dev: debug
 
 clean:
 	$(RM) $(OBJS)
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
 	$(RM) $(NAME)
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 

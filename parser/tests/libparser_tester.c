@@ -18,9 +18,13 @@
 //test_automaton();
 int	main(int __attribute__((unused)) argc, char __attribute__((unused)) **argv)
 {
+	test_automaton();
 	valid_automaton("blabla");
-	valid_automaton("\"blabla\"");
-	token_automaton_tester("read -p | \"Entrez |un numero : \"i|nt1\n");
+	valid_automaton("\"blabla");
+	valid_automaton("\"blabla\" ");
+	token_automaton_tester("1234|1234");
+	token_automaton_tester("read -p |  \t \"Entrez |un numero : \"i|nt1\n");
+	token_automaton_tester("read -p |  \t \"Entrez");
 	return (0);
 	token_automaton_tester("read -p \"Entrez un numéro : \" int1\n");
 	token_automaton_tester("echo \"out\">>fichier");
@@ -80,6 +84,10 @@ void	test_automaton(void)
 
 void	token_print(t_token *token)
 {
+	if (!token)
+	{
+		perror("input command line");
+	}
 	while (token)
 	{
 		printf("token : [%-15s], start : [%2d], id : [%2d]\n", token->str,
@@ -100,7 +108,7 @@ int	token_automaton_tester(char *input)
 
 	oto = automaton_factory("tests/automate.conf");
 	printf("\ninput : %s\n\n", input);
-	token = automaton_token(oto, input);
+	automaton_token(&token, oto, input);
 	token_print(token);
 	token_dispose(&token);
 	automaton_dispose(oto);
