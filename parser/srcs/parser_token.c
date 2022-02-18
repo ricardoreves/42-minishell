@@ -93,7 +93,7 @@ void	token_dispose(t_token **token)
 		free(p->str);
 		free(p);
 	}
-	*token = 0;
+	*token = NULL;
 }
 
 /*

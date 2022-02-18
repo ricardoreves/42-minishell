@@ -82,6 +82,46 @@ void	test_automaton(void)
 	automaton_dispose(oto);
 }
 
+void	token_print2(char **str)
+{
+	if (!str)
+		perror("input command line");
+	else
+	{
+		while (*str)
+		{
+			printf("token : [%-15s]\n", *str);
+			str++;
+		}		
+	}
+}
+
+/**
+ * @brief vérfication de la génération de jeton
+ * 
+ * @return int 
+ */
+int	token_automaton_tester(char *input)
+{
+	char	**token;
+	int		i;
+
+	token = parse(input, "tests/automate.conf");
+	printf("\ninput : %s\n\n", input);
+	token_print2(token);
+	i = 0;
+	if (token)
+	{
+		while (token[i])
+			free(token[i++]);
+		free(token);
+	}
+	printf("\n\n");
+	return (1);
+}
+
+/*
+
 void	token_print(t_token *token)
 {
 	if (!token)
@@ -96,12 +136,7 @@ void	token_print(t_token *token)
 	}
 }
 
-/**
- * @brief vérfication de la génération de jeton
- * 
- * @return int 
- */
-int	token_automaton_tester(char *input)
+int	token_automaton_tester_old(char *input)
 {
 	t_token		*token;
 	t_automaton	*oto;
@@ -115,3 +150,5 @@ int	token_automaton_tester(char *input)
 	printf("\n\n");
 	return (1);
 }
+
+*/
