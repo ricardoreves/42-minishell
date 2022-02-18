@@ -50,7 +50,7 @@ int exec_command(t_shell *shell)
 	
 	pathname = 0;
 
-	args = parse(shell->cmdline, ".config/parser/bash.conf");
+	args = eval_varenv_map(shell, parse(shell->cmdline, ".config/parser/bash.conf"));
 	// args = eval_varenv_map(shell, ft_split(shell->cmdline, ' '));
 	// args = ft_split(shell->cmdline, ' ');
 	if (is_builtin(args))
