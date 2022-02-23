@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/16 14:30:10 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/23 08:06:29 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,5 @@ t_automaton		*automaton_factory(char *filename);
 void			automaton_dispose(t_automaton *au);
 int				automaton_validator(t_automaton *au, char *str);
 void			automaton_token(t_token **token, t_automaton *au, char *str);
+void			sanatize_quotes_token(t_token *token);
 #endif

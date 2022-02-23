@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 15:15:55 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/16 20:28:00 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/23 08:12:46 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int __attribute__((unused)) argc, char __attribute__((unused)) **argv)
 	valid_automaton("\"blabla");
 	valid_automaton("\"blabla\" ");
 	token_automaton_tester("1234|1234");
-	token_automaton_tester("read -p |  \t \"Entrez |un numero : \"i|nt1\n");
+	token_automaton_tester("read -p | 'com\\\'' \t \"Entre | num : \"i|nt1\n");
 	token_automaton_tester("read -p |  \t \"Entrez");
 	return (0);
 	token_automaton_tester("read -p \"Entrez un numéro : \" int1\n");

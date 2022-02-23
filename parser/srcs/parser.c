@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/18 15:40:25 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/23 08:21:06 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #include "libft.h"
 #include <stdlib.h>
 
+/**
+ * @brief Convertie une liste de jeton en liste de chaine de
+ * caractère
+ * 
+ * @param token 
+ * @return char** 
+ */
 char	**token_to_string(t_token *token)
 {
 	char		**args;
@@ -35,6 +42,15 @@ char	**token_to_string(t_token *token)
 	return (args);
 }
 
+/**
+ * @brief parse une chaine de caractère et retourne
+ * une liste de chaine de caractère en fonction du
+ * parsing
+ * 
+ * @param str 
+ * @param cfg 
+ * @return char** 
+ */
 char	**parse(char *str, char *cfg)
 {
 	char		**args;
@@ -43,6 +59,7 @@ char	**parse(char *str, char *cfg)
 
 	oto = automaton_factory(cfg);
 	automaton_token(&token, oto, str);
+	sanatize_quotes_token(token);
 	if (token)
 		args = token_to_string(token);
 	else

@@ -15,6 +15,13 @@
 #include "parser_automaton.h"
 #include <stdlib.h>
 
+/**
+ * @brief Crée un nouveau jeton à partir des informations
+ * de position de la chaine initiale à parser
+ * 
+ * @param ppos 
+ * @return t_token* 
+ */
 t_token	*new_token(t_parse_pos *ppos)
 {
 	t_token	*t;
@@ -36,6 +43,13 @@ t_token	*new_token(t_parse_pos *ppos)
 	return (t);
 }
 
+/**
+ * @brief Compte le nombre de jeton rpésent dans une liste
+ * de jeeton
+ * 
+ * @param token 
+ * @return int 
+ */
 int	count_token(t_token *token)
 {
 	int	count;
@@ -80,6 +94,11 @@ void	add_token(t_token **token, t_parse_pos *ppos)
 	}
 }
 
+/**
+ * @brief Libère la mémoire alloué pour les jetons
+ * 
+ * @param token 
+ */
 void	token_dispose(t_token **token)
 {
 	t_token	*t;
