@@ -6,7 +6,7 @@
 #    By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/04 10:12:36 by dthalman          #+#    #+#              #
-#    Updated: 2022/02/23 08:20:51 by dthalman         ###   ########.fr        #
+#    Updated: 2022/02/23 09:38:24 by dthalman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ AR         = ar -rcs
 
 ### FILES ###
 NAME       = libparser.a
-INCS_DIR   = -I ../libft -I ./inc
+INCS_DIR   = -I ../libft -I ./inc -I ../incs
 SRCS_DIR   = ./srcs
 SRCS_NAME  = parser.c \
 			 parser_token.c \
@@ -41,15 +41,20 @@ LIBFT_A    = $(LIBFT_DIR)/libft.a
 ### TESTS ###
 TEST       = tester
 TESTS_DIR  = ./tests
-TESTS_NAME = libparser_tester.c 
+TESTS_NAME = libparser_tester.c 			 
 TESTS_INCS = -I./srcs
 TESTS_LNK  = -L. -lparser -L$(LIBFT_DIR) -lft 
-TESTS_SRCS = $(addprefix $(TESTS_DIR)/, $(TESTS_NAME))
+TESTS_SRCS = $(addprefix $(TESTS_DIR)/, $(TESTS_NAME)) \
+ 			../srcs/varenv.c \
+			../srcs/utils/utils.c \
+			../srcs/utils/env_utils.c \
+			../srcs/utils/array_utils.c
 TESTS_OBJS = $(TESTS_SRCS:.c=.o)
 ifeq ($(shell uname), Linux)
 	LEAKS = 
 else
-	LEAKS = leaks -atExit --
+#	LEAKS = leaks -atExit --
+	LEAKS = 
 endif
 ### RULES ###
 all: $(NAME)

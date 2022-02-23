@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 15:15:55 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/23 08:12:46 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/23 09:13:35 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,13 @@ int	token_automaton_tester(char *input)
 {
 	char	**token;
 	int		i;
+	t_shell	shell;
 
-	token = parse(input, "tests/automate.conf");
+	shell.cmdline = input;
+	shell.cmds = 0;
+	shell.envs = 0;
+	shell.error = 0;
+	token = parse(&shell, "tests/automate.conf");
 	printf("\ninput : %s\n\n", input);
 	token_print2(token);
 	i = 0;

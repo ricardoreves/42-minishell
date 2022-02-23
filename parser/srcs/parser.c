@@ -6,12 +6,13 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/23 08:21:06 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/23 09:27:01 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libparser.h"
 #include "libft.h"
+#include "minishell.h"
 #include <stdlib.h>
 
 /**
@@ -51,15 +52,16 @@ char	**token_to_string(t_token *token)
  * @param cfg 
  * @return char** 
  */
-char	**parse(char *str, char *cfg)
+char	**parse(t_shell *shell, char *cfg)
 {
 	char		**args;
 	t_token		*token;
 	t_automaton	*oto;
 
 	oto = automaton_factory(cfg);
-	automaton_token(&token, oto, str);
+	automaton_token(&token, oto, shell->cmdline);
 	sanatize_quotes_token(token);
+	exec_ident_token(token, shell);
 	if (token)
 		args = token_to_string(token);
 	else
