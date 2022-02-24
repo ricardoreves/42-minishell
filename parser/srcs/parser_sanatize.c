@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_sanatize.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
+/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/23 10:17:46 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/24 19:57:00 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	exec_ident_token(t_token *token, t_shell *shell)
 
 	t = token;
 	last_id = id_notset;
-	while (t)
+	while (last_id == -2 && t)
 	{
 		if (t->id == id_word)
 		{
