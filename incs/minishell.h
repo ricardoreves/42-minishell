@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/24 18:23:02 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/15 00:09:49 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ typedef struct s_shell
 	char **envs;
 	int error;
 } t_shell;
-
-#include "../parser/inc/libparser.h"
 
 typedef enum e_redirect
 {
