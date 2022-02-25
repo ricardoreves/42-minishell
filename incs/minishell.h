@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/15 00:09:49 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/25 14:24:33 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef enum e_redirect
 
 typedef struct s_cmd
 {
-	char *name;
 	char **args;
 	t_redirect redirect;
 	char *filename;
