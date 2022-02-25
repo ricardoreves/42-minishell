@@ -6,11 +6,16 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:03 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/11 03:09:06 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/25 16:58:20 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void init_config(t_shell *shell)
+{
+    shell->configpath = str_joinsep(getcwd(0, 0), CONFIGFILE, "/");
+}
 
 void init_asciiart(void)
 {
@@ -69,6 +74,7 @@ int main(int argc, char *argv[], char *envs[])
     // printf("%s\n", eval_variable(shell, "Hi $USERNAME, Welcome$FAKE to $HOME$FAKE!\0", 0));int g_num = 0;
 
     // override_signals();
+    init_config(shell);
     init_prompt(shell);
     // free_array(shell.envs);
     return (0);
