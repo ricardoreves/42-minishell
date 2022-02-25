@@ -6,7 +6,7 @@
 #    By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/04 10:12:36 by dthalman          #+#    #+#              #
-#    Updated: 2022/02/23 09:38:24 by dthalman         ###   ########.fr        #
+#    Updated: 2022/02/25 14:52:07 by dthalman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,14 +24,12 @@ AR         = ar -rcs
 NAME       = libparser.a
 INCS_DIR   = -I ../libft -I ./inc -I ../incs
 SRCS_DIR   = ./srcs
-SRCS_NAME  = parser.c \
-			 parser_token.c \
+SRCS_NAME  = parser_token.c \
 			 parser_readline.c \
 			 parser_automaton.c \
 			 parser_automaton_utils.c \
 			 parser_automaton_token.c \
 			 parser_automaton_reader.c \
-			 parser_sanatize.c \
 			 ascii.c
 SRCS       = $(addprefix $(SRCS_DIR)/, $(SRCS_NAME))
 OBJS       = $(SRCS:.c=.o)

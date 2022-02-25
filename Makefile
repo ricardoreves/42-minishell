@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+         #
+#    By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 01:47:02 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/02/15 01:22:29 by rpinto-r         ###   ########.fr        #
+#    Updated: 2022/02/25 14:53:42 by dthalman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NORM       = norminette
 NAME       = minishell
 INC        = ./incs
 SRC_DIR    = ./srcs
-SRC_NAME   = main.c builtin.c command.c error.c signal.c varenv.c
+SRC_NAME   = main.c builtin.c command.c error.c signal.c varenv.c parsing.c parsing_sanatize.c
 SRC_NAME  += utils/array_utils.c utils/env_utils.c utils/utils.c
 SRC_NAME  += builtins/cd.c builtins/echo.c builtins/env.c builtins/exit.c builtins/export.c builtins/pwd.c builtins/unset.c
 SRCS       = $(addprefix $(SRC_DIR)/, $(SRC_NAME))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libparser.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/25 10:51:14 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/25 14:55:59 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # define NON_CHAR_IDENTIFIER " ()<>|&;!><\t\v\f\n"
 # define CHAR_INDEXES_LEN 256
 # include <stdio.h>
-# include "minishell.h"
 
 enum e_bash_tokenid
 {
@@ -91,14 +90,9 @@ int				is_pipe(int c);
 int				is_empy_line(char *str);
 int				is_digit(int c);
 int				is_space(int c);
-char			**parse(t_shell *shell, char *config);
-t_parse_tree	*parse_tree(char **str);
 char			*get_nextline(int fd);
 t_automaton		*automaton_factory(char *filename);
 void			automaton_dispose(t_automaton *au);
 int				automaton_validator(t_automaton *au, char *str);
 void			automaton_token(t_token **token, t_automaton *au, char *str);
-void			sanatize_quotes_token(t_token *token);
-void			exec_ident_token(t_token *token, t_shell *shell);
-void			is_token_builtin(t_token *token);
 #endif
