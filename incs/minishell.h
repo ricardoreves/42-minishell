@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/25 14:24:33 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/25 16:19:22 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #define WRITE_END 1
 
 #include "../libft/libft.h"
+#include "../parser/inc/libparser.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdio.h>
@@ -110,4 +111,8 @@ int init_envslst(t_shell *shell, char *envs[]);
 int add_envlst(t_env **envs, t_env *env);
 int set_envlst(t_env **envs, char *name, char *value);
 int unset_envlst(t_env **envs, char *name); // bug
+char	**parse(t_shell *shell, char *config);
+void	sanatize_quotes_token(t_token *token);
+void	exec_ident_token(t_token *token, t_shell *shell);
+void	is_token_builtin(t_token *token);
 #endif

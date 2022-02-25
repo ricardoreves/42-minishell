@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_sanatize.c                                  :+:      :+:    :+:   */
+/*   parsing_sanatize.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/25 11:21:21 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/25 14:59:41 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libparser.h"
-#include "libft.h"
-#include <stdlib.h>
+#include "minishell.h"
 
 /**
  * @brief 
