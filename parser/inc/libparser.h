@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libparser.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
+/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/23 10:09:29 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/25 10:51:14 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,4 @@ void			automaton_token(t_token **token, t_automaton *au, char *str);
 void			sanatize_quotes_token(t_token *token);
 void			exec_ident_token(t_token *token, t_shell *shell);
 void			is_token_builtin(t_token *token);
-void			exec_ident_token(t_token *token, t_shell *shell);
 #endif
