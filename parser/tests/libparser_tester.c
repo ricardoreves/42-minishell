@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 15:15:55 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/23 09:13:35 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/25 08:13:11 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int	main(int __attribute__((unused)) argc, char __attribute__((unused)) **argv)
 	valid_automaton("\"blabla");
 	valid_automaton("\"blabla\" ");
 	token_automaton_tester("1234|1234");
-	token_automaton_tester("read -p | 'com\\\'' \t \"Entre | num : \"i|nt1\n");
+	token_automaton_tester("read -p | 'com\\\'' \t \"Entre | num : x\"i|nt1\n");
 	token_automaton_tester("read -p |  \t \"Entrez");
+	token_automaton_tester("commande>fichier");
 	return (0);
 	token_automaton_tester("read -p \"Entrez un numéro : \" int1\n");
 	token_automaton_tester("echo \"out\">>fichier");
-	token_automaton_tester("commande>fichier");
 	token_automaton_tester("commande<fichier");
 	token_automaton_tester("commande|fichier");
 	token_automaton_tester("commande |fichier");

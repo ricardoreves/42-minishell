@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/23 09:19:57 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/25 07:59:07 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int exec_command(t_shell *shell)
 	
 	pathname = 0;
 
-	args = eval_varenv_map(shell, parse(shell, ".config/parser/bash.conf"));
+	args = parse(shell, ".config/parser/bash.conf");
+	// args = eval_varenv_map(shell, parse(shell, ".config/parser/bash.conf"));
 	// args = eval_varenv_map(shell, ft_split(shell->cmdline, ' '));
 	// args = ft_split(shell->cmdline, ' ');
 	if (is_builtin(args))
