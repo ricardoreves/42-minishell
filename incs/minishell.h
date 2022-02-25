@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/25 16:19:22 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/25 16:47:25 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #define DOLLAR "\e[1;37m$ \e[0m"
 #define READ_END 0
 #define WRITE_END 1
+#define CONFIGFILE ".config/parser/bash.conf"
 
 #include "../libft/libft.h"
 #include "../parser/inc/libparser.h"
@@ -37,6 +38,7 @@ typedef struct s_shell
 	char *cmdline;
 	char **cmds;
 	char **envs;
+	char *configpath;
 	int error;
 } t_shell;
 
