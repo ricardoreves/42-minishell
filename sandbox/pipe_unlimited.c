@@ -90,7 +90,7 @@ int child_process(int idx, int **pipes, int num_pipes, char **args, int num_cmds
             redirect_output(redis[1], redis[0]);
         }
         close_pipes(pipes, num_pipes);
-        // printf("|||%s\n", args[0]);
+        //printf("|||%s\n", args[0]);
         execvp(args[0], args);
         perror("Error: execve() failed");
         return 1;
@@ -121,14 +121,14 @@ int main(void)
     //                     {"sed", "s/en.subject.pdf/fr.subject.txt/", 0},
     //                     {"tr", "a-z", "A-Z", 0}};
 
-    char *redis[][50] = {{"<", "sandbox/infile.txt0", 0},
-                         //{"42", "42", 0},
-                         //{">>", "sandbox/output.txt", 0},
+    char *redis[][50] = {{"<", "sandbox/infile.txt", 0},
+                         {"42", "42", 0},
+                         {">", "sandbox/outfile.txt", 0},
                          {0}};
 
     char *cmds[][50] = {{"cat", 0},
-                        //{"grep", "Hello", 0},
-                        //{"cat", "-e", 0},
+                        {"grep", "hello", 0},
+                        {"cat", "-e", 0},
                         {0}};
 
     // Number of commands
