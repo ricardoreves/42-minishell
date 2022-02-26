@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/25 14:59:31 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/26 10:28:39 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,22 @@
  * @param token 
  * @return char** 
  */
-char	**token_to_string(t_token *token)
+char	**token_to_string(t_token *token_from, t_token *token_to)
 {
 	char		**args;
 	int			i;
-	int			strlen;
 
-	args = malloc(sizeof(char **) * (count_token(token) + 1));
+	args = malloc(sizeof(char **) * (count_token(token_from, token_to) + 1));
 	i = 0;
-	while (token)
+	while (token_from)
 	{
-		strlen = ft_strlen(token->str);
-		args[i] = malloc(sizeof(char *) * (strlen + 1));
-		if (args[i])
-			ft_strlcpy(args[i], token->str, strlen + 1);
-		token = token->next;
+		args[i] = ft_strdup(token_from->str);
 		i++;
+		if (token_from == token_to)
+			break;
+		token_from = token_from->next;
 	}
-	args[i] = 0;
+	args[i] = NULL;
 	return (args);
 }
 
@@ -54,24 +52,21 @@ char	**parse(t_shell *shell, char *cfg)
 	char		**args;
 	t_token		*token;
 	t_automaton	*oto;
+	t_cmd		*cmds;
 
 	oto = automaton_factory(cfg);
 	automaton_token(&token, oto, shell->cmdline);
 	sanatize_quotes_token(token);
 	exec_ident_token(token, shell);
+	cmds = NULL;
+	prepare_cmd(token, &cmds);
+	print_cmd(cmds);
+	free_cmd(&cmds);
 	if (token)
-		args = token_to_string(token);
+		args = token_to_string(token, NULL);
 	else
 		args = NULL;
 	token_dispose(&token);
 	automaton_dispose(oto);
 	return (args);
-}
-
-t_parse_tree	*parse_tree(char __attribute__((unused)) **str)
-{
-	t_parse_tree	*tree;
-
-	tree = malloc(sizeof(t_parse_tree *));
-	return (tree);
 }

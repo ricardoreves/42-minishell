@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/25 14:55:59 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/26 09:42:01 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,32 +16,6 @@
 # define NON_CHAR_IDENTIFIER " ()<>|&;!><\t\v\f\n"
 # define CHAR_INDEXES_LEN 256
 # include <stdio.h>
-
-enum e_bash_tokenid
-{
-	id_notset = -2,
-	id_blank = -1,
-	id_dbl_quotes = 1,
-	id_single_quotes,
-	id_out_write,
-	id_out_append,
-	id_in_file,
-	id_in_std,
-	id_pipe,
-	id_start_parenthesis,
-	id_end_parenthesis,
-	id_and,
-	id_or,
-	id_word,
-	id_exec,
-	id_builtin_cd,
-	id_builtin_echo,
-	id_builtin_env,
-	id_builtin_exit,
-	id_builtin_export,
-	id_builtin_pwd,
-	id_builtin_unset
-};
 
 typedef struct s_parse_pos
 {
@@ -83,7 +57,7 @@ typedef struct s_automaton
 	int		*accepting;
 }	t_automaton;
 void			token_dispose(t_token **token);
-int				count_token(t_token *token);
+int				count_token(t_token *from, t_token *to);
 void			add_token(t_token **token, t_parse_pos *ppos);
 int				is_redirection(int c);
 int				is_pipe(int c);

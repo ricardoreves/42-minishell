@@ -50,15 +50,17 @@ t_token	*new_token(t_parse_pos *ppos)
  * @param token 
  * @return int 
  */
-int	count_token(t_token *token)
+int	count_token(t_token *from, t_token *to)
 {
 	int	count;
 
 	count = 0;
-	while (token)
+	while (from)
 	{
 		count++;
-		token = token->next;
+		if (to && from == to)
+			break ;
+		from = from->next;
 	}
 	return (count);
 }
