@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   array_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 20:43:01 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/07 19:17:10 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/26 14:33:37 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,26 @@ char **clone_array(char *arr[])
     while (i--)
         dup[i] = ft_strdup(arr[i]);
     return (dup);
+}
+
+void	push_array(char *str, char ***arr)
+{
+	char	**new_arr;
+	int		len;
+	int		i;
+
+	len = array_length(*arr);
+	new_arr = ft_calloc(sizeof(char**), len + 2);
+    if (!new_arr)
+        return ;
+	i = 0;
+    while (*arr && *arr[i])
+	{
+		new_arr[i] = *arr[i];
+		i++;
+	}
+	new_arr[i] = ft_strdup(str);
+	new_arr[i + 1] = NULL;
+	free(*arr);
+	*arr = new_arr;
 }
