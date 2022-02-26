@@ -6,7 +6,7 @@
 #    By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 01:47:02 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/02/25 14:53:42 by dthalman         ###   ########.fr        #
+#    Updated: 2022/02/26 15:37:59 by dthalman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,13 @@ ifeq ($(shell uname), Linux)
     LIBRL_INC  = /usr/include
 	DEBUG_FLAG = -g3 -fsanitize=leak
 else
-    LIBRL_DIR  = $(HOME)/.brew/opt/readline/lib
-    LIBRL_INC  = $(HOME)/.brew/opt/readline/include
+	ifneq (,$(wildcard /usr/local/Cellar/readline/8.1.2/include/readline/readline.h))
+		LIBRL_DIR  = /usr/local/Cellar/readline/8.1.2/lib
+		LIBRL_INC  = /usr/local/Cellar/readline/8.1.2/include	
+	else
+		LIBRL_DIR  = $(HOME)/.brew/opt/readline/lib
+		LIBRL_INC  = $(HOME)/.brew/opt/readline/include
+	endif
 	DEBUG_FLAG = -g3 -fsanitize=address
 endif
 
