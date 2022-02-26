@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 15:15:55 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/25 08:13:11 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/26 14:53:41 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,6 @@ void	test_automaton(void)
 	automaton_dispose(oto);
 }
 
-void	token_print2(char **str)
-{
-	if (!str)
-		perror("input command line");
-	else
-	{
-		while (*str)
-		{
-			printf("token : [%-15s]\n", *str);
-			str++;
-		}		
-	}
-}
-
 /**
  * @brief vérfication de la génération de jeton
  * 
@@ -103,29 +89,18 @@ void	token_print2(char **str)
  */
 int	token_automaton_tester(char *input)
 {
-	char	**token;
-	int		i;
-	t_shell	shell;
+	t_token		*token;
+	t_automaton	*oto;
 
-	shell.cmdline = input;
-	shell.cmds = 0;
-	shell.envs = 0;
-	shell.error = 0;
-	token = parse(&shell, "tests/automate.conf");
+	oto = automaton_factory("tests/automate.conf");
+	automaton_token(&token, oto, input);
 	printf("\ninput : %s\n\n", input);
-	token_print2(token);
-	i = 0;
-	if (token)
-	{
-		while (token[i])
-			free(token[i++]);
-		free(token);
-	}
+	token_print(token);
+	token_dispose(&token);
+	automaton_dispose(oto);
 	printf("\n\n");
 	return (1);
 }
-
-/*
 
 void	token_print(t_token *token)
 {
@@ -140,6 +115,7 @@ void	token_print(t_token *token)
 		token = token->next;
 	}
 }
+/*
 
 int	token_automaton_tester_old(char *input)
 {
