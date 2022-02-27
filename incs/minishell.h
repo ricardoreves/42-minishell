@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
+/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/26 15:14:26 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/27 17:18:03 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,19 @@ typedef enum e_bash_token_id
 	id_builtin_unset
 }	t_bash_token_id;
 
+typedef struct s_cmd
+{
+	char 			*name;
+	char			 **args;
+	int				redirect;
+	char 			*filename;
+	struct s_cmd	*next;
+} t_cmd;
+
 typedef struct s_shell
 {
 	char *cmdline;
-	char **cmds;
+	t_cmd *cmds;
 	char **envs;
 	char *configpath;
 	int error;
@@ -76,15 +85,6 @@ typedef enum e_redirect
 	OUTPUT_SINGLE, // >
 	OUTPUT_DOUBLE  // >>
 } t_redirect;
-
-typedef struct s_cmd
-{
-	char 			*name;
-	char			 **args;
-	int				redirect;
-	char 			*filename;
-	struct s_cmd	*next;
-} t_cmd;
 
 void print_array(char *arr[]);
 void free_array(char *arr[]);
