@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   array_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
+/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 20:43:01 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/26 14:33:37 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/27 17:08:31 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ void	push_array(char *str, char ***arr)
 	int		len;
 	int		i;
 
+	i = 0;
 	len = array_length(*arr);
 	new_arr = ft_calloc(sizeof(char**), len + 2);
     if (!new_arr)
         return ;
-	i = 0;
     while (*arr && *arr[i])
 	{
 		new_arr[i] = *arr[i];
