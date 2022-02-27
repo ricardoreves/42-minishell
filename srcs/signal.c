@@ -6,13 +6,13 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 14:58:20 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/06 17:52:09 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/28 00:06:12 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void signal_handler(int signum)
+void handle_signals(int signum)
 {
     if (signum == SIGINT)
     {
@@ -25,6 +25,6 @@ void signal_handler(int signum)
 
 void override_signals(void)
 {
-    signal(SIGINT, signal_handler);
+    signal(SIGINT, handle_signals);
     signal(SIGQUIT, SIG_IGN);
 }
