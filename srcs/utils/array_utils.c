@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 20:43:01 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/27 17:08:31 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/28 02:57:37 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,37 +47,34 @@ int array_length(char *arr[])
 char **clone_array(char *arr[])
 {
     int i;
-    char **dup;
+    char **clone;
 
     i = 0;
     while (arr && arr[i])
         i++;
-    dup = ft_calloc(sizeof(*arr), i + 1);
-    if (!dup)
+    clone = ft_calloc(sizeof(*arr), i + 1);
+    if (!clone)
         return (0);
     while (i--)
-        dup[i] = ft_strdup(arr[i]);
-    return (dup);
+        clone[i] = ft_strdup(arr[i]);
+    return (clone);
 }
 
-void	push_array(char *str, char ***arr)
+void push_array(char *str, char ***arr)
 {
-	char	**new_arr;
-	int		len;
-	int		i;
+    int i;
+    char **tmp;
 
-	i = 0;
-	len = array_length(*arr);
-	new_arr = ft_calloc(sizeof(char**), len + 2);
-    if (!new_arr)
-        return ;
-    while (*arr && *arr[i])
-	{
-		new_arr[i] = *arr[i];
-		i++;
-	}
-	new_arr[i] = ft_strdup(str);
-	new_arr[i + 1] = NULL;
-	free(*arr);
-	*arr = new_arr;
+    i = 0;
+    while ((*arr) && (*arr)[i])
+        i++;
+    tmp = ft_calloc(sizeof(char **), i + 2);
+    if (!tmp)
+        return;
+    tmp[i] = ft_strdup(str);
+    tmp[i + 1] = 0;
+    while (i--)
+        tmp[i] = ft_strdup((*arr)[i]);
+    free_array((*arr));
+    (*arr) = tmp;
 }
