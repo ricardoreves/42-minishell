@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/28 03:25:24 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/28 17:16:49 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,11 @@ int init_envs(t_shell *shell, char *envp[]);
 void handle_signals(int signum);
 void override_signals(void);
 
-char *str_joinsep(char *str1, char *str2, char *sep);
+char *str_joins(char *str1, char *str2, char *sep);
 char *str_duplicate_nbytes(char *str, size_t n);
 int str_compare(char *str1, char *str2);
-int put_command_error(t_shell *shell, char *cmd, char *msg);
+
+int put_command_error(t_shell *shell, char *cmd, char *msg, int num);
 
 int exec_cd(t_shell *shell, char **args);
 int exec_echo(t_shell *shell, char **args);
@@ -117,7 +118,7 @@ void init_asciiart(void);
 int is_builtin(char *name);
 void exec_builtin(t_shell *shell, t_cmd *cmd);
 int exec_command(t_shell *shell);
-char *get_command_path(t_shell *shell, char *name);
+int access_command(char *path, char **name);
 int handle_commands(t_shell *shell);
 
 int redirect_input(t_cmd *cmd);
