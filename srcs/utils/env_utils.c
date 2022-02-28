@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 20:47:22 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/08 15:32:25 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/28 15:54:04 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int add_env(t_shell *shell, char *name, char *value)
 	envs = ft_calloc(sizeof(*envs), i + 2);
 	if (!envs)
 		return (0);
-	envs[i] = str_joinsep(name, value, "=");
+	envs[i] = str_joins(name, value, "=");
 	while (i--)
 		envs[i] = ft_strdup(shell->envs[i]);
 	free(name);
@@ -77,7 +77,7 @@ int set_env(t_shell *shell, char *name, char *value)
 		if (contain_env(shell->envs[i], name))
 		{
 			free(shell->envs[i]);
-			shell->envs[i] = str_joinsep(name, value, "=");
+			shell->envs[i] = str_joins(name, value, "=");
 		}
 	}
 	free(name);
