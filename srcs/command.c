@@ -6,18 +6,28 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/25 16:54:48 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/28 04:19:13 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libparser.h"
 
-int find_command(t_shell *shell, char *name, char **pathname)
+void free_shell(t_shell *shell)
+{
+	if (shell->cmds)
+		free_cmds(shell->cmds);
+	if (shell->envs)
+		free_array(shell->envs);
+	if (shell->config)
+		free(shell->config);
+}
+
+int find_command(t_shell *shell, char **name)
 {
 	int i;
 	char *path;
 	char **paths;
+	char *pathname;
 
 	i = 0;
 	path = get_env(shell, "PATH");
@@ -28,74 +38,71 @@ int find_command(t_shell *shell, char *name, char **pathname)
 		return (0);
 	while (paths[i])
 	{
-		(*pathname) = str_joinsep(paths[i++], name, "/");
-		// printf("%d %s\n", access((*pathname), F_OK), *pathname);
-		if (access((*pathname), F_OK) != -1)
+		pathname = str_joinsep(paths[i++], (*name), "/");
+		if (access(pathname, F_OK) != -1)
 		{
+			free((*name));
 			free_array(paths);
+			(*name) = pathname;
 			return (1);
 		}
-		free((*pathname));
+		free(pathname);
 	}
 	free_array(paths);
 	return (0);
+}
+
+int handle_commands(t_shell *shell)
+{
+	int count;
+
+	count = count_cmds(shell->cmds);
+	if (count == 1)
+	{
+		exec_command(shell);
+	}
+	else if (count > 1)
+	{
+	}
+	printf("nb_cmds: %d\n", count_cmds(shell->cmds));
+	return 0;
 }
 
 int exec_command(t_shell *shell)
 {
 	int wstatus;
 	pid_t cpid;
-	char **args;
-	char *pathname;
+	int ret;
 
-	pathname = 0;
-	args = parse(shell, shell->configpath);
-
-	// args = eval_varenv_map(shell, parse(shell, ".config/parser/bash.conf"));
-	// args = eval_varenv_map(shell, ft_split(shell->cmdline, ' '));
-	// args = ft_split(shell->cmdline, ' ');
-	if (is_builtin(args))
-	{
-		exec_builtin(shell, args);
-		free_array(args);
-		return (1);
-	}
-
-	cpid = fork();
-	if (cpid == -1)
-	{
-		perror("Error: fork() failed\n");
-		exit(1);
-	}
-	else if (cpid == 0)
-	{
-		printf("Child\n");
-		// printf("%d\n", access(args[0], R_OK));
-
-		if (ft_strncmp(args[0], "/", 1) == 0)
-			put_command_error(shell, args[0], "is a directory");
-		else if (find_command(shell, args[0], &pathname) == 0)
-			put_command_error(shell, args[0], "command not found");
-		else if (execve(pathname, args, shell->envs))
-		{
-			// shell->error = errno;
-			put_command_error(shell, args[0], strerror(errno));
-		}
-
-		if (pathname)
-			free(pathname);
-		free_array(args);
-		free_array(shell->envs);
-		free(shell->configpath);
-		exit(0);
-	}
+	if (is_builtin(shell->cmds->name))
+		exec_builtin(shell, shell->cmds);
+	// else if (str_compare(shell->cmds->name, "/") == 0 || str_compare(shell->cmds->name, "./") == 0)
+	// 	put_command_error(shell, shell->cmds->name, "is a directory");
+	// else if (ft_strncmp(shell->cmds->name, "/", 1) || find_command(shell, &shell->cmds->name) == 0)
+	//	put_command_error(shell, shell->cmds->name, "command not found");
 	else
 	{
-		// wait(&wstatus);
+		cpid = fork();
+		if (cpid == -1)
+			perror("Error: fork() failed\n");
+		else if (cpid == 0)
+		{
+			handle_redirect(shell->cmds);
+			// print_cmds(shell->cmds);
+			ret = execve(shell->cmds->name, shell->cmds->args, shell->envs);
+			if (errno == 2) // 127
+				put_command_error(shell, shell->cmds->name, "command not found");
+			else if (ret != 0)
+			{
+				shell->error = errno;
+				printf("errno: %d\n", errno);
+				put_command_error(shell, shell->cmds->name, strerror(errno));
+			}
+			free_shell(shell);
+			exit(0);
+		}
 		waitpid(cpid, &wstatus, WUNTRACED);
-		printf("Parent\n");
-		free_array(args);
+		free_cmds(shell->cmds);
 	}
-
 	return (0);
 }
