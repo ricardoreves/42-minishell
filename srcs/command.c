@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/28 18:19:59 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/28 19:38:19 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,9 @@ int handle_commands(t_shell *shell)
 
 	count = count_cmds(shell->cmds);
 	if (count == 1)
-	{
-		exec_command(shell);
+	{   
+	    if (shell->cmds->name)
+		   exec_command(shell);
 	}
 	else if (count > 1)
 	{
@@ -100,6 +101,7 @@ int exec_command(t_shell *shell)
 		{
 			handle_redirect(shell->cmds);
 			// print_cmds(shell->cmds);
+			printf("%d\n", execve(shell->cmds->name, shell->cmds->args, shell->envs));
 			if (execve(shell->cmds->name, shell->cmds->args, shell->envs))
 			{
 				put_command_error(shell, shell->cmds->name, strerror(errno), errno);
