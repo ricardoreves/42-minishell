@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 21:28:31 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/08 15:47:39 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/28 16:57:31 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void change_dir(t_shell *shell, char *path)
 {
     if (chdir(path) != 0)
-        put_command_error(shell, "cd", strerror(errno));
+        put_command_error(shell, "cd", strerror(errno), errno);
 }
 
 void update_pwd(t_shell *shell, char *name)
@@ -25,7 +25,7 @@ void update_pwd(t_shell *shell, char *name)
     ft_bzero(cwd, sizeof(cwd));
     if (getcwd(cwd, sizeof(cwd)))
     {
-        printf("UPDATE_PWD>>%s: %s\n", name, cwd);
+        //printf("UPDATE_PWD>>%s: %s\n", name, cwd);
         set_env(shell, ft_strdup(name), ft_strdup(cwd));
     }
     else
@@ -40,9 +40,9 @@ int exec_cd(t_shell *shell, char *args[])
     // add_env(shell, ft_strdup("KKKK"), ft_strdup("0"));
     update_pwd(shell, "OLDPWD");
 
-    add_env(shell, ft_strdup("MAR"), ft_strdup("555"));
-    set_env(shell, ft_strdup("MAR"), ft_strdup("9999999"));
-    printf("EXEC_CD>>%s\n", get_env(shell, "MAR"));
+    //add_env(shell, ft_strdup("MAR"), ft_strdup("555"));
+    //set_env(shell, ft_strdup("MAR"), ft_strdup("9999999"));
+    //printf("EXEC_CD>>%s\n", get_env(shell, "MAR"));
 
     // print_array(shell->envs);
 
@@ -61,8 +61,8 @@ int exec_cd(t_shell *shell, char *args[])
     else
         change_dir(shell, args[1]);
     update_pwd(shell, "PWD");
-    printf("EXEC_CD>>%s\n", get_env(shell, "OLDPWD"));
-    printf("EXEC_CD>>%s\n", get_env(shell, "PWD"));
+    //printf("EXEC_CD>>%s\n", get_env(shell, "OLDPWD"));
+    //printf("EXEC_CD>>%s\n", get_env(shell, "PWD"));
     return (0);
 }
 
