@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_sanatize.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
+/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/26 15:09:22 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/02/28 03:33:06 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 /**
  * @brief Supprime les guillements d'un element de la liste
- * 
- * @param t 
+ *
+ * @param t
  */
-void	sanatize_quotes_word_token(t_token *t)
+void sanatize_quotes_word_token(t_token *t)
 {
-	int	len;
-	int	i;
-	int	decal;
+	int len;
+	int i;
+	int decal;
 
 	len = ft_strlen(t->str);
 	i = -1;
@@ -37,12 +37,12 @@ void	sanatize_quotes_word_token(t_token *t)
 
 /**
  * @brief supprime les guillements de toute la liste
- * 
- * @param token 
+ *
+ * @param token
  */
-void	sanatize_quotes_token(t_token *token)
+void sanatize_quotes_token(t_token *token)
 {
-	t_token	*t;
+	t_token *t;
 
 	t = token;
 	while (t)
@@ -61,21 +61,20 @@ void	sanatize_quotes_token(t_token *token)
 
 /**
  * @brief remplace les variables d'environnment et identifie si
- * c'est un executable 
- * 
- * @param token 
- * @param shell 
+ * c'est un executable
+ *
+ * @param token
+ * @param shell
  */
-void	exec_ident_token(t_token *token, t_shell *shell)
+void exec_ident_token(t_token *token, t_shell *shell)
 {
-	t_token	*t;
-	char	*str;
+	t_token *t;
+	char *str;
 
 	t = token;
 	while (t)
 	{
-		if (t->id == id_word || t->id == id_dbl_quotes
-			|| t->id == id_single_quotes)
+		if (t->id == id_word || t->id == id_dbl_quotes || t->id == id_single_quotes)
 		{
 			str = eval_varenv_str(shell, t->str, 0);
 			free(t->str);
@@ -88,10 +87,10 @@ void	exec_ident_token(t_token *token, t_shell *shell)
 
 /**
  * @brief identifie les jetons de type builtin
- * 
- * @param token 
+ *
+ * @param token
  */
-void	set_token_builtin(t_token *token)
+void set_token_builtin(t_token *token)
 {
 	if (str_compare(token->str, "cd") == 0)
 		token->id = id_builtin_cd;
@@ -111,11 +110,11 @@ void	set_token_builtin(t_token *token)
 
 /**
  * @brief Vérifie si l'id est un mot
- * 
- * @param id 
- * @return int 
+ *
+ * @param id
+ * @return int
  */
-int	is_word(int id)
+int is_word(int id)
 {
 	if (is_id_builtin(id) || id == id_word)
 		return (1);
@@ -125,16 +124,13 @@ int	is_word(int id)
 
 /**
  * @brief Vérifie si l'id est de type redirection
- * 
- * @param id 
- * @return int 
+ *
+ * @param id
+ * @return int
  */
-int	is_redirect(int id)
+int is_redirect(int id)
 {
-	if (id == id_out_write
-		|| id == id_out_append
-		|| id == id_in_file
-		|| id == id_in_std)
+	if (id == id_out_write || id == id_out_append || id == id_in_file || id == id_in_std)
 		return (1);
 	else
 		return (0);
@@ -142,19 +138,13 @@ int	is_redirect(int id)
 
 /**
  * @brief vérifie si l'id est de type builtin
- * 
- * @param id 
- * @return int 
+ *
+ * @param id
+ * @return int
  */
-int	is_id_builtin(int id)
+int is_id_builtin(int id)
 {
-	if (id == id_builtin_cd
-		|| id == id_builtin_echo
-		|| id == id_builtin_env
-		|| id == id_builtin_exit
-		|| id == id_builtin_export
-		|| id == id_builtin_pwd
-		|| id == id_builtin_unset)
+	if (id == id_builtin_cd || id == id_builtin_echo || id == id_builtin_env || id == id_builtin_exit || id == id_builtin_export || id == id_builtin_pwd || id == id_builtin_unset)
 		return (1);
 	else
 		return (0);
@@ -162,37 +152,37 @@ int	is_id_builtin(int id)
 
 /**
  * @brief Get the last cmd object
- * 
- * @param cmd 
- * @return t_cmd* 
+ *
+ * @param cmd
+ * @return t_cmd*
  */
-t_cmd	*get_last_cmd(t_cmd *cmd)
+t_cmd *get_last_cmd(t_cmd *cmd)
 {
 	if (!cmd)
-		return (NULL);
+		return (0);
 	while (cmd->next)
 		cmd = cmd->next;
 	return (cmd);
 }
 
-t_cmd	*create_cmd(void)
+t_cmd *create_cmd(void)
 {
-	t_cmd	*new_cmd;
+	t_cmd *cmd;
 
-	new_cmd = ft_calloc(sizeof(t_cmd), 1);
-	new_cmd->redirect = id_notset;
-	return (new_cmd);
+	cmd = ft_calloc(sizeof(t_cmd), 1);
+	cmd->redirect = id_notset;
+	return (cmd);
 }
 
 /**
  * @brief Ajoute une commande à la fin de la liste des commandes
- * 
- * @param new_cmd 
- * @param cmds 
+ *
+ * @param new_cmd
+ * @param cmds
  */
-void	push_cmd(t_cmd *new_cmd, t_cmd **cmds)
+void push_cmd(t_cmd *new_cmd, t_cmd **cmds)
 {
-	t_cmd	*last_cmd;
+	t_cmd *last_cmd;
 
 	if (!(*cmds))
 	{
@@ -208,88 +198,113 @@ void	push_cmd(t_cmd *new_cmd, t_cmd **cmds)
 /**
  * @brief Remplie la liste cmds avec toutes les commandes
  *  a effectué à partir du contenu des jetons crée par le parser.
- * 
- * @param token 
- * @param cmds 
+ *
+ * @param token
+ * @param cmds
  */
-void	prepare_cmd(t_token *token, t_cmd **cmds)
+void prepare_cmds(t_token *token, t_cmd **cmds)
 {
-	t_cmd	*new_cmd;
-	t_token	*start_token;
-	char	**args;
+	t_cmd *cmd;
+	//char **args;
+	//int i;
 
-	start_token = token;
-	new_cmd = create_cmd();
-	push_cmd(new_cmd, cmds);
+	//i = 0;
+	//args = 0;
+	cmd = create_cmd();
+	push_cmd(cmd, cmds);
+	cmd->args = 0;
 	while (token)
 	{
 		if (is_word(token->id))
 		{
-			args = new_cmd->args;
-			push_array(token->str, &(args));
-			new_cmd->args = args;
-			if (new_cmd->args && *(new_cmd->args) && !new_cmd->name)
-				new_cmd->name = ft_strdup(*(new_cmd->args));
+			//printf(">>%s\n", token->str);
+			push_array(token->str, &cmd->args);
+			if (!cmd->name)
+				cmd->name = ft_strdup(token->str);
+			//print_array(cmd->args);
+			// if (new_cmd->args && *(new_cmd->args) && !new_cmd->name)
+			//	new_cmd->name = ft_strdup(*(new_cmd->args));
+			// i++;
 		}
 		else if (is_redirect(token->id))
 		{
-			new_cmd->redirect = token->id;
+			cmd->redirect = token->id;
 			token = token->next;
 			if (token)
-				new_cmd->filename = ft_strdup(token->str);
+				cmd->filename = ft_strdup(token->str);
 		}
 		else if (token->id == id_pipe)
 		{
-			new_cmd = create_cmd();
-			push_cmd(new_cmd, cmds);
+			cmd = create_cmd();
+			push_cmd(cmd, cmds);
 		}
 		token = token->next;
 	}
 }
 
 /**
- * @brief Affiche sur la console le contenu de la liste de commande
- * 
- * @param cmds 
+ * @brief Affiche le contenu de la liste des commandes
+ * @param cmds
  */
-void	print_cmd(t_cmd *cmds)
+void print_cmds(t_cmd *cmds)
 {
-	char	**args;
+	int i;
+	t_cmd *cmd;
 
-	while (cmds)
+	i = -1;
+	cmd = cmds;
+	while (cmd)
 	{
-		printf("commande :\n");
-		printf("\tname : %s\n", cmds->name);
-		args = cmds->args;
-		while (args && *args)
-		{
-			printf("\targs : %s\n", *args);
-			args++;
-		}
-		printf("\tredirect : %d\n", cmds->redirect);
-		printf("\tfilename : %s\n", cmds->filename);
-		cmds = cmds->next;
+		printf("commande:\n");
+		printf("name: %s\n", cmd->name);
+		//print_array(cmd->args);
+		while (cmd->args && cmd->args[++i])
+			printf("arg[%d]: %s\n", i, cmd->args[i]);
+		printf("redirect: %d\n", cmd->redirect);
+		printf("filename: %s\n", cmd->filename);
+		printf("---------------\n");
+		cmd = cmd->next;
 	}
 }
 
 /**
  * @brief Libère la mémoire de la liste des commandes
- * 
- * @param cmds 
+ * @param cmds
  */
-void	free_cmd(t_cmd **cmds)
+void free_cmds(t_cmd *cmds)
 {
-	t_cmd	*cmd;
+	t_cmd *cmd;
 
 	if (!cmds)
-		return ;
-	cmd = *cmds;
+		return;
+	cmd = cmds;
 	while (cmd)
 	{
-		free_array(cmd->args);
-		free(cmd->filename);
 		free(cmd->name);
+		free(cmd->filename);
+		free_array(cmd->args);
 		cmd = cmd->next;
 	}
-	*cmds = 0;
+	free(cmds);
+}
+
+/**
+ * @brief Compte le nombre de commandes
+ * @param cmds
+ */
+int count_cmds(t_cmd *cmds)
+{
+	int i;
+	t_cmd *cmd;
+
+	if (!cmds)
+		return (0);
+	i = 0;
+	cmd = cmds;
+	while (cmd)
+	{
+		cmd = cmd->next;
+		i++;
+	}
+	return (i);
 }
