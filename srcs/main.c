@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:03 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/28 03:19:23 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/28 15:54:04 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void init_config(t_shell *shell)
 
     ft_bzero(cwd, sizeof(cwd));
     if (getcwd(cwd, sizeof(cwd)))
-        shell->config = str_joinsep(cwd, CONFIGFILE, "/");
+        shell->config = str_joins(cwd, CONFIGFILE, "/");
 }
 
 void init_asciiart(void)
@@ -37,7 +37,7 @@ void init_prompt(t_shell *shell)
 
     while (1)
     {
-        prompt = str_joinsep(NAME, DOLLAR, get_env(shell, "PWD"));
+        prompt = str_joins(NAME, DOLLAR, get_env(shell, "PWD"));
         shell->cmdline = readline(prompt);
         if (*shell->cmdline != 0)
         {
@@ -62,7 +62,7 @@ int main(int argc, char *argv[], char *envs[])
     init_envs(shell, envs);
 
     // test env_utils
-    // set_env(shell, ft_strdup("PATH"), str_joinsep(getenv("PATH"), getenv("PWD"), ":"));
+    // set_env(shell, ft_strdup("PATH"), str_joins(getenv("PATH"), getenv("PWD"), ":"));
 
     // add_env(shell, ft_strdup("OLDPWD"), ft_strdup("/"));
     // add_env(shell, ft_strdup("MARVIN"), ft_strdup("21"));
