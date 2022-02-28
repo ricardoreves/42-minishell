@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/01 00:20:38 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/01 00:27:07 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ char *evaluate_str_env(t_shell *shell, char *str, int k);
 
 void free_shell(t_shell *shell);
 void free_pipes(int **pipes, int size);
+
+void close_pipes(t_shell *shell);
+int create_pipes(t_shell *shell);
 
 int contain_env(char *str, char *name);
 int add_env(t_shell *shell, char *name, char *value);
