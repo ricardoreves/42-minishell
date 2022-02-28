@@ -6,39 +6,51 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/28 04:19:13 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/28 18:19:59 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void free_shell(t_shell *shell)
-{
-	if (shell->cmds)
-		free_cmds(shell->cmds);
-	if (shell->envs)
-		free_array(shell->envs);
-	if (shell->config)
-		free(shell->config);
-}
+/*
+is directory
+bash: ../: Is a directory
+bash: ./: Is a directory
+bash: /: Is a directory
 
-int find_command(t_shell *shell, char **name)
+bash: syntax error near unexpected token `;;'
+
+bash: ./l: No such file or directory
+bash: //kk: No such file or directory
+ */
+
+int is_directory(char *path) // 126
 {
 	int i;
-	char *path;
-	char **paths;
-	char *pathname;
 
 	i = 0;
-	path = get_env(shell, "PATH");
-	if (!path)
-		return (0);
+	while (path && path[i])
+	{
+		if (path[i] != '/' && path[i] != '.')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int access_command(char *path, char **name)
+{
+	int i;
+	char *pathname;
+	char **paths;
+
+	i = 0;
 	paths = ft_split(path, ':');
 	if (!paths)
 		return (0);
 	while (paths[i])
 	{
-		pathname = str_joinsep(paths[i++], (*name), "/");
+		pathname = str_joins(paths[i++], (*name), "/");
 		if (access(pathname, F_OK) != -1)
 		{
 			free((*name));
@@ -72,14 +84,13 @@ int exec_command(t_shell *shell)
 {
 	int wstatus;
 	pid_t cpid;
-	int ret;
 
 	if (is_builtin(shell->cmds->name))
 		exec_builtin(shell, shell->cmds);
-	// else if (str_compare(shell->cmds->name, "/") == 0 || str_compare(shell->cmds->name, "./") == 0)
-	// 	put_command_error(shell, shell->cmds->name, "is a directory");
-	// else if (ft_strncmp(shell->cmds->name, "/", 1) || find_command(shell, &shell->cmds->name) == 0)
-	//	put_command_error(shell, shell->cmds->name, "command not found");
+	else if (is_directory(shell->cmds->name))
+		put_command_error(shell, shell->cmds->name, "is a directory", 126);
+	else if (access_command(get_env(shell, "PATH"), &shell->cmds->name) == 0)
+		put_command_error(shell, shell->cmds->name, "command not found", 127);
 	else
 	{
 		cpid = fork();
@@ -89,14 +100,9 @@ int exec_command(t_shell *shell)
 		{
 			handle_redirect(shell->cmds);
 			// print_cmds(shell->cmds);
-			ret = execve(shell->cmds->name, shell->cmds->args, shell->envs);
-			if (errno == 2) // 127
-				put_command_error(shell, shell->cmds->name, "command not found");
-			else if (ret != 0)
+			if (execve(shell->cmds->name, shell->cmds->args, shell->envs))
 			{
-				shell->error = errno;
-				printf("errno: %d\n", errno);
-				put_command_error(shell, shell->cmds->name, strerror(errno));
+				put_command_error(shell, shell->cmds->name, strerror(errno), errno);
 			}
 			free_shell(shell);
 			exit(0);
