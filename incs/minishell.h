@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/28 17:16:49 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/28 17:58:47 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,10 @@ int array_length(char *arr[]);
 char **clone_array(char *arr[]);
 void push_array(char *str, char ***arr);
 
-char *get_varenv_value(t_shell *shell, char *str, int *i);
-char *eval_varenv_str(t_shell *shell, char *str, int k);
-char **eval_varenv_map(t_shell *shell, char *arr[]);
+char *get_evaluate_value(t_shell *shell, char *str, int *i);
+char *evaluate_str_env(t_shell *shell, char *str, int k);
+
+void free_shell(t_shell *shell);
 
 int contain_env(char *str, char *name);
 int add_env(t_shell *shell, char *name, char *value);
@@ -143,7 +144,7 @@ int set_envlst(t_env **envs, char *name, char *value);
 int unset_envlst(t_env **envs, char *name); // bug
 
 char **parse_command_line(t_shell *shell);
-void sanatize_quotes_token(t_token *token);
+void sanitize_quotes_token(t_token *token);
 void exec_ident_token(t_token *token, t_shell *shell);
 void set_token_builtin(t_token *token);
 char **token_to_string(t_token *token_from, t_token *token_to);
