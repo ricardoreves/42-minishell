@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/01 00:14:10 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/01 00:24:15 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int create_pipes(t_shell *shell)
 	return (1);
 }
 
-void child_process_command(t_shell *shell, t_cmd *cmd, int idx)
+void child_process_command(t_shell *shell, t_cmd *cmd, int num)
 {
 	pid_t cpid;
 	// int wstatus;
@@ -60,21 +60,21 @@ void child_process_command(t_shell *shell, t_cmd *cmd, int idx)
 	else if (cpid == 0) // Child
 	{
 		// input
-		if (idx > 0)
+		if (num > 0)
 		{
-			dup2(shell->pipes[idx - 1][0], 0);
+			dup2(shell->pipes[num - 1][0], 0);
 		}
-		else if (idx == 0) // first
+		else if (num == 0) // first
 		{
 			handle_redirect(cmd);
 		}
 
 		// output
-		if (idx < shell->num_cmds - 1)
+		if (num < shell->num_cmds - 1)
 		{
-			dup2(shell->pipes[idx][1], 1);
+			dup2(shell->pipes[num][1], 1);
 		}
-		else if (idx == shell->num_cmds - 1) // last
+		else if (num == shell->num_cmds - 1) // last
 		{
 			handle_redirect(cmd);
 		}
@@ -93,7 +93,7 @@ void child_process_command(t_shell *shell, t_cmd *cmd, int idx)
 	else // Parent
 	{
 		// waitpid(cpid, &wstatus, WCONTINUED);
-		printf("cpid %d = %d\n", idx, cpid);
+		printf("cpid %d = %d\n", num, cpid);
 	}
 }
 
