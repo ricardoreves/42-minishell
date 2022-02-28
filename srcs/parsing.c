@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/28 19:32:27 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/28 21:31:41 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ t_cmd *parse_command_line(t_shell *shell)
 	if (token)
 	{
 		prepare_cmds(token, &shell->cmds);
-		print_cmds(shell->cmds);
+		shell->num_cmds = count_cmds(shell->cmds);
+		//print_cmds(shell->cmds);
 	}
 	token_dispose(&token);
 	automaton_dispose(oto);
