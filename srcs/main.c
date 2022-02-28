@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:03 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/28 15:54:04 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/28 19:39:35 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ void init_prompt(t_shell *shell)
     {
         prompt = str_joins(NAME, DOLLAR, get_env(shell, "PWD"));
         shell->cmdline = readline(prompt);
-        if (*shell->cmdline != 0)
+        if (*shell->cmdline)
         {
             add_history(shell->cmdline);
-            parse_command_line(shell);
-            handle_commands(shell);
+            if (parse_command_line(shell))
+                handle_commands(shell);
+            else
+                put_command_error(shell, "minishell", "syntax error near unexpected token", 2);
         }
         free(shell->cmdline);
         free(prompt);
