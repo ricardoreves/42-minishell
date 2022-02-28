@@ -6,13 +6,13 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 20:43:01 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/07 18:40:48 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/28 15:54:04 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *str_joinsep(char *str1, char *str2, char *sep)
+char *str_joins(char *str1, char *str2, char *sep)
 {
     char *str;
     char *tmp;
