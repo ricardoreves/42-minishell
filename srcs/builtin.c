@@ -6,13 +6,13 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:33:21 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/28 00:06:12 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/01 00:13:11 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_builtin(char *name)
+int is_builtin_command(char *name)
 {
     if (str_compare(name, "cd") == 0)
         return (1);
@@ -32,7 +32,7 @@ int is_builtin(char *name)
         return (0);
 }
 
-void exec_builtin(t_shell *shell, t_cmd *cmd)
+void exec_builtin_command(t_shell *shell, t_cmd *cmd)
 {
     if (str_compare(cmd->name, "cd") == 0)
         exec_cd(shell, cmd->args);

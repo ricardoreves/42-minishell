@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/28 22:09:40 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/01 00:14:27 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,9 @@ int exec_unset(t_shell *shell, char **args);
 
 void init_prompt(t_shell *shell);
 void init_asciiart(void);
-int is_builtin(char *name);
-void exec_builtin(t_shell *shell, t_cmd *cmd);
-int exec_command(t_shell *shell);
+int is_builtin_command(char *name);
+void exec_builtin_command(t_shell *shell, t_cmd *cmd);
+int exec_single_command(t_shell *shell);
 int access_command(char *path, char **name);
 void handle_commands(t_shell *shell);
 

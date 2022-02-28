@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/28 22:35:41 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/01 00:14:10 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ void handle_commands(t_shell *shell)
 	if (shell->num_cmds == 1)
 	{
 		if (shell->cmds->name)
-			exec_command(shell);
+			exec_single_command(shell);
 	}
 	else if (shell->num_cmds > 1)
 	{
@@ -178,13 +178,13 @@ void handle_commands(t_shell *shell)
 	}
 }
 
-int exec_command(t_shell *shell)
+int exec_single_command(t_shell *shell)
 {
 	int wstatus;
 	pid_t cpid;
 
-	if (is_builtin(shell->cmds->name))
-		exec_builtin(shell, shell->cmds);
+	if (is_builtin_command(shell->cmds->name))
+		exec_builtin_command(shell, shell->cmds);
 	else if (is_directory(shell->cmds->name))
 		put_command_error(shell, shell->cmds->name, "is a directory", 126);
 	else if (access_command(get_env(shell, "PATH"), &shell->cmds->name) == 0)
