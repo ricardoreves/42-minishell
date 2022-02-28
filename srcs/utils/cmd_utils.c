@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:29:08 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/28 18:50:56 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/01 00:39:53 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_cmd *create_cmd(void)
 	t_cmd *cmd;
 
 	cmd = ft_calloc(sizeof(t_cmd), 1);
-	cmd->redirect = id_notset;
+	cmd->redirect_id = id_notset;
 	return (cmd);
 }
 
@@ -65,10 +65,10 @@ void prepare_cmds(t_token *token, t_cmd **cmds)
 		}
 		else if (is_redirect(token->id))
 		{
-			cmd->redirect = token->id;
+			cmd->redirect_id = token->id;
 			token = token->next;
 			if (token)
-				cmd->filename = ft_strdup(token->str);
+				cmd->redirect_path = ft_strdup(token->str);
 		}
 		else if (token->id == id_pipe)
 		{
@@ -97,8 +97,8 @@ void print_cmds(t_cmd *cmds)
 		// print_array(cmd->args);
 		while (cmd->args && cmd->args[++i])
 			printf("arg[%d]: %s\n", i, cmd->args[i]);
-		printf("redirect: %d\n", cmd->redirect);
-		printf("filename: %s\n", cmd->filename);
+		printf("redirect_id: %d\n", cmd->redirect_id);
+		printf("redirect_path: %s\n", cmd->redirect_path);
 		printf("---------------\n");
 		cmd = cmd->next;
 	}

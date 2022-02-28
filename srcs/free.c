@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:18:01 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/28 22:08:39 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/01 00:37:53 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void free_cmds(t_cmd *cmds)
 	while (cmd)
 	{
 		free(cmd->name);
-		free(cmd->filename);
+		free(cmd->redirect_path);
 		free_array(cmd->args);
 		cmd = cmd->next;
 	}
