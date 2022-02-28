@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/28 18:01:00 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/28 19:32:27 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ char **token_to_string(t_token *token_from, t_token *token_to)
  * @param cfg
  * @return char**
  */
-char **parse_command_line(t_shell *shell)
+t_cmd *parse_command_line(t_shell *shell)
 {
-	char **args;
 	t_token *token;
 	t_automaton *oto;
 
@@ -57,15 +56,13 @@ char **parse_command_line(t_shell *shell)
 	automaton_token(&token, oto, shell->cmdline);
 	sanitize_quotes_token(token);
 	exec_ident_token(token, shell);
-	shell->cmds = NULL;
-	prepare_cmds(token, &shell->cmds);
-	print_cmds(shell->cmds);
-	// free_cmd(&shell->cmds);
-	//if (token)
-	//	args = token_to_string(token, NULL);
-	//else
-		args = NULL;
+	shell->cmds = 0;
+	if (token)
+	{
+		prepare_cmds(token, &shell->cmds);
+		print_cmds(shell->cmds);
+	}
 	token_dispose(&token);
 	automaton_dispose(oto);
-	return (args);
+	return (shell->cmds);
 }
