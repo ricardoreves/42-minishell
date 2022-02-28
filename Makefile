@@ -6,7 +6,7 @@
 #    By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 01:47:02 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/02/28 17:18:25 by rpinto-r         ###   ########.fr        #
+#    Updated: 2022/02/28 17:54:36 by rpinto-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,8 @@ NORM       = norminette
 NAME       = minishell
 INC        = ./incs
 SRC_DIR    = ./srcs
-SRC_NAME   = main.c builtin.c command.c error.c signal.c varenv.c parsing.c parsing_sanatize.c redirect.c free.c
-SRC_NAME  += utils/array_utils.c utils/env_utils.c utils/utils.c
+SRC_NAME   = main.c builtin.c command.c error.c signal.c parsing.c parsing_sanitize.c parsing_utils.c redirect.c free.c
+SRC_NAME  += utils/array_utils.c utils/env_utils.c utils/env_utils2.c utils/utils.c utils/cmd_utils.c
 SRC_NAME  += builtins/cd.c builtins/echo.c builtins/env.c builtins/exit.c builtins/export.c builtins/pwd.c builtins/unset.c
 SRCS       = $(addprefix $(SRC_DIR)/, $(SRC_NAME))
 OBJS       = $(SRCS:.c=.o)
