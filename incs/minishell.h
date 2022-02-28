@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/28 17:58:47 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/28 19:34:00 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int add_envlst(t_env **envs, t_env *env);
 int set_envlst(t_env **envs, char *name, char *value);
 int unset_envlst(t_env **envs, char *name); // bug
 
-char **parse_command_line(t_shell *shell);
+t_cmd *parse_command_line(t_shell *shell);
 void sanitize_quotes_token(t_token *token);
 void exec_ident_token(t_token *token, t_shell *shell);
 void set_token_builtin(t_token *token);
