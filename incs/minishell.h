@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/28 19:34:00 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/02/28 22:09:40 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,14 @@ typedef struct s_cmd
 
 typedef struct s_shell
 {
-	char *cmdline;
-	t_cmd *cmds;
-	char **envs;
-	char *config;
-	int error;
+	char	*cmdline;
+	char	*config;
+	t_cmd 	*cmds;
+	int		**pipes;
+	char	**envs;
+	int		num_cmds;
+	int		num_pipes;
+	int		error;
 } t_shell;
 
 void print_array(char *arr[]);
@@ -89,6 +92,7 @@ char *get_evaluate_value(t_shell *shell, char *str, int *i);
 char *evaluate_str_env(t_shell *shell, char *str, int k);
 
 void free_shell(t_shell *shell);
+void free_pipes(int **pipes, int size);
 
 int contain_env(char *str, char *name);
 int add_env(t_shell *shell, char *name, char *value);
@@ -120,7 +124,7 @@ int is_builtin(char *name);
 void exec_builtin(t_shell *shell, t_cmd *cmd);
 int exec_command(t_shell *shell);
 int access_command(char *path, char **name);
-int handle_commands(t_shell *shell);
+void handle_commands(t_shell *shell);
 
 int redirect_input(t_cmd *cmd);
 int redirect_output(t_cmd *cmd);
