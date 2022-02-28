@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/01 00:14:27 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/01 00:20:38 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ typedef enum e_bash_token_id
 
 typedef struct s_cmd
 {
-	char *name;
-	char **args;
-	t_bash_token_id redirect;
-	char *filename;
-	struct s_cmd *next;
+	char			*name;
+	char			**args;
+	char			*redirect_path;
+	t_bash_token_id redirect_id;
+	struct s_cmd 	*next;
 } t_cmd;
 
 typedef struct s_shell
