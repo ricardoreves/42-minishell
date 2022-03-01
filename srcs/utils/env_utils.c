@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 20:47:22 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/28 15:54:04 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/02 00:24:49 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int contain_env(char *str, char *name)
 	tmp = ft_strjoin(name, "=");
 	if (!tmp)
 		return (0);
-	if (str_compare(str, tmp) == 0)
+	if (ft_strncmp(str, tmp, ft_strlen(tmp)) == 0)
 	{
 		free(tmp);
 		return (1);
