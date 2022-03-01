@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/01 00:27:07 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/01 16:24:54 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_shell
 	char	*config;
 	t_cmd 	*cmds;
 	int		**pipes;
+	int		*pids;
 	char	**envs;
 	int		num_cmds;
 	int		num_pipes;
