@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 22:45:05 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/01 22:46:36 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/01 23:28:31 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,5 @@ void wait_pids(t_shell *shell)
 		waitpid(shell->pids[i], &wstatus, 0);
 		i++;
 	}
+	free(shell->pids);
 }
