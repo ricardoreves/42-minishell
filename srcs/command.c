@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/01 01:12:17 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/01 13:00:11 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void child_process_command(t_shell *shell, t_cmd *cmd, int num)
 {
 	pid_t cpid;
-	 int wstatus;
+	int wstatus;
 
 	cpid = fork();
 	if (cpid < 0) // Error
@@ -27,23 +27,23 @@ void child_process_command(t_shell *shell, t_cmd *cmd, int num)
 		// input
 		if (num > 0)
 		{
-			//printf("pipe[%d][0] %s in\n", num-1, cmd->name);
+			printf("input -> num: %d cmd: %s pipe: [%d][0] std: 0\n", num, cmd->name, num - 1);
 			dup2(shell->pipes[num - 1][0], 0);
 		}
-		else if (num == 0) // first
+		else if (num == 0) // first command
 		{
-			//handle_redirect(cmd);
+			// handle_redirect(cmd);
 		}
 
 		// output
 		if (num < shell->num_cmds - 1)
 		{
-			//printf("pipe[%d][1] %s out\n", num, cmd->name);
+			printf("output -> num: %d cmd: %s pipe: [%d][1] std: 1\n", num, cmd->name, num);
 			dup2(shell->pipes[num][1], 1);
 		}
-		else if (num == shell->num_cmds - 1) // last
+		else if (num == shell->num_cmds - 1) // last command
 		{
-			//handle_redirect(cmd);
+			// handle_redirect(cmd);
 		}
 		close_pipes(shell);
 		if (access_command(get_env(shell, "PATH"), &cmd->name) == 0)
@@ -57,10 +57,9 @@ void child_process_command(t_shell *shell, t_cmd *cmd, int num)
 		free_shell(shell);
 		exit(0);
 	}
-		//wait(&wstatus);
-		//waitpid(cpid, &wstatus, WCONTINUED);
-		printf("cpid %d = %d\n", num, cpid);
-
+	// wait(&wstatus);
+	// waitpid(cpid, &wstatus, WCONTINUED);
+	//printf("cpid %d = %d\n", num, cpid);
 }
 
 /*
@@ -135,7 +134,6 @@ void handle_commands(t_shell *shell)
 		while (cmd)
 		{
 			child_process_command(shell, cmd, i);
-			//waitpid(-1, &wstatus, WCONTINUED);
 			cmd = cmd->next;
 			i++;
 		}
