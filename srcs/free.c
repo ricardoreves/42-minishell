@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:18:01 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/01 00:37:53 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/01 22:32:07 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void free_shell(t_shell *shell)
 		free_array(shell->envs);
 	if (shell->config)
 		free(shell->config);
+	if (shell->pids)
+		free(shell->pids);
 }
 
 /**
