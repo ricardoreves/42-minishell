@@ -6,28 +6,33 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/01 13:00:11 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/01 19:50:26 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void create_pids(t_shell *shell)
+{
+	shell->pids = ft_calloc(sizeof(int), shell->num_cmds);
+}
+
 void child_process_command(t_shell *shell, t_cmd *cmd, int num)
 {
-	pid_t cpid;
-	int wstatus;
+	//pid_t cpid;
+	//int wstatus;
 
-	cpid = fork();
-	if (cpid < 0) // Error
+	shell->pids[num] = fork();
+	if (shell->pids[num] < 0) // Error
 	{
 		perror("Error: fork() failed");
 	}
-	else if (cpid == 0) // Child
+	else if (shell->pids[num] == 0) // Child
 	{
 		// input
 		if (num > 0)
 		{
-			printf("input -> num: %d cmd: %s pipe: [%d][0] std: 0\n", num, cmd->name, num - 1);
+			//printf("input -> %s pipe: [%d][0] std: 0\n", cmd->name, num - 1);
 			dup2(shell->pipes[num - 1][0], 0);
 		}
 		else if (num == 0) // first command
@@ -38,7 +43,7 @@ void child_process_command(t_shell *shell, t_cmd *cmd, int num)
 		// output
 		if (num < shell->num_cmds - 1)
 		{
-			printf("output -> num: %d cmd: %s pipe: [%d][1] std: 1\n", num, cmd->name, num);
+			//printf("output -> %s pipe: [%d][1] std: 1\n", cmd->name, num);
 			dup2(shell->pipes[num][1], 1);
 		}
 		else if (num == shell->num_cmds - 1) // last command
@@ -57,7 +62,7 @@ void child_process_command(t_shell *shell, t_cmd *cmd, int num)
 		free_shell(shell);
 		exit(0);
 	}
-	// wait(&wstatus);
+	//wait(&wstatus);
 	// waitpid(cpid, &wstatus, WCONTINUED);
 	//printf("cpid %d = %d\n", num, cpid);
 }
@@ -130,6 +135,7 @@ void handle_commands(t_shell *shell)
 		// print_cmds(shell->cmds);
 		i = 0;
 		cmd = shell->cmds;
+		create_pids(shell);
 		create_pipes(shell);
 		while (cmd)
 		{
@@ -138,7 +144,13 @@ void handle_commands(t_shell *shell)
 			i++;
 		}
 		close_pipes(shell);
-		waitpid(-1, &wstatus, WCONTINUED);
+		i = 0;
+		while (i < shell->num_cmds)
+		{
+			//printf("num: %d pid: %d\n", i, shell->pids[i]);
+			waitpid(shell->pids[i], &wstatus, 0);
+			i++;
+		}
 		free_cmds(shell->cmds);
 	}
 }
