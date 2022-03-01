@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "../incs/minishell.h"
 
-int close_pipes(int **pipes, int num_pipes)
+int close_pipes_dev(int **pipes, int num_pipes)
 {
     while (num_pipes--)
     {
@@ -14,7 +14,7 @@ int close_pipes(int **pipes, int num_pipes)
     return (0);
 }
 
-int redirect_input(char *filename, char *redirect)
+int redirect_input_dev(char *filename, char *redirect)
 {
     int fd;
 
@@ -35,7 +35,7 @@ int redirect_input(char *filename, char *redirect)
     return (0);
 }
 
-int redirect_output(char *filename, char *redirect)
+int redirect_output_dev(char *filename, char *redirect)
 {
     int fd;
 
@@ -56,7 +56,7 @@ int redirect_output(char *filename, char *redirect)
     return (0);
 }
 
-int child_process(int idx, int **pipes, int num_pipes, char **args, int num_cmds, char **redis)
+int child_process(int idx, int **pipes, int num_pipes, char **args, int num_cmds, char **reds, char **envs)
 {
     int status;
     pid_t pid;
@@ -77,7 +77,7 @@ int child_process(int idx, int **pipes, int num_pipes, char **args, int num_cmds
         }
         else if (idx == 0) // first
         {
-            redirect_input(redis[1], redis[0]);
+            redirect_input_dev(reds[1], reds[0]);
         }
 
         // output
@@ -87,11 +87,11 @@ int child_process(int idx, int **pipes, int num_pipes, char **args, int num_cmds
         }
         else if (idx == num_cmds - 1) // last
         {
-            redirect_output(redis[1], redis[0]);
+            redirect_output_dev(reds[1], reds[0]);
         }
-        close_pipes(pipes, num_pipes);
+        close_pipes_dev(pipes, num_pipes);
         //printf("|||%s\n", args[0]);
-        execvp(args[0], args);
+        execve(args[0], args, envs);
         perror("Error: execve() failed");
         return 1;
     }
@@ -102,7 +102,7 @@ int child_process(int idx, int **pipes, int num_pipes, char **args, int num_cmds
     return (0);
 }
 
-int main(void)
+int main(int ac, char **av,  char **envs)
 {
     int i;
     int status;
@@ -111,9 +111,9 @@ int main(void)
     int **pipes;
 
     // Commands
-    char *cmd1[] = {"ls", "-l", 0};
-    char *cmd2[] = {"grep", "pdf", 0};
-    char *cmd3[] = {"cat", "-e", 0};
+    // char *cmd1[] = {"ls", "-l", 0};
+    // char *cmd2[] = {"grep", "pdf", 0};
+    // char *cmd3[] = {"cat", "-e", 0};
 
     // char *cmds[][50] = {{"ls", "-l", 0},
     //                     {"grep", "pdf", 0},
@@ -121,14 +121,14 @@ int main(void)
     //                     {"sed", "s/en.subject.pdf/fr.subject.txt/", 0},
     //                     {"tr", "a-z", "A-Z", 0}};
 
-    char *redis[][50] = {{"<", "sandbox/infile.txt", 0},
+    char *reds[][50] = {{"<", "sandbox/infile.txt", 0},
                          {"42", "42", 0},
-                         {">", "sandbox/outfile.txt", 0},
+                         {">>00", "sandbox/outfile.txt", 0},
                          {0}};
 
-    char *cmds[][50] = {{"cat", 0},
-                        {"grep", "hello", 0},
-                        {"cat", "-e", 0},
+    char *cmds[][50] = {{"/bin/cat", 0},
+                        {"/usr/bin/grep", "hello", 0},
+                        {"/bin/cat", "-e", 0},
                         {0}};
 
     // Number of commands
@@ -159,10 +159,10 @@ int main(void)
     i = 0;
     while (i < num_cmds)
     {
-        child_process(i, pipes, num_pipes, (char **)cmds[i], num_cmds, redis[i]);
+        child_process(i, pipes, num_pipes, (char **)cmds[i], num_cmds, reds[i], envs);
         i++;
     }
-    close_pipes(pipes, num_pipes);
+    close_pipes_dev(pipes, num_pipes);
     waitpid(-1, &status, WCONTINUED);
     return (0);
 }
