@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/01 16:24:54 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/01 22:50:31 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,10 @@ void exec_builtin_command(t_shell *shell, t_cmd *cmd);
 int exec_single_command(t_shell *shell);
 int access_command(char *path, char **name);
 void handle_commands(t_shell *shell);
+void process_command(t_shell *shell, t_cmd *cmd, int num);
+void wait_pids(t_shell *shell);
+void create_pids(t_shell *shell);
+int is_directory_command(char *path);
 
 int redirect_input(t_cmd *cmd);
 int redirect_output(t_cmd *cmd);
