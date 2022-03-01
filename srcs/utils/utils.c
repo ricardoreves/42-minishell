@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 20:43:01 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/28 15:54:04 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/02 00:25:42 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,10 @@ char *str_duplicate_nbytes(char *str1, size_t n)
 
 int str_compare(char *str1, char *str2)
 {
-    return (ft_strncmp(str1, str2, ft_strlen(str2)));
+    int i;
+
+    i = 0;
+    while (str1[i] && str2[i] && str1[i] == str2[i])
+        i++;
+    return (str1[i] - str2[i]);
 }
