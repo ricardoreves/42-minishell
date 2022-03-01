@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/01 22:50:31 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/02 00:27:59 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,24 +63,24 @@ typedef enum e_bash_token_id
 
 typedef struct s_cmd
 {
-	char			*name;
-	char			**args;
-	char			*redirect_path;
+	char *name;
+	char **args;
+	char *redirect_path;
 	t_bash_token_id redirect_id;
-	struct s_cmd 	*next;
+	struct s_cmd *next;
 } t_cmd;
 
 typedef struct s_shell
 {
-	char	*cmdline;
-	char	*config;
-	t_cmd 	*cmds;
-	int		**pipes;
-	int		*pids;
-	char	**envs;
-	int		num_cmds;
-	int		num_pipes;
-	int		error;
+	char *cmdline;
+	char *config;
+	t_cmd *cmds;
+	int **pipes;
+	int *pids;
+	char **envs;
+	int num_cmds;
+	int num_pipes;
+	int error;
 } t_shell;
 
 void print_array(char *arr[]);
@@ -126,7 +126,7 @@ void init_prompt(t_shell *shell);
 void init_asciiart(void);
 int is_builtin_command(char *name);
 void exec_builtin_command(t_shell *shell, t_cmd *cmd);
-int exec_single_command(t_shell *shell);
+int exec_single_command(t_shell *shell, t_cmd *cmd);
 int access_command(char *path, char **name);
 void handle_commands(t_shell *shell);
 void process_command(t_shell *shell, t_cmd *cmd, int num);
