@@ -6,7 +6,7 @@
 #    By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 01:47:02 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/03/01 00:41:05 by rpinto-r         ###   ########.fr        #
+#    Updated: 2022/03/01 00:47:25 by rpinto-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ LIBPARSER  = ./parser/libparser.a
 all: $(NAME)
 
 .c.o:
-	$(CC) $(WARN_FLAG) -I $(INC) -I $(LIBRL_INC) -I $(LIBFT_INC) -I $(LIBPARSER_INC) -c $< -o $@
+	$(CC) -I $(INC) -I $(LIBRL_INC) -I $(LIBFT_INC) -I $(LIBPARSER_INC) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR)
