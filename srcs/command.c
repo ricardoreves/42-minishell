@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/01 23:18:20 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/01 23:50:58 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void process_command(t_shell *shell, t_cmd *cmd, int num)
 		}
 		else if (num == 0) // first command
 		{
-			// handle_redirect(cmd);
+			handle_redirect(cmd);
 		}
 
 		// output
@@ -64,7 +64,7 @@ void process_command(t_shell *shell, t_cmd *cmd, int num)
 		}
 		else if (num == shell->num_cmds - 1) // last command
 		{
-			// handle_redirect(cmd);
+			handle_redirect(cmd);
 		}
 		close_pipes(shell);
 		if (is_builtin_command(cmd->name))
@@ -113,12 +113,8 @@ void handle_commands(t_shell *shell)
 
 	i = 0;
 	cmd = shell->cmds;
-	if (cmd->next == 0 && is_builtin_command(cmd->name))
-		exec_builtin_command(shell, cmd);
-	else if (is_directory_command(cmd->name))
-		put_command_error(shell, cmd->name, "is a directory", 126);
-	else if (access_command(get_env(shell, "PATH"), &cmd->name) == 0)
-		put_command_error(shell, cmd->name, "command not found", 127);
+	if (cmd->next == 0)
+		exec_single_command(shell, cmd);
 	else
 	{
 		create_pids(shell);
@@ -135,18 +131,17 @@ void handle_commands(t_shell *shell)
 	}
 }
 
-/* unused */
-int exec_single_command(t_shell *shell)
+int exec_single_command(t_shell *shell, t_cmd *cmd)
 {
 	int wstatus;
 	pid_t pid;
 
-	if (is_builtin_command(shell->cmds->name))
-		exec_builtin_command(shell, shell->cmds);
-	else if (is_directory_command(shell->cmds->name))
-		put_command_error(shell, shell->cmds->name, "is a directory", 126);
-	else if (access_command(get_env(shell, "PATH"), &shell->cmds->name) == 0)
-		put_command_error(shell, shell->cmds->name, "command not found", 127);
+	if (is_builtin_command(cmd->name))
+		exec_builtin_command(shell, cmd);
+	else if (is_directory_command(cmd->name))
+		put_command_error(shell, cmd->name, "is a directory", 126);
+	else if (access_command(get_env(shell, "PATH"), &cmd->name) == 0)
+		put_command_error(shell, cmd->name, "command not found", 127);
 	else
 	{
 		pid = fork();
