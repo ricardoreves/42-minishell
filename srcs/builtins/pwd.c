@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 02:07:43 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/07 18:28:04 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/02 01:47:59 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ int exec_pwd(t_shell *shell)
 
 	pwd = get_env(shell, "PWD");
 	if (pwd)
-		printf("%s\n", pwd);
+		ft_putendl_fd(pwd, 1);
 	return (0);
 }

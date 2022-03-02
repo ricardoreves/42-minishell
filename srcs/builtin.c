@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:33:21 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/01 00:13:11 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/02 01:35:28 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ int is_builtin_command(char *name)
 void exec_builtin_command(t_shell *shell, t_cmd *cmd)
 {
     if (str_compare(cmd->name, "cd") == 0)
-        exec_cd(shell, cmd->args);
+        exec_cd(shell, cmd);
     else if (str_compare(cmd->name, "echo") == 0)
-        exec_echo(shell, cmd->args);
+        exec_echo(shell, cmd);
     else if (str_compare(cmd->name, "env") == 0)
         exec_env(shell);
     else if (str_compare(cmd->name, "exit") == 0)
         exec_exit(shell);
     else if (str_compare(cmd->name, "export") == 0)
-        exec_export(shell, cmd->args);
+        exec_export(shell, cmd);
     else if (str_compare(cmd->name, "pwd") == 0)
         exec_pwd(shell);
     else if (str_compare(cmd->name, "unset") == 0)
-        exec_unset(shell, cmd->args);
+        exec_unset(shell, cmd);
 }
