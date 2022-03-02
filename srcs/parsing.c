@@ -63,6 +63,7 @@ t_cmd *parse_command_line(t_shell *shell)
 		shell->num_cmds = count_cmds(shell->cmds);
 		//print_cmds(shell->cmds);
 	}
+	log_token(token);
 	token_dispose(&token);
 	automaton_dispose(oto);
 	return (shell->cmds);

@@ -18,7 +18,7 @@ NORM       = norminette
 NAME       = minishell
 INC        = ./incs
 SRC_DIR    = ./srcs
-SRC_NAME   = main.c command.c error.c signal.c parsing.c parsing_sanitize.c parsing_utils.c redirect.c free.c pipe.c pids.c
+SRC_NAME   = main.c command.c error.c signal.c parsing.c parsing_sanitize.c parsing_utils.c redirect.c free.c pipe.c pids.c logfile.c
 SRC_NAME  += utils/array_utils.c utils/env_utils.c utils/env_utils2.c utils/utils.c utils/cmd_utils.c
 SRC_NAME  += builtins/cd.c builtins/echo.c builtins/env.c builtins/exit.c builtins/export.c builtins/pwd.c builtins/unset.c builtins/builtin.c
 SRCS       = $(addprefix $(SRC_DIR)/, $(SRC_NAME))
@@ -50,25 +50,34 @@ LIBPARSER_FLAG = -lparser
 LIBPARSER_DIR  = ./parser
 LIBPARSER  = ./parser/libparser.a
 
+LIBFTPRINTF_INC = ./printf/inc
+LIBFTPRINTF_FLAG = -lprintf
+LIBFTPRINTF_DIR  = ./printf
+LIBFTPRINTF  = ./printf/libprintf.a
+
+
 ### RULES ###
 all: $(NAME)
 
 .c.o:
-	$(CC) -I $(INC) -I $(LIBRL_INC) -I $(LIBFT_INC) -I $(LIBPARSER_INC) -c $< -o $@
+	$(CC) -I $(INC) -I $(LIBRL_INC) -I $(LIBPARSER_INC) -I $(LIBFTPRINTF_INC) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR)
 	$(MAKE) -C $(LIBPARSER_DIR)
-	$(CC) $(OBJS) $(DEBUG_FLAG) $(LIBRL_FLAG) $(LIBPARSER_FLAG) $(LIBFT_FLAG) -L $(LIBPARSER_DIR) -L $(LIBFT_DIR) -L $(LIBRL_DIR) -o $(NAME) 
+	$(MAKE) -C $(LIBFTPRINTF_DIR)
+	$(CC) $(OBJS) $(DEBUG_FLAG) $(LIBRL_FLAG) $(LIBPARSER_FLAG) $(LIBFT_FLAG) $(LIBFTPRINTF_FLAG) -L $(LIBPARSER_DIR) -L $(LIBFT_DIR) -L $(LIBRL_DIR) -L $(LIBFTPRINTF_DIR) -o $(NAME) 
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
 	$(MAKE) -C $(LIBPARSER_DIR) clean
+	$(MAKE) -C $(LIBFTPRINTF_DIR) clean
 	$(RM) $(OBJS)
 
 fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean
 	$(MAKE) -C $(LIBPARSER_DIR) fclean
+	$(MAKE) -C $(LIBFTPRINTF_DIR) fclean
 	$(RM) $(NAME)
 
 re: fclean all

@@ -30,7 +30,7 @@ void init_asciiart(void)
     printf("\\/    \\/_|_| |_|_\e[0;33m|___/_| |_|\\___|_|_|\e[0m\n");
     printf("\e[0;37mEmbrace the power of the command line ✨\e[0m\n");
     printf("version %s\n\n", VERSION);
-
+    log_message("start " VERSION);
 }
 
 void init_prompt(t_shell *shell)

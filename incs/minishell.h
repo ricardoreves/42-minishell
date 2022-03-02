@@ -24,6 +24,7 @@
 //#include <libparser.h>
 #include "../libft/libft.h"
 #include "../parser/inc/libparser.h"
+#include "../printf/inc/ft_printf.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdio.h>
@@ -169,4 +170,10 @@ void prepare_cmds(t_token *token, t_cmd **cmds);
 void print_cmds(t_cmd *cmds);
 void free_cmds(t_cmd *cmds);
 int count_cmds(t_cmd *cmds);
+
+// Log
+int	ft_gettime(void);
+int	log_open(void);
+void	log_message(char *msg);
+void	log_token(t_token *token);
 #endif
