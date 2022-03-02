@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/28 17:58:28 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/02 00:46:59 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * @param token
  * @param shell
  */
-void exec_ident_token(t_token *token, t_shell *shell)
+void evaluate_str_env_token(t_token *token, t_shell *shell)
 {
 	t_token *t;
 	char *str;
@@ -32,7 +32,7 @@ void exec_ident_token(t_token *token, t_shell *shell)
 			str = evaluate_str_env(shell, t->str, 0);
 			free(t->str);
 			t->str = str;
-			set_token_builtin(t);
+			set_builtin_token_id(t);
 		}
 		t = t->next;
 	}
@@ -43,7 +43,7 @@ void exec_ident_token(t_token *token, t_shell *shell)
  *
  * @param token
  */
-void set_token_builtin(t_token *token)
+void set_builtin_token_id(t_token *token)
 {
 	if (str_compare(token->str, "cd") == 0)
 		token->id = id_builtin_cd;
@@ -67,12 +67,9 @@ void set_token_builtin(t_token *token)
  * @param id
  * @return int
  */
-int is_word(int id)
+int is_word_token_id(int id)
 {
-	if (is_id_builtin(id) || id == id_word)
-		return (1);
-	else
-		return (0);
+	return (is_builtin_token_id(id) || id == id_word);
 }
 
 /**
@@ -81,12 +78,17 @@ int is_word(int id)
  * @param id
  * @return int
  */
-int is_redirect(int id)
+int is_redirect_token_id(int id)
 {
-	if (id == id_out_write || id == id_out_append || id == id_in_file || id == id_in_std)
+	if (id == id_out_write)
 		return (1);
-	else
-		return (0);
+	if (id == id_out_append)
+		return (1);
+	if (id == id_in_file)
+		return (1);
+	if (id == id_in_std)
+		return (1);
+	return (0);
 }
 
 /**
@@ -95,7 +97,7 @@ int is_redirect(int id)
  * @param id
  * @return int
  */
-int is_id_builtin(int id)
+int is_builtin_token_id(int id)
 {
 	if (id == id_builtin_cd)
 		return (1);

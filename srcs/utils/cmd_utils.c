@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:29:08 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/01 01:18:26 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/02 01:08:09 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ void prepare_cmds(t_token *token, t_cmd **cmds)
 	push_cmd(cmd, cmds);
 	while (token)
 	{
-		if (is_word(token->id))
+		if (is_word_token_id(token->id))
 		{
 			push_array(token->str, &cmd->args);
 			if (!cmd->name)
 				cmd->name = ft_strdup(token->str);
 		}
-		else if (is_redirect(token->id))
+		else if (is_redirect_token_id(token->id))
 		{
 			cmd->redirect_id = token->id;
 			token = token->next;
