@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 00:26:04 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/01 00:26:34 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/02 01:33:45 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void close_pipes(t_shell *shell)
 		if (close(shell->pipes[i][0]) != 0 || close(shell->pipes[i][1]) != 0)
 			perror("Error: pipe close() failed");
 	}
+	free_pipes(shell->pipes, shell->num_pipes);
 }
 
 int create_pipes(t_shell *shell)
