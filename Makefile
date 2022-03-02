@@ -6,7 +6,7 @@
 #    By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 01:47:02 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/03/02 03:26:35 by rpinto-r         ###   ########.fr        #
+#    Updated: 2022/03/02 04:01:34 by rpinto-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,5 +86,8 @@ sandbox:
 
 fd:
 	ls -la /proc/$$$/fd
+
+valgrind:
+	valgrind --leak-check=full ./$(NAME)
 
 .PHONY: all clean fclean re sandbox
