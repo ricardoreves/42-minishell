@@ -115,7 +115,7 @@ void	auto_load_accepting(int fd, t_automaton *au)
 
 int	get_char_index(const int c, t_automaton *au)
 {
-	if (c < 0 || c > CHAR_INDEXES_LEN - 1)
+	if (c < 0 || c > CHAR_INDEXES_LEN - 1 || !au->char_indexes)
 		return (0);
 	else
 		return (au->char_indexes[c]);
