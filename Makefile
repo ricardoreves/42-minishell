@@ -6,7 +6,7 @@
 #    By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 01:47:02 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/03/02 04:01:34 by rpinto-r         ###   ########.fr        #
+#    Updated: 2022/03/03 02:55:08 by rpinto-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,9 @@ dev: re all run
 
 sandbox:
 	$(CC) sandbox/pipe_unlimited.c  -I $(INC) $(LIBFT_A) $(LIBPARSER) -o $(NAME) && ./$(NAME) hello world
+
+dev2:
+	$(CC) sandbox/save_error.c $(DEBUG_FLAG) -I $(INC) $(LIBFT_A) $(LIBPARSER) -o $(NAME) && ./$(NAME)
 
 fd:
 	ls -la /proc/$$$/fd
