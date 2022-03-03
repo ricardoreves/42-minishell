@@ -38,7 +38,7 @@ char *evaluate_str_env(t_shell *shell, char *str, int k)
     i = 0;
     j = 0;
     str2 = ft_calloc(sizeof(char), 4096);
-    while (str && str[i])
+    while (str && str[i] && i < 4096)
     {
         if (str[i] == '$' && !ft_isdigit(str[i + 1]))
         {
