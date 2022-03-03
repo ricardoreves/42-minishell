@@ -85,10 +85,8 @@ void prepare_cmds(t_token *token, t_cmd **cmds)
  */
 void print_cmds(t_cmd *cmds)
 {
-	int i;
 	t_cmd *cmd;
 
-	i = -1;
 	cmd = cmds;
 	while (cmd)
 	{
