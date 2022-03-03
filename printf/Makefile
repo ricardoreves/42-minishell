@@ -43,9 +43,11 @@ OBJS       = $(SRCS:.c=.o)
 
 ifeq ($(shell uname), Linux)
 	LEAKS = 
+	DEBUG_FLAG = -g3 -fsanitize=leak
 else
 #	LEAKS = leaks -atExit --
 	LEAKS = 
+	DEBUG_FLAG = -g3 -fsanitize=address
 endif
 
 LIBFT_FLAG = -lft
@@ -62,7 +64,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(AR) $(NAME) $(OBJS)
 
-debug: CFLAGS += $(CDEBUG)
+debug: CFLAGS += $(DEBUG_FLAG)
 debug: $(NAME)
 
 dev: debug

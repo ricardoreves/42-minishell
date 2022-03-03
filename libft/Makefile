@@ -26,6 +26,12 @@ SRCS_BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_b
 OBJS       = $(SRCS:.c=.o)
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
+ifeq ($(shell uname), Linux)
+	DEBUG_FLAG = -g3 -fsanitize=leak
+else
+	DEBUG_FLAG = -g3 -fsanitize=address
+endif
+
 ### RULES ###
 all: $(NAME)
 
@@ -46,8 +52,9 @@ fclean: clean
 
 re: fclean all
 
-dev:
-	$(CC) $(CFLAGS) $(CDEBUG) $(SRCS_BONUS) && ./$(AOUT)
+dev: CFLAGS += $(DEBUG_FLAG)
+dev: $(OBJS) ${OBJS_BONUS}
+	$(AR) $(NAME) $(OBJS) ${OBJS_BONUS}
 
 norm:
 	$(NORM)

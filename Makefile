@@ -13,6 +13,7 @@
 ### VARIABLES ###
 CC         = gcc
 WARN_FLAG  = -Werror -Wextra -Wall
+CFLAGS     = $(WARN_FLAG)
 RM         = rm -rf
 NORM       = norminette
 NAME       = minishell
@@ -60,7 +61,7 @@ LIBFTPRINTF  = ./printf/libprintf.a
 all: $(NAME)
 
 .c.o:
-	$(CC) -I $(INC) -I $(LIBRL_INC) -I $(LIBPARSER_INC) -I $(LIBFTPRINTF_INC) -c $< -o $@
+	$(CC) -I $(INC) -I $(LIBRL_INC) -I $(LIBPARSER_INC) -I $(LIBFTPRINTF_INC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR)
@@ -88,7 +89,13 @@ run:
 norm:
 	$(NORM)
 
-dev: re all run
+#dev: re all run
+dev: CFLAGS += $(DEBUG_FLAG)
+dev: $(OBJS)
+	$(MAKE) -C $(LIBFT_DIR) dev
+	$(MAKE) -C $(LIBPARSER_DIR) dev
+	$(MAKE) -C $(LIBFTPRINTF_DIR) dev
+	$(CC) $(OBJS) $(DEBUG_FLAG) $(LIBRL_FLAG) $(LIBPARSER_FLAG) $(LIBFT_FLAG) $(LIBFTPRINTF_FLAG) -L $(LIBPARSER_DIR) -L $(LIBFT_DIR) -L $(LIBRL_DIR) -L $(LIBFTPRINTF_DIR) -o $(NAME) 
 
 sandbox:
 	$(CC) sandbox/pipe_unlimited.c  -I $(INC) $(LIBFT_A) $(LIBPARSER) -o $(NAME) && ./$(NAME) hello world

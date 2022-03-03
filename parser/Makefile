@@ -50,9 +50,11 @@ TESTS_SRCS = $(addprefix $(TESTS_DIR)/, $(TESTS_NAME)) \
 TESTS_OBJS = $(TESTS_SRCS:.c=.o)
 ifeq ($(shell uname), Linux)
 	LEAKS = 
+	DEBUG_FLAG = -g3 -fsanitize=leak
 else
 #	LEAKS = leaks -atExit --
 	LEAKS = 
+	DEBUG_FLAG = -g3 -fsanitize=address
 endif
 ### RULES ###
 all: $(NAME)
@@ -63,7 +65,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(AR) $(NAME) $(OBJS)
 
-debug: CFLAGS += $(CDEBUG)
+debug: CFLAGS += $(DEBUG_FLAG)
 debug: $(NAME)
 
 dev: debug
@@ -84,7 +86,7 @@ norm:
 $(LIBFT_A):
 	$(MAKE) -C $(LIBFT_DIR)
 	
-test: CFLAGS += $(CDEBUG)
+test: CFLAGS += $(DEBUG_FLAG)
 test: LDFLAGS += $(TESTS_LNK)
 test: INCS_DIR += $(TESTS_INCS)
 test: $(NAME) $(LIBFT_A) $(TESTS_OBJS)
