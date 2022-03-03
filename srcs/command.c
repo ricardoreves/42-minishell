@@ -160,7 +160,7 @@ int exec_single_command(t_shell *shell, t_cmd *cmd)
 			exit(0);
 		}
 		waitpid(pid, &wstatus, WCONTINUED);
-		free_cmds(shell->cmds);
+		// free_cmds(shell->cmds);
 	}
 	return (0);
 }
