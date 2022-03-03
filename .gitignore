@@ -6,3 +6,4 @@
 *.a
 a.out
 minishell
+minishell.log
