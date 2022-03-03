@@ -44,8 +44,10 @@ t_automaton	*automaton_factory(char *filename)
 		auto_load_transitions(fd, oto);
 		auto_load_accepting(fd, oto);
 		dispose_list_line();
-	}
-	close(fd);
+		close(fd);
+	} 
+	else
+		perror("automaton");
 	return (oto);
 }
 
