@@ -34,10 +34,21 @@ int	ft_gettime(void)
 
 int	log_open(void)
 {
-	mode_t	mode;
-	
+	mode_t		mode;
+	static char	logfilename[200];
+	char		*filename;
+
+	if (*logfilename == '\0')
+	{
+		if (getcwd(logfilename, sizeof(logfilename)))
+		{
+			filename = str_joins(logfilename, LOGFILE, "/");
+			ft_strlcpy(logfilename, filename, 200);
+			free(filename);			
+		}
+	}
 	mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-	return (open("minishell.log", O_WRONLY | O_APPEND | O_CREAT, 0644));
+	return (open("minishell.log", O_WRONLY | O_APPEND | O_CREAT, mode));
 }
 
 void	log_message(char *msg)
@@ -75,4 +86,31 @@ void	log_token(t_token *token)
 	}
 	else 
 		perror("minishell");
+}
+
+void	log_automaton(t_automaton *au)
+{
+	int	fd;
+	int	i;
+	int	j;
+
+	fd = log_open();
+	ft_fprintf(fd, "automaton size\n%d %d \n", au->cols, au->rows);
+	i = -1;
+	ft_fprintf(fd, "transitions \n");
+	while (++i < au->rows)
+	{
+		j = 0;
+		while (j < au->cols)
+		{
+			ft_fprintf(fd, "%d ", au->transitions[j + (i * au->cols)]);
+			j++;
+		}
+		ft_fprintf(fd, "\n");
+	}
+	i = -1;
+	ft_fprintf(fd, "accepting \n");
+	while (++i < au->rows)
+		ft_fprintf(fd, "%d ", au->accepting[i]);
+	close(fd);
 }

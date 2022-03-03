@@ -19,6 +19,7 @@
 #define READ_END 0
 #define WRITE_END 1
 #define CONFIGFILE ".config/parser/bash.conf"
+#define LOGFILE "minishell.log"
 
 //#include <libft.h>
 //#include <libparser.h>
