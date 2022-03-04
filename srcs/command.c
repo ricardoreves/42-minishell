@@ -115,7 +115,7 @@ void handle_commands(t_shell *shell)
 
 	i = 0;
 	cmd = shell->cmds;
-	if (cmd->next == 0)
+	if (shell->num_cmds == 1)
 		exec_single_command(shell, cmd);
 	else
 	{
