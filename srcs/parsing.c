@@ -16,7 +16,8 @@
  * @brief Convertie une liste de jeton en liste de chaine de
  * caractère
  *
- * @param token
+ * @param token_from
+ * @param token_to
  * @return char**
  */
 char **token_to_string(t_token *token_from, t_token *token_to)
