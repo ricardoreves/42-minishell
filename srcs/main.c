@@ -45,7 +45,10 @@ void init_prompt(t_shell *shell)
         {
             add_history(shell->cmdline);
             if (parse_command_line(shell))
+            {
+                log_cmds(shell->cmds);
                 handle_commands(shell);
+            }
             else
                 put_command_error(shell, "minishell", "syntax error near unexpected token", 2);
         }

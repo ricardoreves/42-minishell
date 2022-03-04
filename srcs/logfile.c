@@ -114,3 +114,32 @@ void	log_automaton(t_automaton *au)
 		ft_fprintf(fd, "%d ", au->accepting[i]);
 	close(fd);
 }
+
+void	log_cmds(t_cmd *cmds)
+{
+	int		fd;
+	char	**args;
+
+	fd = log_open();
+	if (fd > -1)
+	{
+		while (cmds)
+		{
+			ft_fprintf(fd, "%d\tcmd name : [%s], redirect_id : [%d], args : ",
+				ft_gettime(), cmds->name, cmds->redirect_id);
+
+			args = cmds->args;
+			while (args && *args)
+			{
+				ft_fprintf(fd, "[%s] ", *args);
+				args++;
+			}
+			ft_fprintf(fd, "\n");
+			
+			cmds = cmds->next;
+		}
+		close(fd);
+	}
+	else 
+		perror("minishell");
+}
