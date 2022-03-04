@@ -39,7 +39,11 @@ void init_prompt(t_shell *shell)
 
     while (1)
     {
-        prompt = str_joins(NAME, DOLLAR, get_env(shell, "PWD"));
+        prompt = get_env(shell, "PWD");
+        if (!prompt)
+            prompt = ft_strjoin(NAME, DOLLAR);
+        else
+            prompt = str_joins(NAME, DOLLAR, get_env(shell, "PWD"));
         shell->cmdline = readline(prompt);
         if (*shell->cmdline)
         {

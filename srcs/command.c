@@ -89,6 +89,10 @@ int access_command(char *path, char **name)
 	char **paths;
 
 	i = 0;
+	if (!path)
+		return (0);
+	if (access(*name, F_OK) != -1)
+		return (1);
 	paths = ft_split(path, ':');
 	if (!paths)
 		return (0);
