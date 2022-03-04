@@ -69,7 +69,8 @@ void set_builtin_token_id(t_token *token)
  */
 int is_word_token_id(int id)
 {
-	return (is_builtin_token_id(id) || id == id_word);
+	return (is_builtin_token_id(id) || id == id_word || id == id_dbl_quotes
+		|| id == id_single_quotes);
 }
 
 /**
