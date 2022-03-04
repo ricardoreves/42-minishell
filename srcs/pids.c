@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 22:45:05 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/04 18:55:30 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/04 22:34:11 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,4 @@ void wait_pids(t_shell *shell)
 		i++;
 	}
 	free(shell->pids);
-	if (WIFEXITED(shell->exit_status))
-	{
-		printf("terminé, code=%d\n", WEXITSTATUS(shell->exit_status));
-	}
 }
