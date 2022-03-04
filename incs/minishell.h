@@ -167,7 +167,7 @@ int is_builtin_token_id(int id);
 int is_redirect_token_id(int id);
 int is_word_token_id(int id);
 
-void prepare_cmds(t_token *token, t_cmd **cmds);
+void prepare_cmds(t_token *token, t_shell *shell);
 void print_cmds(t_cmd *cmds);
 void free_cmds(t_cmd *cmds);
 int count_cmds(t_cmd *cmds);
@@ -177,4 +177,5 @@ int	ft_gettime(void);
 int	log_open(void);
 void	log_message(char *msg);
 void	log_token(t_token *token);
+void	log_cmds(t_cmd *cmds);
 #endif
