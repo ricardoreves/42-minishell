@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/04 22:53:21 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/05 00:49:55 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,23 +140,6 @@ int is_directory_command(char *path);
 int redirect_input(t_cmd *cmd);
 int redirect_output(t_cmd *cmd);
 void handle_redirect(t_cmd *cmd);
-
-// Not used
-typedef struct s_env
-{
-	char *name;
-	char *value;
-	struct s_env *next;
-} t_env;
-
-void free_envlst(t_env **envs);
-void print_envlst(t_env **envs);
-t_env *new_envlst(char *name, char *value);
-t_env *get_envlst(t_env **envs, char *name);
-int init_envslst(t_shell *shell, char *envs[]);
-int add_envlst(t_env **envs, t_env *env);
-int set_envlst(t_env **envs, char *name, char *value);
-int unset_envlst(t_env **envs, char *name); // bug
 
 int	parse_command_line(t_shell *shell);
 void sanitize_quotes_token(t_token *token);
