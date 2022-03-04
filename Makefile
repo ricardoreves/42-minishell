@@ -6,7 +6,7 @@
 #    By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 01:47:02 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/03/03 02:55:08 by rpinto-r         ###   ########.fr        #
+#    Updated: 2022/03/05 00:54:26 by rpinto-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ endif
 LIBFT_FLAG = -lft
 LIBFT_DIR  = ./libft
 LIBFT_INC  = ./libft
-LIBFT_A    = ./libft/libft.a
+LIBFT    = ./libft/libft.a
 
 LIBPARSER_INC = ./parser/inc
 LIBPARSER_FLAG = -lparser
@@ -98,10 +98,10 @@ dev: $(OBJS)
 	$(CC) $(OBJS) $(DEBUG_FLAG) $(LIBRL_FLAG) $(LIBPARSER_FLAG) $(LIBFT_FLAG) $(LIBFTPRINTF_FLAG) -L $(LIBPARSER_DIR) -L $(LIBFT_DIR) -L $(LIBRL_DIR) -L $(LIBFTPRINTF_DIR) -o $(NAME) 
 
 sandbox:
-	$(CC) sandbox/pipe_unlimited.c  -I $(INC) $(LIBFT_A) $(LIBPARSER) -o $(NAME) && ./$(NAME) hello world
+	$(CC) sandbox/pipe_unlimited.c  -I $(INC) $(LIBFT) $(LIBPARSER) -o $(NAME) && ./$(NAME) hello world
 
 dev2:
-	$(CC) sandbox/save_error.c $(DEBUG_FLAG) -I $(INC) $(LIBFT_A) $(LIBPARSER) -o $(NAME) && ./$(NAME)
+	$(CC) sandbox/save_error.c $(DEBUG_FLAG) -I $(INC) $(LIBFT) $(LIBPARSER) -o $(NAME) && ./$(NAME)
 
 fd:
 	ls -la /proc/$$$/fd
