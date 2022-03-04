@@ -12,15 +12,6 @@
 
 #include "minishell.h"
 
-t_cmd *create_cmd(void)
-{
-	t_cmd *cmd;
-
-	cmd = ft_calloc(sizeof(t_cmd), 1);
-	cmd->redirect_id = id_notset;
-	return (cmd);
-}
-
 /**
  * @brief Ajoute une commande à la fin de la liste des commandes
  *
@@ -42,6 +33,18 @@ void push_cmd(t_cmd *cmd, t_cmd **cmds)
 	}
 }
 
+t_cmd *create_cmd(t_shell *shell)
+{
+	t_cmd *cmd;
+
+	cmd = ft_calloc(sizeof(t_cmd), 1);
+	cmd->redirect_id = id_notset;
+	push_cmd(cmd, &shell->cmds);
+	shell->num_cmds++;
+	return (cmd);
+}
+
+
 /**
  * @brief Remplie la liste cmds avec toutes les commandes
  *  a effectué à partir du contenu des jetons crée par le parser.
@@ -49,12 +52,11 @@ void push_cmd(t_cmd *cmd, t_cmd **cmds)
  * @param token
  * @param cmds
  */
-void prepare_cmds(t_token *token, t_cmd **cmds)
+void prepare_cmds(t_token *token, t_shell *shell)
 {
 	t_cmd *cmd;
 
-	cmd = create_cmd();
-	push_cmd(cmd, cmds);
+	cmd = create_cmd(shell);
 	while (token)
 	{
 		if (is_word_token_id(token->id))
@@ -71,10 +73,7 @@ void prepare_cmds(t_token *token, t_cmd **cmds)
 				cmd->redirect_path = ft_strdup(token->str);
 		}
 		else if (token->id == id_pipe)
-		{
-			cmd = create_cmd();
-			push_cmd(cmd, cmds);
-		}
+			cmd = create_cmd(shell);
 		token = token->next;
 	}
 }
