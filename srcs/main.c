@@ -56,14 +56,14 @@ void init_prompt(t_shell *shell)
 
 int main(int argc, char *argv[], char *envs[])
 {
-    t_shell *shell;
+    t_shell shell;
 
     (void)argc;
     (void)argv;
-    shell = ft_calloc(sizeof(t_shell), 1);
+    // shell = ft_calloc(sizeof(t_shell), 1);
     // ft_memset(shell, 0, sizeof(shell));
     init_asciiart();
-    init_envs(shell, envs);
+    init_envs(&shell, envs);
 
     // test env_utils
     // set_env(shell, ft_strdup("PATH"), str_joins(getenv("PATH"), getenv("PWD"), ":"));
@@ -82,8 +82,8 @@ int main(int argc, char *argv[], char *envs[])
     // printf("%s\n", eval_variable(shell, "Hi $USERNAME, Welcome$FAKE to $HOME$FAKE!\0", 0));int g_num = 0;
 
     // override_signals();
-    init_config(shell);
-    init_prompt(shell);
+    init_config(&shell);
+    init_prompt(&shell);
     // free_array(shell.envs);
     return (0);
 }
