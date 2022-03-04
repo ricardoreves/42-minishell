@@ -30,21 +30,19 @@ void free_shell(t_shell *shell)
  * @brief Libère la mémoire de la liste des commandes
  * @param cmds
  */
-void free_cmds(t_cmd *cmds)
+void free_cmds(t_cmd *cmd)
 {
-	t_cmd *cmd;
+	t_cmd *last;
 
-	if (!cmds)
-		return;
-	cmd = cmds;
 	while (cmd)
 	{
+		last = cmd;
 		free(cmd->name);
 		free(cmd->redirect_path);
 		free_array(cmd->args);
 		cmd = cmd->next;
+		free(last);
 	}
-	free(cmds);
 }
 
 void free_pipes(int **pipes, int size)
