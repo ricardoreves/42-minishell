@@ -43,11 +43,10 @@ char **token_to_string(t_token *token_from, t_token *token_to)
  * une liste de chaine de caractère en fonction du
  * parsing
  *
- * @param str
- * @param cfg
- * @return char**
+ * @param shell
+ * @return int
  */
-t_cmd *parse_command_line(t_shell *shell)
+int	parse_command_line(t_shell *shell)
 {
 	t_token *token;
 	t_automaton *oto;
@@ -57,14 +56,11 @@ t_cmd *parse_command_line(t_shell *shell)
 	sanitize_quotes_token(token);
 	evaluate_str_env_token(token, shell);
 	shell->cmds = 0;
+	shell->num_cmds = 0;
 	if (token)
-	{
-		prepare_cmds(token, &shell->cmds);
-		shell->num_cmds = count_cmds(shell->cmds);
-		//print_cmds(shell->cmds);
-	}
+		prepare_cmds(token, shell);
 	log_token(token);
 	token_dispose(&token);
 	automaton_dispose(oto);
-	return (shell->cmds);
+	return (shell->num_cmds);
 }

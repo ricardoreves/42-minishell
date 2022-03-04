@@ -158,7 +158,7 @@ int add_envlst(t_env **envs, t_env *env);
 int set_envlst(t_env **envs, char *name, char *value);
 int unset_envlst(t_env **envs, char *name); // bug
 
-t_cmd *parse_command_line(t_shell *shell);
+int	parse_command_line(t_shell *shell);
 void sanitize_quotes_token(t_token *token);
 void evaluate_str_env_token(t_token *token, t_shell *shell);
 void set_builtin_token_id(t_token *token);
