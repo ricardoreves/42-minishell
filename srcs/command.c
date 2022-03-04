@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/02 04:16:35 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/04 18:50:46 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bash: ./l: No such file or directory
 bash: //kk: No such file or directory
  */
 
-int is_directory_command(char *path) // 126
+int is_directory_command(t_shell *shell, char *path) // 126
 {
 	int i;
 
@@ -35,6 +35,7 @@ int is_directory_command(char *path) // 126
 			return (0);
 		i++;
 	}
+	shell->exit_status = 126;
 	return (1);
 }
 
@@ -74,15 +75,18 @@ void process_command(t_shell *shell, t_cmd *cmd, int num)
 		else if (access_command(get_env(shell, "PATH"), &cmd->name) == 0)
 			put_command_error(shell, cmd->name, "command not found 2", 127);
 		else if (execve(cmd->name, cmd->args, shell->envs))
+		{
 			put_command_error(shell, cmd->name, strerror(errno), errno);
+			shell->exit_status = errno;
+		}
 		//free_shell(shell);
 		//free(cmd);
 		//free_cmds(shell->cmds);
-		exit(0);
+		exit(shell->exit_status);
 	}
 }
 
-int access_command(char *path, char **name)
+int access_command(t_shell *shell, char *path, char **name)
 {
 	int i;
 	char *pathname;
@@ -109,6 +113,7 @@ int access_command(char *path, char **name)
 		free(pathname);
 	}
 	free_array(paths);
+	shell->exit_status = 127;
 	return (0);
 }
 
@@ -143,9 +148,9 @@ int exec_single_command(t_shell *shell, t_cmd *cmd)
 
 	if (is_builtin_command(cmd->name))
 		exec_builtin_command(shell, cmd);
-	else if (is_directory_command(cmd->name))
+	else if (is_directory_command(shell, cmd->name))
 		put_command_error(shell, cmd->name, "is a directory", 126);
-	else if (access_command(get_env(shell, "PATH"), &cmd->name) == 0)
+	else if (access_command(shell, get_env(shell, "PATH"), &cmd->name) == 0)
 		put_command_error(shell, cmd->name, "command not found", 127);
 	else
 	{
@@ -160,10 +165,9 @@ int exec_single_command(t_shell *shell, t_cmd *cmd)
 				put_command_error(shell, shell->cmds->name, strerror(errno), errno);
 			}
 			free_shell(shell);
-			exit(0);
+			exit(shell->exit_status);
 		}
-		waitpid(pid, &wstatus, WCONTINUED);
-		// free_cmds(shell->cmds);
+		waitpid(pid, shell->exit_status, WCONTINUED);
 	}
 	return (0);
 }
