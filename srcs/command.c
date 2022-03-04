@@ -143,6 +143,8 @@ int exec_single_command(t_shell *shell, t_cmd *cmd)
 		put_command_error(shell, cmd->name, "is a directory", 126);
 	else if (access_command(get_env(shell, "PATH"), &cmd->name) == 0)
 		put_command_error(shell, cmd->name, "command not found", 127);
+	else if (execve(cmd->name, cmd->args, shell->envs))
+		put_command_error(shell, cmd->name, strerror(errno), errno);
 	else
 	{
 		pid = fork();
