@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 14:40:30 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/28 17:58:28 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/05 00:28:48 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char *get_evaluate_value(t_shell *shell, char *str, int *i)
 
     j = 0;
     ft_bzero(name, sizeof(name));
-    while (ft_isalnum(str[j]) || str[j] == '_')
+    while (ft_isalnum(str[j]) || str[j] == '_' || str[j] == '?')
     {
         name[j] = str[j];
         (*i)++;
