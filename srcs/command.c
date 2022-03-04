@@ -130,7 +130,6 @@ void handle_commands(t_shell *shell)
 		close_pipes(shell);
 		wait_pids(shell);
 	}
-	free_cmds(shell->cmds);
 }
 
 int exec_single_command(t_shell *shell, t_cmd *cmd)
