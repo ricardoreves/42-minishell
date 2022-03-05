@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:41:02 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/05 01:18:56 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/05 21:54:11 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,11 @@ int put_command_error(t_shell *shell, char *cmd, char *msg, int num)
 	return (0);
 }
 
-void store_command_error(t_shell *shell)
+void save_exit_status(t_shell *shell)
 {
-	//char *str = ft_itoa(shell->exit_status);
-	//printf("exit_status: %d %s\n", shell->exit_status, str);
-	//free(str);
 	if (get_env(shell, "?"))
 		set_env(shell, ft_strdup("?"), ft_itoa(shell->exit_status));
 	else
 		add_env(shell, ft_strdup("?"), ft_itoa(shell->exit_status));
-	//printf("?: %s\n", get_env(shell, "?"));
 	shell->exit_status = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/05 21:36:41 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/05 21:53:59 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void handle_commands(t_shell *shell)
 		close_pipes(shell);
 		wait_pids(shell);
 	}
-	store_command_error(shell);
+	save_exit_status(shell);
 }
 
 int exec_single_command(t_shell *shell, t_cmd *cmd)

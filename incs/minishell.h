@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/05 21:42:20 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/05 21:53:59 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ char *str_duplicate_nbytes(char *str, size_t n);
 int str_compare(char *str1, char *str2);
 
 int put_command_error(t_shell *shell, char *cmd, char *msg, int num);
-void store_command_error(t_shell *shell);
+void save_exit_status(t_shell *shell);
 
 int exec_cd(t_shell *shell, t_cmd *cmd);
 int exec_echo(t_shell *shell, t_cmd *cmd);
