@@ -19,9 +19,9 @@
  */
 void sanitize_quotes_word_token(t_token *t)
 {
-	int len;
-	int i;
-	int decal;
+	int	len;
+	int	i;
+	int	decal;
 
 	len = ft_strlen(t->str);
 	i = -1;
@@ -42,19 +42,14 @@ void sanitize_quotes_word_token(t_token *t)
  */
 void sanitize_quotes_token(t_token *token)
 {
-	t_token *t;
+	t_token	*t;
 
 	t = token;
 	while (t)
 	{
-		if (t->id == id_dbl_quotes || t->id == id_single_quotes)
-		{
+		if (t->id == id_dbl_quotes || t->id == id_single_quotes
+			|| t->id == id_word)
 			sanitize_quotes_word_token(t);
-		}
-		if (t->id == id_word)
-		{
-			sanitize_quotes_word_token(t);
-		}
 		t = t->next;
 	}
 }
