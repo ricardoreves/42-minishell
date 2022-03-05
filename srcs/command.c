@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/04 18:50:46 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/05 01:26:28 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bash: ./l: No such file or directory
 bash: //kk: No such file or directory
  */
 
-int is_directory_command(t_shell *shell, char *path) // 126
+int is_directory_command(char *path) // 126
 {
 	int i;
 
@@ -35,8 +35,92 @@ int is_directory_command(t_shell *shell, char *path) // 126
 			return (0);
 		i++;
 	}
-	shell->exit_status = 126;
 	return (1);
+}
+
+int access_command(char *path, char **name)
+{
+	int i;
+	char *pathname;
+	char **paths;
+
+	i = 0;
+	if (!path)
+		return (0);
+	if (access(*name, F_OK) != -1)
+		return (1);
+	paths = ft_split(path, ':');
+	if (!paths)
+		return (0);
+	while (paths[i])
+	{
+		pathname = str_joins(paths[i++], (*name), "/");
+		if (access(pathname, F_OK) != -1)
+		{
+			free((*name));
+			free_array(paths);
+			(*name) = pathname;
+			return (1);
+		}
+		free(pathname);
+	}
+	free_array(paths);
+	return (0);
+}
+
+void handle_commands(t_shell *shell)
+{
+	int i;
+	t_cmd *cmd;
+
+	i = 0;
+	cmd = shell->cmds;
+	if (shell->num_cmds == 1)
+		exec_single_command(shell, cmd);
+	else
+	{
+		create_pids(shell);
+		create_pipes(shell);
+		while (cmd)
+		{
+			process_command(shell, cmd, i);
+			cmd = cmd->next;
+			i++;
+		}
+		close_pipes(shell);
+		wait_pids(shell);
+	}
+	store_command_error(shell);
+}
+
+int exec_single_command(t_shell *shell, t_cmd *cmd)
+{
+	pid_t pid;
+	int status;
+
+	if (is_builtin_command(cmd->name))
+		exec_builtin_command(shell, cmd);
+	else if (is_directory_command(cmd->name))
+		put_command_error(shell, cmd->name, "is a directory", 126);
+	else if (access_command(get_env(shell, "PATH"), &cmd->name) == 0)
+		put_command_error(shell, cmd->name, "command not found", 127);
+	else
+	{
+		pid = fork();
+		if (pid == -1)
+			perror("Error: fork() failed\n");
+		else if (pid == 0)
+		{
+			handle_redirect(shell->cmds);
+			if (execve(shell->cmds->name, shell->cmds->args, shell->envs))
+				put_command_error(shell, cmd->name, strerror(errno), errno);
+			exit(shell->exit_status);
+		}
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			shell->exit_status = WEXITSTATUS(status);
+	}
+	return (0);
 }
 
 void process_command(t_shell *shell, t_cmd *cmd, int num)
@@ -71,103 +155,11 @@ void process_command(t_shell *shell, t_cmd *cmd, int num)
 		if (is_builtin_command(cmd->name))
 			exec_builtin_command(shell, cmd);
 		else if (is_directory_command(cmd->name))
-			put_command_error(shell, cmd->name, "is a directory 2", 126);
+			put_command_error(shell, cmd->name, "is a directory", 126);
 		else if (access_command(get_env(shell, "PATH"), &cmd->name) == 0)
-			put_command_error(shell, cmd->name, "command not found 2", 127);
+			put_command_error(shell, cmd->name, "command not found", 127);
 		else if (execve(cmd->name, cmd->args, shell->envs))
-		{
 			put_command_error(shell, cmd->name, strerror(errno), errno);
-			shell->exit_status = errno;
-		}
-		//free_shell(shell);
-		//free(cmd);
-		//free_cmds(shell->cmds);
 		exit(shell->exit_status);
 	}
-}
-
-int access_command(t_shell *shell, char *path, char **name)
-{
-	int i;
-	char *pathname;
-	char **paths;
-
-	i = 0;
-	if (!path)
-		return (0);
-	if (access(*name, F_OK) != -1)
-		return (1);
-	paths = ft_split(path, ':');
-	if (!paths)
-		return (0);
-	while (paths[i])
-	{
-		pathname = str_joins(paths[i++], (*name), "/");
-		if (access(pathname, F_OK) != -1)
-		{
-			free((*name));
-			free_array(paths);
-			(*name) = pathname;
-			return (1);
-		}
-		free(pathname);
-	}
-	free_array(paths);
-	shell->exit_status = 127;
-	return (0);
-}
-
-void handle_commands(t_shell *shell)
-{
-	int i;
-	t_cmd *cmd;
-
-	i = 0;
-	cmd = shell->cmds;
-	if (shell->num_cmds == 1)
-		exec_single_command(shell, cmd);
-	else
-	{
-		create_pids(shell);
-		create_pipes(shell);
-		while (cmd)
-		{
-			process_command(shell, cmd, i);
-			cmd = cmd->next;
-			i++;
-		}
-		close_pipes(shell);
-		wait_pids(shell);
-	}
-}
-
-int exec_single_command(t_shell *shell, t_cmd *cmd)
-{
-	int wstatus;
-	pid_t pid;
-
-	if (is_builtin_command(cmd->name))
-		exec_builtin_command(shell, cmd);
-	else if (is_directory_command(shell, cmd->name))
-		put_command_error(shell, cmd->name, "is a directory", 126);
-	else if (access_command(shell, get_env(shell, "PATH"), &cmd->name) == 0)
-		put_command_error(shell, cmd->name, "command not found", 127);
-	else
-	{
-		pid = fork();
-		if (pid == -1)
-			perror("Error: fork() failed\n");
-		else if (pid == 0)
-		{
-			handle_redirect(shell->cmds);
-			if (execve(shell->cmds->name, shell->cmds->args, shell->envs))
-			{
-				put_command_error(shell, shell->cmds->name, strerror(errno), errno);
-			}
-			free_shell(shell);
-			exit(shell->exit_status);
-		}
-		waitpid(pid, shell->exit_status, WCONTINUED);
-	}
-	return (0);
 }
