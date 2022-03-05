@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 21:28:31 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/05 01:32:54 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/05 21:59:42 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void change_dir(t_shell *shell, char *path)
 {
     if (chdir(path) != 0)
-        put_command_error(shell, "cd", strerror(errno), errno);
+        show_command_error(shell, "cd", strerror(errno), errno);
 }
 
 void update_pwd(t_shell *shell, char *name)

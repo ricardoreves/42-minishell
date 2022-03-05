@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:03 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/05 19:18:24 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/05 21:59:42 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void init_prompt(t_shell *shell)
                 free_cmds(shell->cmds);
             }
             else
-                put_command_error(shell, "minishell", "syntax error near unexpected token", 2);
+                show_command_error(shell, "minishell", "syntax error near unexpected token", 2);
         }
         free(shell->cmdline);
         free(prompt);

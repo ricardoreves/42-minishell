@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/05 21:53:59 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/05 21:59:42 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ int exec_single_command(t_shell *shell, t_cmd *cmd)
 	if (is_builtin_command(cmd->name))
 		exec_builtin_command(shell, cmd);
 	else if (is_directory(cmd->name))
-		put_command_error(shell, cmd->name, "is a directory", 126);
+		show_command_error(shell, cmd->name, "is a directory", 126);
 	else if (is_file_not_found(cmd->name))
-		put_command_error(shell, cmd->name, "not such file or directory", 127);
+		show_command_error(shell, cmd->name, "not such file or directory", 127);
 	else if (is_command_not_found(get_env(shell, "PATH"), &cmd->name))
-		put_command_error(shell, cmd->name, "command not found", 127);
+		show_command_error(shell, cmd->name, "command not found", 127);
 	else if (is_file_permission_denied(cmd->name))
-		put_command_error(shell, cmd->name, "permission denied", 126);
+		show_command_error(shell, cmd->name, "permission denied", 126);
 	else
 	{
 		pid = fork();
@@ -61,7 +61,7 @@ int exec_single_command(t_shell *shell, t_cmd *cmd)
 		{
 			handle_redirect(shell->cmds);
 			if (execve(shell->cmds->name, shell->cmds->args, shell->envs))
-				put_command_error(shell, cmd->name, strerror(errno), errno);
+				show_command_error(shell, cmd->name, strerror(errno), errno);
 			exit(shell->exit_status);
 		}
 		waitpid(pid, &status, 0);
@@ -103,15 +103,15 @@ void process_command(t_shell *shell, t_cmd *cmd, int num)
 		if (is_builtin_command(cmd->name))
 			exec_builtin_command(shell, cmd);
 		else if (is_directory(cmd->name))
-			put_command_error(shell, cmd->name, "is a directory", 126);
+			show_command_error(shell, cmd->name, "is a directory", 126);
 		else if (is_file_not_found(cmd->name))
-			put_command_error(shell, cmd->name, "not such file or directory", 127);
+			show_command_error(shell, cmd->name, "not such file or directory", 127);
 		else if (is_command_not_found(get_env(shell, "PATH"), &cmd->name))
-			put_command_error(shell, cmd->name, "command not found", 127);
+			show_command_error(shell, cmd->name, "command not found", 127);
 		else if (is_file_permission_denied(cmd->name))
-			put_command_error(shell, cmd->name, "permission denied", 126);
+			show_command_error(shell, cmd->name, "permission denied", 126);
 		else if (execve(cmd->name, cmd->args, shell->envs))
-			put_command_error(shell, cmd->name, strerror(errno), errno);
+			show_command_error(shell, cmd->name, strerror(errno), errno);
 		exit(shell->exit_status);
 	}
 }
