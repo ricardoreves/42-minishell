@@ -146,7 +146,6 @@ int parse_command_line(t_shell *shell);
 void sanitize_quotes_token(t_token *token);
 void evaluate_str_env_token(t_token *token, t_shell *shell);
 void set_builtin_token_id(t_token *token);
-char **token_to_string(t_token *token_from, t_token *token_to);
 int is_builtin_token_id(int id);
 int is_redirect_token_id(int id);
 int is_word_token_id(int id);
