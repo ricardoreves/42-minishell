@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:03 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/05 01:30:34 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/05 19:18:24 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,20 @@ int main(int argc, char *argv[], char *envs[])
     // //print_array(shell.envs);
 
     // printf("%s\n", eval_variable(shell, "Hi $USERNAME, Welcome$FAKE to $HOME$FAKE!\0", 0));int g_num = 0;
-
+  
     override_signals();
     init_config(&shell);
     init_prompt(&shell);
+
+    // printf("%d\n", access("/bin/ls", F_OK));
+    // printf("%d\n", access("ls", F_OK));
+    // printf("%d\n", access("./Makefile", F_OK));
+    // printf("%d\n\n", access("./srcs", F_OK));
+
+    // printf("%d\n", access("/bin/ls", X_OK));
+    // printf("%d\n", access("ls", X_OK));
+    // printf("%d\n", access("./Makefile", X_OK));
+    // printf("%d\n", access("./srcs", X_OK));
     // free_array(shell.envs);
     return (0);
 }

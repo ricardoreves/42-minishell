@@ -6,67 +6,11 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/05 01:26:28 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/05 21:36:41 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-is directory
-bash: ../: Is a directory
-bash: ./: Is a directory
-bash: /: Is a directory
-
-bash: syntax error near unexpected token `;;'
-
-bash: ./l: No such file or directory
-bash: //kk: No such file or directory
- */
-
-int is_directory_command(char *path) // 126
-{
-	int i;
-
-	i = 0;
-	while (path && path[i])
-	{
-		if (path[i] != '/' && path[i] != '.')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int access_command(char *path, char **name)
-{
-	int i;
-	char *pathname;
-	char **paths;
-
-	i = 0;
-	if (!path)
-		return (0);
-	if (access(*name, F_OK) != -1)
-		return (1);
-	paths = ft_split(path, ':');
-	if (!paths)
-		return (0);
-	while (paths[i])
-	{
-		pathname = str_joins(paths[i++], (*name), "/");
-		if (access(pathname, F_OK) != -1)
-		{
-			free((*name));
-			free_array(paths);
-			(*name) = pathname;
-			return (1);
-		}
-		free(pathname);
-	}
-	free_array(paths);
-	return (0);
-}
 
 void handle_commands(t_shell *shell)
 {
@@ -100,10 +44,14 @@ int exec_single_command(t_shell *shell, t_cmd *cmd)
 
 	if (is_builtin_command(cmd->name))
 		exec_builtin_command(shell, cmd);
-	else if (is_directory_command(cmd->name))
+	else if (is_directory(cmd->name))
 		put_command_error(shell, cmd->name, "is a directory", 126);
-	else if (access_command(get_env(shell, "PATH"), &cmd->name) == 0)
+	else if (is_file_not_found(cmd->name))
+		put_command_error(shell, cmd->name, "not such file or directory", 127);
+	else if (is_command_not_found(get_env(shell, "PATH"), &cmd->name))
 		put_command_error(shell, cmd->name, "command not found", 127);
+	else if (is_file_permission_denied(cmd->name))
+		put_command_error(shell, cmd->name, "permission denied", 126);
 	else
 	{
 		pid = fork();
@@ -154,10 +102,14 @@ void process_command(t_shell *shell, t_cmd *cmd, int num)
 		close_pipes(shell);
 		if (is_builtin_command(cmd->name))
 			exec_builtin_command(shell, cmd);
-		else if (is_directory_command(cmd->name))
+		else if (is_directory(cmd->name))
 			put_command_error(shell, cmd->name, "is a directory", 126);
-		else if (access_command(get_env(shell, "PATH"), &cmd->name) == 0)
+		else if (is_file_not_found(cmd->name))
+			put_command_error(shell, cmd->name, "not such file or directory", 127);
+		else if (is_command_not_found(get_env(shell, "PATH"), &cmd->name))
 			put_command_error(shell, cmd->name, "command not found", 127);
+		else if (is_file_permission_denied(cmd->name))
+			put_command_error(shell, cmd->name, "permission denied", 126);
 		else if (execve(cmd->name, cmd->args, shell->envs))
 			put_command_error(shell, cmd->name, strerror(errno), errno);
 		exit(shell->exit_status);
