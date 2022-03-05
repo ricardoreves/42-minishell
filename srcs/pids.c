@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 22:45:05 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/04 22:34:11 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/05 01:12:06 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@ void create_pids(t_shell *shell)
 void wait_pids(t_shell *shell)
 {
 	int i;
+	int status;
 
 	i = 0;
 	while (i < shell->num_cmds)
-	{
-		// printf("num: %d pid: %d\n", i, shell->pids[i]);
-		waitpid(shell->pids[i], shell->exit_status, 0);
-		i++;
-	}
+		waitpid(shell->pids[i++], &status, 0);
 	free(shell->pids);
+	if (WIFEXITED(status))
+		shell->exit_status = WEXITSTATUS(status);
 }
