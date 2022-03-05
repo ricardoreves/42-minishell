@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/05 21:30:32 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/05 21:42:20 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,12 @@ void init_asciiart(void);
 int is_builtin_command(char *name);
 void exec_builtin_command(t_shell *shell, t_cmd *cmd);
 int exec_single_command(t_shell *shell, t_cmd *cmd);
+
 int is_command_not_found(char *path, char **name);
+int is_directory(char *path);
+int is_file_permission_denied(char *name);
+int is_file_not_found(char *name);
+
 void handle_commands(t_shell *shell);
 void process_command(t_shell *shell, t_cmd *cmd, int num);
 void wait_pids(t_shell *shell);
