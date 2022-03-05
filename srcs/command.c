@@ -47,7 +47,7 @@ int access_command(char *path, char **name)
 	i = 0;
 	if (!path)
 		return (0);
-	if (access(*name, F_OK) != -1)
+	if (access(*name, X_OK) != -1)
 		return (1);
 	paths = ft_split(path, ':');
 	if (!paths)
@@ -55,7 +55,7 @@ int access_command(char *path, char **name)
 	while (paths[i])
 	{
 		pathname = str_joins(paths[i++], (*name), "/");
-		if (access(pathname, F_OK) != -1)
+		if (access(pathname, X_OK) != -1)
 		{
 			free((*name));
 			free_array(paths);
