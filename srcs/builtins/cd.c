@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 21:28:31 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/02 01:40:09 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/05 01:32:54 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int exec_cd(t_shell *shell, t_cmd *cmd)
     char **dirs;
 
     update_pwd(shell, "OLDPWD");
-    if (!cmd->args[1] || (cmd->args[1] && str_compare(cmd->args[1], "~") == 0))
+    if (!cmd->args[1] || (cmd->args[1] && (str_compare(cmd->args[1], "~") == 0 || str_compare(cmd->args[1], "~/") == 0)))
         change_dir(shell, get_env(shell, "HOME"));
     else if (cmd->args[1] && str_compare(cmd->args[1], "-") == 0)
         ft_putendl_fd(get_env(shell, "PWD"), 1);
