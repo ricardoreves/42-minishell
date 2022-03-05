@@ -6,34 +6,16 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 20:47:22 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/03 00:58:00 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/05 22:33:20 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int contain_env(char *str, char *name)
+int	add_env(t_shell *shell, char *name, char *value)
 {
-	char *tmp;
-
-	if (!str || !name)
-		return (0);
-	tmp = ft_strjoin(name, "=");
-	if (!tmp)
-		return (0);
-	if (ft_strncmp(str, tmp, ft_strlen(tmp)) == 0)
-	{
-		free(tmp);
-		return (1);
-	}
-	free(tmp);
-	return (0);
-}
-
-int add_env(t_shell *shell, char *name, char *value)
-{
-	int i;
-	char **envs;
+	int		i;
+	char	**envs;
 
 	if (!name || !value)
 		return (0);
@@ -51,9 +33,9 @@ int add_env(t_shell *shell, char *name, char *value)
 	return (1);
 }
 
-char *get_env(t_shell *shell, char *name)
+char	*get_env(t_shell *shell, char *name)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (!name)
@@ -64,9 +46,9 @@ char *get_env(t_shell *shell, char *name)
 	return (0);
 }
 
-int set_env(t_shell *shell, char *name, char *value)
+int	set_env(t_shell *shell, char *name, char *value)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (!name || !value)
@@ -84,11 +66,11 @@ int set_env(t_shell *shell, char *name, char *value)
 	return (1);
 }
 
-int unset_env(t_shell *shell, char *name)
+int	unset_env(t_shell *shell, char *name)
 {
-	int i;
-	int j;
-	char **envs;
+	int		i;
+	int		j;
+	char	**envs;
 
 	i = -1;
 	j = -1;
@@ -105,9 +87,9 @@ int unset_env(t_shell *shell, char *name)
 	return (1);
 }
 
-int init_envs(t_shell *shell, char *envs[])
+int	init_envs(t_shell *shell, char *envs[])
 {
-	int i;
+	int	i;
 
 	if (!envs)
 		return (0);
