@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/05 00:49:55 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/05 01:03:49 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ char *str_duplicate_nbytes(char *str, size_t n);
 int str_compare(char *str1, char *str2);
 
 int put_command_error(t_shell *shell, char *cmd, char *msg, int num);
+void store_command_error(t_shell *shell);
 
 int exec_cd(t_shell *shell, t_cmd *cmd);
 int exec_echo(t_shell *shell, t_cmd *cmd);
@@ -141,7 +142,7 @@ int redirect_input(t_cmd *cmd);
 int redirect_output(t_cmd *cmd);
 void handle_redirect(t_cmd *cmd);
 
-int	parse_command_line(t_shell *shell);
+int parse_command_line(t_shell *shell);
 void sanitize_quotes_token(t_token *token);
 void evaluate_str_env_token(t_token *token, t_shell *shell);
 void set_builtin_token_id(t_token *token);
@@ -156,9 +157,9 @@ void free_cmds(t_cmd *cmds);
 int count_cmds(t_cmd *cmds);
 
 // Log
-int	ft_gettime(void);
-int	log_open(void);
-void	log_message(char *msg);
-void	log_token(t_token *token);
-void	log_cmds(t_cmd *cmds);
+int ft_gettime(void);
+int log_open(void);
+void log_message(char *msg);
+void log_token(t_token *token);
+void log_cmds(t_cmd *cmds);
 #endif
