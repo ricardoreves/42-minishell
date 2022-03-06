@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 17:49:28 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 17:50:05 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define DOLLAR "\e[1;37m$ \e[0m"
 # define CONFIGFILE ".config/parser/bash.conf"
 # define LOGFILE "minishell.log"
+# define ERR_SYNTAX "syntax error near unexpected token"
 
 //# include <libft.h>
 //# include <libparser.h>
