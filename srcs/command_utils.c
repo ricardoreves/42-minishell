@@ -6,11 +6,16 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 21:21:21 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 15:49:21 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 18:33:43 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_exec_file(char *name)
+{
+	return (ft_strncmp(name, "./", 2) == 0 || name[0] == '/');
+}
 
 int	is_directory(char *name)
 {
@@ -28,7 +33,7 @@ int	is_file_permission_denied(char *name)
 
 int	is_file_not_found(char *name)
 {
-	return (ft_strncmp(name, "./", 2) == 0 && access(name, F_OK) == -1);
+	return (is_exec_file(name) && access(name, F_OK) == -1);
 }
 
 int	is_command_not_found(char *path, char **name)
@@ -38,7 +43,7 @@ int	is_command_not_found(char *path, char **name)
 	char	**paths;
 
 	i = 0;
-	if (ft_strncmp(*name, "./", 2) == 0 && access(*name, F_OK) != -1)
+	if (is_exec_file(*name) && access(*name, F_OK) != -1)
 		return (0);
 	paths = ft_split(path, ':');
 	if (!path || !paths)
