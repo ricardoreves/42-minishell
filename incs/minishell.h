@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 14:44:39 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 14:59:09 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,12 @@ typedef struct s_shell
 	int		num_pipes;
 	int		exit_status;
 }	t_shell;
+
+/* main.c */
+void	init_asciiart(void);
+void	init_config(t_shell *shell);
+void	init_prompt(t_shell *shell);
+int		init_shell(t_shell *shell, int argc, char *argv[]);
 
 void	print_array(char *arr[]);
 void	free_array(char *arr[]);
