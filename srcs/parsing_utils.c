@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/06 15:23:58 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:28:31 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	evaluate_str_env_token(t_token *tokens, t_shell *shell)
 			str = evaluate_str_env(shell, token->str, 0);
 			free(token->str);
 			token->str = str;
-			set_builtin_token_id(t);
+			set_builtin_token_id(token);
 		}
 		token = token->next;
 	}
