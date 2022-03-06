@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 21:21:21 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 15:44:41 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:49:21 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_directory(char *name)
 {
-	struct stat statbuf;
+	struct stat	statbuf;
 
 	if (stat(name, &statbuf) != 0)
 		return (0);
