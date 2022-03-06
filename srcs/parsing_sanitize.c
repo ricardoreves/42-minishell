@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/06 15:37:48 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:40:57 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
  *
  * @param t
  */
-static void sanitize_quotes_word_token(t_token *token)
+static void	sanitize_quotes_word_token(t_token *token)
 {
-	int len;
-	int i;
-	int decal;
+	int	i;
+	int	len;
+	int	decal;
 
 	i = -1;
 	decal = 0;
@@ -40,9 +40,9 @@ static void sanitize_quotes_word_token(t_token *token)
  *
  * @param token
  */
-void sanitize_quotes_token(t_token *tokens)
+void	sanitize_quotes_token(t_token *tokens)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = tokens;
 	while (token)
