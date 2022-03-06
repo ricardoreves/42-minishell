@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:03 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 14:55:19 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:07:04 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,11 @@ void init_prompt(t_shell *shell)
     }
 }
 
-int init_shell(t_shell *shell, int argc, char *argv[])
+void *init_shell(t_shell *shell, int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
-    shell = ft_calloc(sizeof(t_shell), 1);
-    if (!shell)
-        return (0);
-    return (1);
+    return (ft_memset(shell, 0, sizeof(t_shell)));
 }
 
 int main(int argc, char *argv[], char *envs[])
