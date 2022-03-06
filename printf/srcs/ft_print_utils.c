@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
+/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 15:20:01 by dthalman          #+#    #+#             */
-/*   Updated: 2021/11/06 09:42:29 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/06 02:27:55 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,22 @@ void	ft_read_modifier(char c, t_format *format)
 		format->decimal_point = 1;
 	if (c == '#')
 		format->sharp = 1;
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	char	*str;
+
+	str = (char *)s;
+	if (c > 127)
+		return (str);
+	while (*str)
+	{
+		if (*str == c)
+			return (str);
+		str++;
+	}
+	if (!c)
+		return (str);
+	return (0);
 }
