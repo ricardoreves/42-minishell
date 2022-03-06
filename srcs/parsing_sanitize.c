@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/28 17:59:24 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:37:48 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@
  *
  * @param t
  */
-void sanitize_quotes_word_token(t_token *t)
+static void sanitize_quotes_word_token(t_token *token)
 {
 	int len;
 	int i;
 	int decal;
 
-	len = ft_strlen(t->str);
 	i = -1;
 	decal = 0;
+	len = ft_strlen(token->str);
 	while (++i < len - decal)
 	{
-		if (t->str[i + decal] == '\'' || t->str[i + decal] == '"')
+		if (token->str[i + decal] == '\'' || token->str[i + decal] == '"')
 			decal++;
-		t->str[i] = t->str[i + decal];
+		token->str[i] = token->str[i + decal];
 	}
-	t->str[i] = 0;
+	token->str[i] = 0;
 }
 
 /**
@@ -40,21 +40,16 @@ void sanitize_quotes_word_token(t_token *t)
  *
  * @param token
  */
-void sanitize_quotes_token(t_token *token)
+void sanitize_quotes_token(t_token *tokens)
 {
-	t_token *t;
+	t_token *token;
 
-	t = token;
-	while (t)
+	token = tokens;
+	while (token)
 	{
-		if (t->id == id_dbl_quotes || t->id == id_single_quotes)
-		{
-			sanitize_quotes_word_token(t);
-		}
-		if (t->id == id_word)
-		{
-			sanitize_quotes_word_token(t);
-		}
-		t = t->next;
+		if (token->id == id_dbl_quotes || token->id == id_single_quotes
+			|| token->id == id_word)
+			sanitize_quotes_word_token(token);
+		token = token->next;
 	}
 }
