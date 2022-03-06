@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 17:50:05 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 18:02:26 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@
 # define DOLLAR "\e[1;37m$ \e[0m"
 # define CONFIGFILE ".config/parser/bash.conf"
 # define LOGFILE "minishell.log"
-# define ERR_SYNTAX "syntax error near unexpected token"
+# define MSG_SYNTAX_ERROR "syntax error near unexpected token"
+# define MSG_IS_DIRECTORY "is a directory"
+# define MSG_FILE_NOT_FOUND "not such file or directory"
+# define MSG_COMMAND_NOT_FOUND "command not found"
+# define MSG_PERMISSION_DENIED "permission denied"
 
 //# include <libft.h>
 //# include <libparser.h>
