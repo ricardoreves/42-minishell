@@ -6,36 +6,36 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 21:21:21 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/05 21:47:51 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:44:41 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_directory(char *path)
+int	is_directory(char *name)
 {
 	struct stat statbuf;
 
-	if (stat(path, &statbuf) != 0)
+	if (stat(name, &statbuf) != 0)
 		return (0);
 	return (S_ISDIR(statbuf.st_mode));
 }
 
-int is_file_permission_denied(char *name)
+int	is_file_permission_denied(char *name)
 {
 	return (access(name, X_OK) == -1);
 }
 
-int is_file_not_found(char *name)
+int	is_file_not_found(char *name)
 {
 	return (ft_strncmp(name, "./", 2) == 0 && access(name, F_OK) == -1);
 }
 
-int is_command_not_found(char *path, char **name)
+int	is_command_not_found(char *path, char **name)
 {
-	int i;
-	char *pathname;
-	char **paths;
+	int		i;
+	char	*pathname;
+	char	**paths;
 
 	i = 0;
 	if (ft_strncmp(*name, "./", 2) == 0 && access(*name, F_OK) != -1)
