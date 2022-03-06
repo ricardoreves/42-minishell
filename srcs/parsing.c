@@ -6,38 +6,11 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/02 00:42:57 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:15:50 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/**
- * @brief Convertie une liste de jeton en liste de chaine de
- * caractère
- *
- * @param token_from
- * @param token_to
- * @return char**
- */
-char **token_to_string(t_token *token_from, t_token *token_to)
-{
-	char **args;
-	int i;
-
-	args = malloc(sizeof(char **) * (count_token(token_from, token_to) + 1));
-	i = 0;
-	while (token_from)
-	{
-		args[i] = ft_strdup(token_from->str);
-		i++;
-		if (token_from == token_to)
-			break;
-		token_from = token_from->next;
-	}
-	args[i] = NULL;
-	return (args);
-}
 
 /**
  * @brief parse une chaine de caractère et retourne
