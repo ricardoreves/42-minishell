@@ -74,7 +74,7 @@ void	auto_load_str_indexes(char *str, t_automaton *au)
 	c = 0;
 	while (str && *str)
 	{
-		if ((int)*str < CHAR_INDEXES_LEN && idx < au->cols)
+		if (idx < au->cols)
 		{
 			if (au->char_indexes[c] == 0)
 			{
