@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 15:07:51 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:24:19 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ void	handle_redirect(t_cmd *cmd);
 
 int		parse_command_line(t_shell *shell);
 void	sanitize_quotes_token(t_token *token);
-void	evaluate_str_env_token(t_token *token, t_shell *shell);
+void	evaluate_str_env_token(t_token *tokens, t_shell *shell);
 void	set_builtin_token_id(t_token *token);
 char	**token_to_string(t_token *token_from, t_token *token_to);
 int		is_builtin_token_id(int id);
