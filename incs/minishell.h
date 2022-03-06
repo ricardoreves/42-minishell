@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 16:12:38 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 17:49:28 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,9 +147,12 @@ void	process_command(t_shell *shell, t_cmd *cmd, int num);
 void	wait_pids(t_shell *shell);
 void	create_pids(t_shell *shell);
 
-int		redirect_input(t_cmd *cmd);
-int		redirect_output(t_cmd *cmd);
-void	handle_redirect(t_cmd *cmd);
+/* redirect.c */
+void	handle_redirect_file(t_cmd *cmd);
+void	redirect_input_file(t_cmd *cmd);
+void	redirect_output_file(t_cmd *cmd);
+void	redirect_input(t_shell *shell, t_cmd *cmd, int num);
+void	redirect_output(t_shell *shell, t_cmd *cmd, int num);
 
 int		parse_command_line(t_shell *shell);
 void	sanitize_quotes_token(t_token *tokens);
