@@ -6,15 +6,15 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 02:07:34 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/02 01:51:47 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 04:36:14 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int parse_export(char *args[], char **name, char **value)
+static int	parse_export(char *args[], char **name, char **value)
 {
-	size_t i;
+	size_t	i;
 
 	if (!args[1])
 		return (0);
@@ -32,10 +32,10 @@ int parse_export(char *args[], char **name, char **value)
 	return (1);
 }
 
-int exec_export(t_shell *shell, t_cmd *cmd)
+int	exec_export(t_shell *shell, t_cmd *cmd)
 {
-	char *name;
-	char *value;
+	char	*name;
+	char	*value;
 
 	if (parse_export(cmd->args, &name, &value))
 	{

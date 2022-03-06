@@ -6,15 +6,15 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 21:28:31 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 04:24:53 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 04:35:24 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void update_pwd(t_shell *shell, char *name)
+static void	update_pwd(t_shell *shell, char *name)
 {
-	char cwd[256];
+	char	cwd[256];
 
 	ft_bzero(cwd, sizeof(cwd));
 	if (getcwd(cwd, sizeof(cwd)))
@@ -28,10 +28,10 @@ void update_pwd(t_shell *shell, char *name)
 		perror("Error: getcwd() failed");
 }
 
-char *fix_home_path(t_shell *shell, t_cmd *cmd)
+static char	*fix_home_path(t_shell *shell, t_cmd *cmd)
 {
-	char *path;
-	char *home;
+	char	*path;
+	char	*home;
 
 	home = get_env(shell, "HOME");
 	if (!home)
@@ -50,11 +50,11 @@ char *fix_home_path(t_shell *shell, t_cmd *cmd)
 	return (path);
 }
 
-int exec_cd(t_shell *shell, t_cmd *cmd)
+int	exec_cd(t_shell *shell, t_cmd *cmd)
 {
-	char *path;
-	char *oldpwd;
-	char *tmp;
+	char	*path;
+	char	*oldpwd;
+	char	*tmp;
 
 	path = fix_home_path(shell, cmd);
 	if (!path)

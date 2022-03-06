@@ -6,15 +6,15 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 02:07:43 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/02 01:47:59 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 04:33:26 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int exec_pwd(t_shell *shell)
+int	exec_pwd(t_shell *shell)
 {
-	char *pwd;
+	char	*pwd;
 
 	pwd = get_env(shell, "PWD");
 	if (pwd)
