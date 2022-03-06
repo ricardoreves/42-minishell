@@ -6,7 +6,7 @@
 #    By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/04 10:12:36 by dthalman          #+#    #+#              #
-#    Updated: 2022/02/25 14:52:07 by dthalman         ###   ########.fr        #
+#    Updated: 2022/03/06 09:03:39 by dthalman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS_NAME  = parser_token.c \
 			 parser_readline.c \
 			 parser_automaton.c \
 			 parser_automaton_utils.c \
+			 parser_automaton_string.c \
 			 parser_automaton_token.c \
 			 parser_automaton_reader.c \
 			 ascii.c

@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:55:31 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/16 14:34:06 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/06 09:05:00 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,10 @@ t_automaton	*automaton_factory(char *filename);
 void		automaton_dispose(t_automaton *au);
 int			automaton_validator(t_automaton *au, char *str);
 int			get_char_index(const int c, t_automaton *au);
+
+void	auto_load_str_size(char *str, t_automaton *au);
+int		count_char_in_str(char *str);
+void	auto_load_str_indexes(char *str, t_automaton *au);
+void	auto_load_str_transitions(char *str, t_automaton *au);
+void	auto_load_str_accepting(char *str, t_automaton *au);
 #endif
