@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:03 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 17:48:33 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 18:00:28 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	init_prompt(t_shell *shell)
 				free_cmds(shell->cmds);
 			}
 			else
-				show_command_error(shell, NAME, ERR_SYNTAX, 2);
+				show_command_error(shell, NAME, MSG_SYNTAX_ERROR, 2);
 		}
 		free(shell->cmdline);
 		free(prompt);
