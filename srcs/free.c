@@ -6,13 +6,13 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:18:01 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/01 22:32:07 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 17:51:42 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void free_shell(t_shell *shell)
+void	free_shell(t_shell *shell)
 {
 	if (shell->cmds)
 		free_cmds(shell->cmds);
@@ -30,9 +30,9 @@ void free_shell(t_shell *shell)
  * @brief Libère la mémoire de la liste des commandes
  * @param cmds
  */
-void free_cmds(t_cmd *cmd)
+void	free_cmds(t_cmd *cmd)
 {
-	t_cmd *last;
+	t_cmd	*last;
 
 	while (cmd)
 	{
@@ -45,7 +45,7 @@ void free_cmds(t_cmd *cmd)
 	}
 }
 
-void free_pipes(int **pipes, int size)
+void	free_pipes(int **pipes, int size)
 {
 	if (pipes && size)
 	{

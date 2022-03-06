@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:29:08 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/02 01:08:09 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/05 22:29:20 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
  * @param cmd
  * @param cmds
  */
-void push_cmd(t_cmd *cmd, t_cmd **cmds)
+void	push_cmd(t_cmd *cmd, t_cmd **cmds)
 {
-	t_cmd *tmp;
+	t_cmd	*tmp;
 
 	if (!(*cmds))
 		*cmds = cmd;
@@ -33,9 +33,9 @@ void push_cmd(t_cmd *cmd, t_cmd **cmds)
 	}
 }
 
-t_cmd *create_cmd(t_shell *shell)
+t_cmd	*create_cmd(t_shell *shell)
 {
-	t_cmd *cmd;
+	t_cmd	*cmd;
 
 	cmd = ft_calloc(sizeof(t_cmd), 1);
 	cmd->redirect_id = id_notset;
@@ -44,7 +44,6 @@ t_cmd *create_cmd(t_shell *shell)
 	return (cmd);
 }
 
-
 /**
  * @brief Remplie la liste cmds avec toutes les commandes
  *  a effectué à partir du contenu des jetons crée par le parser.
@@ -52,9 +51,9 @@ t_cmd *create_cmd(t_shell *shell)
  * @param token
  * @param cmds
  */
-void prepare_cmds(t_token *token, t_shell *shell)
+void	prepare_cmds(t_token *token, t_shell *shell)
 {
-	t_cmd *cmd;
+	t_cmd	*cmd;
 
 	cmd = create_cmd(shell);
 	while (token)
@@ -82,16 +81,16 @@ void prepare_cmds(t_token *token, t_shell *shell)
  * @brief Affiche le contenu de la liste des commandes
  * @param cmds
  */
-void print_cmds(t_cmd *cmds)
+void	print_cmds(t_cmd *cmds)
 {
-	t_cmd *cmd;
+	t_cmd	*cmd;
 
 	cmd = cmds;
 	while (cmd)
 	{
 		printf("commande:\n");
 		printf("name: %s\n", cmd->name);
-	    printf("args:\n");
+		printf("args:\n");
 		print_array(cmd->args);
 		printf("redirect_id: %d\n", cmd->redirect_id);
 		printf("redirect_path: %s\n", cmd->redirect_path);
@@ -104,10 +103,10 @@ void print_cmds(t_cmd *cmds)
  * @brief Compte le nombre de commandes
  * @param cmds
  */
-int count_cmds(t_cmd *cmds)
+int	count_cmds(t_cmd *cmds)
 {
-	int i;
-	t_cmd *cmd;
+	int		i;
+	t_cmd	*cmd;
 
 	if (!cmds)
 		return (0);

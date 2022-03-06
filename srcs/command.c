@@ -6,72 +6,16 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/05 01:26:28 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 18:12:24 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-is directory
-bash: ../: Is a directory
-bash: ./: Is a directory
-bash: /: Is a directory
-
-bash: syntax error near unexpected token `;;'
-
-bash: ./l: No such file or directory
-bash: //kk: No such file or directory
- */
-
-int is_directory_command(char *path) // 126
+void	handle_commands(t_shell *shell)
 {
-	int i;
-
-	i = 0;
-	while (path && path[i])
-	{
-		if (path[i] != '/' && path[i] != '.')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int access_command(char *path, char **name)
-{
-	int i;
-	char *pathname;
-	char **paths;
-
-	i = 0;
-	if (!path)
-		return (0);
-	if (access(*name, X_OK) != -1)
-		return (1);
-	paths = ft_split(path, ':');
-	if (!paths)
-		return (0);
-	while (paths[i])
-	{
-		pathname = str_joins(paths[i++], (*name), "/");
-		if (access(pathname, X_OK) != -1)
-		{
-			free((*name));
-			free_array(paths);
-			(*name) = pathname;
-			return (1);
-		}
-		free(pathname);
-	}
-	free_array(paths);
-	return (0);
-}
-
-void handle_commands(t_shell *shell)
-{
-	int i;
-	t_cmd *cmd;
+	int		i;
+	t_cmd	*cmd;
 
 	i = 0;
 	cmd = shell->cmds;
@@ -90,30 +34,39 @@ void handle_commands(t_shell *shell)
 		close_pipes(shell);
 		wait_pids(shell);
 	}
-	store_command_error(shell);
+	save_exit_status(shell);
 }
 
-int exec_single_command(t_shell *shell, t_cmd *cmd)
+int	is_invalid_command(t_shell *shell, t_cmd *cmd)
 {
-	pid_t pid;
-	int status;
+	if (is_directory(cmd->name))
+		show_command_error(shell, cmd->name, MSG_IS_DIRECTORY, 126);
+	else if (is_file_not_found(cmd->name))
+		show_command_error(shell, cmd->name, MSG_FILE_NOT_FOUND, 127);
+	else if (is_command_not_found(get_env(shell, "PATH"), &cmd->name))
+		show_command_error(shell, cmd->name, MSG_COMMAND_NOT_FOUND, 127);
+	else if (is_file_permission_denied(cmd->name))
+		show_command_error(shell, cmd->name, MSG_PERMISSION_DENIED, 126);
+	return (shell->exit_status);
+}
 
-	if (is_builtin_command(cmd->name))
+int	exec_single_command(t_shell *shell, t_cmd *cmd)
+{
+	pid_t	pid;
+	int		status;
+
+	if (is_builtin_command(cmd))
 		exec_builtin_command(shell, cmd);
-	else if (is_directory_command(cmd->name))
-		put_command_error(shell, cmd->name, "is a directory", 126);
-	else if (access_command(get_env(shell, "PATH"), &cmd->name) == 0)
-		put_command_error(shell, cmd->name, "command not found", 127);
-	else
+	else if (is_invalid_command(shell, cmd) == 0)
 	{
 		pid = fork();
 		if (pid == -1)
 			perror("Error: fork() failed\n");
 		else if (pid == 0)
 		{
-			handle_redirect(shell->cmds);
+			handle_redirect_file(shell->cmds);
 			if (execve(shell->cmds->name, shell->cmds->args, shell->envs))
-				put_command_error(shell, cmd->name, strerror(errno), errno);
+				show_command_error(shell, cmd->name, strerror(errno), errno);
 			exit(shell->exit_status);
 		}
 		waitpid(pid, &status, 0);
@@ -123,43 +76,23 @@ int exec_single_command(t_shell *shell, t_cmd *cmd)
 	return (0);
 }
 
-void process_command(t_shell *shell, t_cmd *cmd, int num)
+void	process_command(t_shell *shell, t_cmd *cmd, int num)
 {
 	shell->pids[num] = fork();
 	if (shell->pids[num] < 0)
 		perror("Error: fork() failed");
-	else if (shell->pids[num] == 0) // Child
+	else if (shell->pids[num] == 0)
 	{
-		// input
-		if (num > 0)
-		{
-			// printf("input -> %s pipe: [%d][0] std: 0\n", cmd->name, num - 1);
-			dup2(shell->pipes[num - 1][0], 0);
-		}
-		else if (num == 0) // first command
-		{
-			handle_redirect(cmd);
-		}
-
-		// output
-		if (num < shell->num_cmds - 1)
-		{
-			// printf("output -> %s pipe: [%d][1] std: 1\n", cmd->name, num);
-			dup2(shell->pipes[num][1], 1);
-		}
-		else if (num == shell->num_cmds - 1) // last command
-		{
-			handle_redirect(cmd);
-		}
+		redirect_input(shell, cmd, num);
+		redirect_output(shell, cmd, num);
 		close_pipes(shell);
-		if (is_builtin_command(cmd->name))
+		if (is_builtin_command(cmd))
 			exec_builtin_command(shell, cmd);
-		else if (is_directory_command(cmd->name))
-			put_command_error(shell, cmd->name, "is a directory", 126);
-		else if (access_command(get_env(shell, "PATH"), &cmd->name) == 0)
-			put_command_error(shell, cmd->name, "command not found", 127);
-		else if (execve(cmd->name, cmd->args, shell->envs))
-			put_command_error(shell, cmd->name, strerror(errno), errno);
+		else if (is_invalid_command(shell, cmd) == 0)
+		{
+			if (execve(cmd->name, cmd->args, shell->envs))
+				show_command_error(shell, cmd->name, strerror(errno), errno);
+		}
 		exit(shell->exit_status);
 	}
 }

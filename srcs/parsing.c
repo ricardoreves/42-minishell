@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/02 00:42:57 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:16:47 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
  */
 int	parse_command_line(t_shell *shell)
 {
-	t_token *token;
-	t_automaton *oto;
+	t_token		*token;
+	t_automaton	*oto;
 
 	oto = automaton_factory(shell->config);
 	automaton_token(&token, oto, shell->cmdline);

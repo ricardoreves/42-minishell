@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/02 00:46:59 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:28:31 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,23 @@
  * @param token
  * @param shell
  */
-void evaluate_str_env_token(t_token *token, t_shell *shell)
+void	evaluate_str_env_token(t_token *tokens, t_shell *shell)
 {
-	t_token *t;
-	char *str;
+	char	*str;
+	t_token	*token;
 
-	t = token;
-	while (t)
+	token = tokens;
+	while (token)
 	{
-		if (t->id == id_word || t->id == id_dbl_quotes || t->id == id_single_quotes)
+		if (token->id == id_word || token->id == id_dbl_quotes
+			|| token->id == id_single_quotes)
 		{
-			str = evaluate_str_env(shell, t->str, 0);
-			free(t->str);
-			t->str = str;
-			set_builtin_token_id(t);
+			str = evaluate_str_env(shell, token->str, 0);
+			free(token->str);
+			token->str = str;
+			set_builtin_token_id(token);
 		}
-		t = t->next;
+		token = token->next;
 	}
 }
 
@@ -43,7 +44,7 @@ void evaluate_str_env_token(t_token *token, t_shell *shell)
  *
  * @param token
  */
-void set_builtin_token_id(t_token *token)
+void	set_builtin_token_id(t_token *token)
 {
 	if (str_compare(token->str, "cd") == 0)
 		token->id = id_builtin_cd;
@@ -67,7 +68,7 @@ void set_builtin_token_id(t_token *token)
  * @param id
  * @return int
  */
-int is_word_token_id(int id)
+int	is_word_token_id(int id)
 {
 	return (is_builtin_token_id(id) || id == id_word || id == id_dbl_quotes
 		|| id == id_single_quotes);
@@ -79,7 +80,7 @@ int is_word_token_id(int id)
  * @param id
  * @return int
  */
-int is_redirect_token_id(int id)
+int	is_redirect_token_id(int id)
 {
 	if (id == id_out_write)
 		return (1);
@@ -98,7 +99,7 @@ int is_redirect_token_id(int id)
  * @param id
  * @return int
  */
-int is_builtin_token_id(int id)
+int	is_builtin_token_id(int id)
 {
 	if (id == id_builtin_cd)
 		return (1);

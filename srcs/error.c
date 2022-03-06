@@ -6,31 +6,27 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:41:02 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/05 01:18:56 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 16:03:37 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int put_command_error(t_shell *shell, char *cmd, char *msg, int num)
+int	show_command_error(t_shell *shell, char *cmd, char *msg, int exit_status)
 {
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(msg, 2);
 	ft_putendl_fd("", 2);
-	shell->exit_status = num;
-	return (0);
+	shell->exit_status = exit_status;
+	return (exit_status);
 }
 
-void store_command_error(t_shell *shell)
+void	save_exit_status(t_shell *shell)
 {
-	//char *str = ft_itoa(shell->exit_status);
-	//printf("exit_status: %d %s\n", shell->exit_status, str);
-	//free(str);
 	if (get_env(shell, "?"))
 		set_env(shell, ft_strdup("?"), ft_itoa(shell->exit_status));
 	else
 		add_env(shell, ft_strdup("?"), ft_itoa(shell->exit_status));
-	//printf("?: %s\n", get_env(shell, "?"));
 	shell->exit_status = 0;
 }
