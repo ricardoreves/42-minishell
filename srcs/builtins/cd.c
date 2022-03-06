@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 21:28:31 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 04:35:24 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 14:28:55 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,17 @@ static char	*fix_home_path(t_shell *shell, t_cmd *cmd)
 
 int	exec_cd(t_shell *shell, t_cmd *cmd)
 {
+	char	*tmp;
 	char	*path;
 	char	*oldpwd;
-	char	*tmp;
 
 	path = fix_home_path(shell, cmd);
 	if (!path)
 		return (0);
 	else if (str_compare(path, "-") == 0)
 	{
-		oldpwd = get_env(shell, "OLDPWD");
 		tmp = path;
+		oldpwd = get_env(shell, "OLDPWD");
 		if (!oldpwd)
 			path = ft_strdup(get_env(shell, "PWD"));
 		else
