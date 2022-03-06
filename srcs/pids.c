@@ -6,21 +6,21 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 22:45:05 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/05 01:12:06 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:13:45 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void create_pids(t_shell *shell)
+void	create_pids(t_shell *shell)
 {
 	shell->pids = ft_calloc(sizeof(int), shell->num_cmds);
 }
 
-void wait_pids(t_shell *shell)
+void	wait_pids(t_shell *shell)
 {
-	int i;
-	int status;
+	int	i;
+	int	status;
 
 	i = 0;
 	while (i < shell->num_cmds)
