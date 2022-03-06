@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 18:11:28 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 18:37:22 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ void	exec_builtin_command(t_shell *shell, t_cmd *cmd);
 int		exec_single_command(t_shell *shell, t_cmd *cmd);
 
 /* command_utils.c */
+int		is_exec_file(char *name);
 int		is_command_not_found(char *path, char **name);
 int		is_directory(char *name);
 int		is_file_permission_denied(char *name);
