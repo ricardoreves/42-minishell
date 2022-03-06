@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:55:31 by dthalman          #+#    #+#             */
-/*   Updated: 2022/02/16 20:29:52 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/06 08:34:54 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,24 @@ t_automaton	*automaton_factory(char *filename)
 	} 
 	else
 		perror("automaton");
+	return (oto);
+}
+
+t_automaton	*automaton_wildcard_factory(char *str)
+{
+	int			fd;
+	t_automaton	*oto;
+
+	oto = ft_calloc(sizeof(t_automaton), 1);
+	if (!oto)
+		return (NULL);
+	auto_load_str_size(str, oto);	
+	allocate_automaton(oto);
+	auto_load_str_indexes(str, oto);
+	auto_load_str_transitions(str, oto);
+	auto_load_str_accepting(str, oto);
+	dispose_list_line();
+	close(fd);
 	return (oto);
 }
 
