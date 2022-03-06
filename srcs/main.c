@@ -6,20 +6,11 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:03 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 14:44:39 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 14:55:19 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void init_config(t_shell *shell)
-{
-    char cwd[256];
-
-    ft_bzero(cwd, sizeof(cwd));
-    if (getcwd(cwd, sizeof(cwd)))
-        shell->config = str_joins(cwd, CONFIGFILE, "/");
-}
 
 void init_asciiart(void)
 {
@@ -31,6 +22,15 @@ void init_asciiart(void)
     printf("\e[0;37mEmbrace the power of the command line ✨\e[0m\n");
     printf("version %s\n\n", VERSION);
     log_message("start " VERSION);
+}
+
+void init_config(t_shell *shell)
+{
+    char cwd[256];
+
+    ft_bzero(cwd, sizeof(cwd));
+    if (getcwd(cwd, sizeof(cwd)))
+        shell->config = str_joins(cwd, CONFIGFILE, "/");
 }
 
 void init_prompt(t_shell *shell)
@@ -62,18 +62,27 @@ void init_prompt(t_shell *shell)
     }
 }
 
+int init_shell(t_shell *shell, int argc, char *argv[])
+{
+    (void)argc;
+    (void)argv;
+    shell = ft_calloc(sizeof(t_shell), 1);
+    if (!shell)
+        return (0);
+    return (1);
+}
+
 int main(int argc, char *argv[], char *envs[])
 {
     t_shell shell;
 
-    (void)argc;
-    (void)argv;
-    // shell = ft_calloc(sizeof(t_shell), 1);
-    // ft_memset(shell, 0, sizeof(shell));
-    init_asciiart();
-    init_envs(&shell, envs);
-    init_signals();
-    init_config(&shell);
-    init_prompt(&shell);
+    if (init_shell(&shell, argc, argv))
+    {
+        init_asciiart();
+        init_signals();
+        init_envs(&shell, envs);
+        init_config(&shell);
+        init_prompt(&shell);
+    }
     return (0);
 }
