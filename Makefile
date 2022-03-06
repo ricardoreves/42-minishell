@@ -6,7 +6,7 @@
 #    By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 01:47:02 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/03/05 21:24:48 by rpinto-r         ###   ########.fr        #
+#    Updated: 2022/03/06 18:47:11 by rpinto-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,7 @@ run:
 	./$(NAME)
 
 norm:
-	$(NORM)
+	$(NORM) $(INC) $(SRC_DIR) $(LIBFT_DIR) $(LIBFTPRINTF_DIR) $(LIBPARSER_DIR)
 
 #dev: re all run
 dev: CFLAGS += $(DEBUG_FLAG)
