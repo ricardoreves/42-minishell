@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:41:02 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 15:15:21 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 16:03:37 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	show_command_error(t_shell *shell, char *cmd, char *msg, int exit_status)
 	ft_putstr_fd(msg, 2);
 	ft_putendl_fd("", 2);
 	shell->exit_status = exit_status;
-	return (0);
+	return (exit_status);
 }
 
 void	save_exit_status(t_shell *shell)
