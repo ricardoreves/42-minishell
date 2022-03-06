@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   logfile.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
+/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:30:18 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/02 13:30:18 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/06 17:45:42 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	log_open(void)
 		{
 			filename = str_joins(logfilename, LOGFILE, "/");
 			ft_strlcpy(logfilename, filename, 200);
-			free(filename);			
+			free(filename);
 		}
 	}
 	mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
@@ -54,7 +54,7 @@ int	log_open(void)
 void	log_message(char *msg)
 {
 	int		fd;
-	
+
 	fd = log_open();
 	if (fd > -1)
 	{
@@ -84,7 +84,7 @@ void	log_token(t_token *token)
 		}
 		close(fd);
 	}
-	else 
+	else
 		perror("minishell");
 }
 
@@ -127,7 +127,6 @@ void	log_cmds(t_cmd *cmds)
 		{
 			ft_fprintf(fd, "%d\tcmd name : [%s], redirect_id : [%d], args : ",
 				ft_gettime(), cmds->name, cmds->redirect_id);
-
 			args = cmds->args;
 			while (args && *args)
 			{
@@ -135,11 +134,10 @@ void	log_cmds(t_cmd *cmds)
 				args++;
 			}
 			ft_fprintf(fd, "\n");
-			
 			cmds = cmds->next;
 		}
 		close(fd);
 	}
-	else 
+	else
 		perror("minishell");
 }
