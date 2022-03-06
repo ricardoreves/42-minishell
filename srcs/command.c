@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 18:12:24 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 19:35:51 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ int	exec_single_command(t_shell *shell, t_cmd *cmd)
 			perror("Error: fork() failed\n");
 		else if (pid == 0)
 		{
-			handle_redirect_file(shell->cmds);
-			if (execve(shell->cmds->name, shell->cmds->args, shell->envs))
+			handle_redirect_file(cmd);
+			if (execve(cmd->name, cmd->args, shell->envs))
 				show_command_error(shell, cmd->name, strerror(errno), errno);
 			exit(shell->exit_status);
 		}
