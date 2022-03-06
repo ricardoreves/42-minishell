@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:03 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/05 21:59:42 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 14:44:39 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,36 +72,8 @@ int main(int argc, char *argv[], char *envs[])
     // ft_memset(shell, 0, sizeof(shell));
     init_asciiart();
     init_envs(&shell, envs);
-
-    // test env_utils
-    // set_env(shell, ft_strdup("PATH"), str_joins(getenv("PATH"), getenv("PWD"), ":"));
-
-    // add_env(shell, ft_strdup("OLDPWD"), ft_strdup("/"));
-    // add_env(shell, ft_strdup("MARVIN"), ft_strdup("21"));
-    //  printf("%s\n", get_env(shell, "MARVIN"));
-
-    // set_env(shell, ft_strdup("MARVIN"), ft_strdup("42"));
-    //  printf("%s\n", get_env(shell, "MARVIN"));
-
-    // unset_env(shell, "MARVIN");
-    // printf("%s\n", get_env(shell, "MARVIN"));
-    // //print_array(shell.envs);
-
-    // printf("%s\n", eval_variable(shell, "Hi $USERNAME, Welcome$FAKE to $HOME$FAKE!\0", 0));int g_num = 0;
-  
-    override_signals();
+    init_signals();
     init_config(&shell);
     init_prompt(&shell);
-
-    // printf("%d\n", access("/bin/ls", F_OK));
-    // printf("%d\n", access("ls", F_OK));
-    // printf("%d\n", access("./Makefile", F_OK));
-    // printf("%d\n\n", access("./srcs", F_OK));
-
-    // printf("%d\n", access("/bin/ls", X_OK));
-    // printf("%d\n", access("ls", X_OK));
-    // printf("%d\n", access("./Makefile", X_OK));
-    // printf("%d\n", access("./srcs", X_OK));
-    // free_array(shell.envs);
     return (0);
 }

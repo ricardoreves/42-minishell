@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 14:58:20 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/02/28 00:06:12 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 14:44:39 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void handle_signals(int signum)
     }
 }
 
-void override_signals(void)
+void init_signals(void)
 {
     signal(SIGINT, handle_signals);
     signal(SIGQUIT, SIG_IGN);

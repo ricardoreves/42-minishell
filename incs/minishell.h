@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 13:21:34 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/06 14:44:39 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int		unset_env(t_shell *shell, char *name);
 int		init_envs(t_shell *shell, char *envp[]);
 
 void	handle_signals(int signum);
-void	override_signals(void);
+void	init_signals(void);
 
 char	*str_joins(char *str1, char *str2, char *sep);
 char	*str_duplicate_nbytes(char *str, size_t n);
