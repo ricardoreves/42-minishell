@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
+/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 02:06:42 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 11:40:25 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/07 16:26:40 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,7 @@
 int	exec_exit(t_shell *shell)
 {
 	shell->stop = 1;
+	ft_putendl_fd("exit", 1);
+	exit(0);
 	return (0);
 }
