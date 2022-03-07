@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 00:45:42 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 01:02:59 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 01:33:20 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	scan_stdin(t_cmd *cmd)
 	{
 		line = readline(">\n");
 		if (*line)
-			break;
+			break ;
 		else
 			free(line);
 	}
