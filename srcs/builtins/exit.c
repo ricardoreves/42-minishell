@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 02:06:42 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 04:32:16 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 11:40:25 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	exec_exit(t_shell *shell)
 {
-	(void)shell;
-	exit(0);
+	shell->stop = 1;
 	return (0);
 }

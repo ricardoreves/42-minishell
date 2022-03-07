@@ -53,6 +53,7 @@ int	main(int argc, char *argv[], char *envs[])
 		init_prompt(&shell);
 		//while (1)
 		// 	sleep(5);
+		free(shell.config);
 	}
 	return (0);
 }
