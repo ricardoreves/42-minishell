@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 14:58:20 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 18:27:28 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:30:56 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,17 @@
 
 void	handle_echoctl(void)
 {
-	int				ret;
 	struct termios	termios_new;
 	struct termios	termios_save;
 
-	ret = tcgetattr(0, &termios_save);
-	if (ret)
+	if (tcgetattr(0, &termios_save))
 	{
 		perror("Error: tcgetattr() failed");
 		exit(1);
 	}
 	termios_new = termios_save;
 	termios_new.c_lflag &= ~ECHOCTL;
-	ret = tcsetattr(0, 0, &termios_new);
-	if (ret)
+	if (tcsetattr(0, 0, &termios_new))
 	{
 		perror("Error: tcsetattr() failed");
 		exit(1);
