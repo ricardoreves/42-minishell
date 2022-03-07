@@ -6,11 +6,12 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 00:45:42 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 15:10:08 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:08:35 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+void handle_signals2(int signum);
 
 char	*get_prompt_name(t_shell *shell)
 {
@@ -30,12 +31,14 @@ void	init_prompt(t_shell *shell)
 
 	while (!shell->stop)
 	{
+		init_signals(1);
 		prompt = get_prompt_name(shell);
 		shell->cmdline = readline(prompt);
 		if (!shell->cmdline)
 			shell->stop = 1;
 		else if (*shell->cmdline)
 		{
+			init_signals(0);
 			add_history(shell->cmdline);
 			if (parse_command_line(shell))
 			{
