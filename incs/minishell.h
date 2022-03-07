@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 01:36:53 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 16:00:19 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	init_config(t_shell *shell);
 void	*init_shell(t_shell *shell, int argc, char *argv[]);
 
 /* prompt.c */
+char	*get_prompt_name(t_shell *shell);
 void	init_prompt(t_shell *shell);
 void	scan_stdin(t_cmd *cmd);
 
