@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 18:37:22 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 01:04:42 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,11 @@ typedef struct s_shell
 /* main.c */
 void	init_asciiart(void);
 void	init_config(t_shell *shell);
-void	init_prompt(t_shell *shell);
 void	*init_shell(t_shell *shell, int argc, char *argv[]);
+
+/* prompt.c */
+void	init_prompt(t_shell *shell);
+void	scan_stdin(t_cmd *cmd);
 
 void	print_array(char *arr[]);
 void	free_array(char *arr[]);
