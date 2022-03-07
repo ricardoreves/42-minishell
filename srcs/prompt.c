@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 00:45:42 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 01:33:20 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 11:31:05 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ void	init_prompt(t_shell *shell)
 		else
 			prompt = str_joins(NAME, DOLLAR, get_env(shell, "PWD"));
 		shell->cmdline = readline(prompt);
+		if (!shell->cmdline)
+		{
+			printf("exit\n");
+			shell->cmdline = ft_strdup("exit");
+		}
 		if (*shell->cmdline)
 		{
 			add_history(shell->cmdline);
