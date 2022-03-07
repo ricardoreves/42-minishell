@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 02:07:34 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 04:36:14 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 22:35:52 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	parse_export(char *args[], char **name, char **value)
 	return (1);
 }
 
-int	exec_export(t_shell *shell, t_cmd *cmd)
+void	exec_export(t_shell *shell, t_cmd *cmd)
 {
 	char	*name;
 	char	*value;
@@ -40,9 +40,8 @@ int	exec_export(t_shell *shell, t_cmd *cmd)
 	if (parse_export(cmd->args, &name, &value))
 	{
 		if (get_env(shell, name))
-			return (set_env(shell, name, value));
+			set_env(shell, name, value);
 		else
-			return (add_env(shell, name, value));
+			add_env(shell, name, value);
 	}
-	return (0);
 }

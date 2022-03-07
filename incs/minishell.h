@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 21:47:33 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 22:43:13 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,13 +136,14 @@ int		str_compare(char *str1, char *str2);
 int		show_command_error(t_shell *shell, char *cmd, char *msg, int num);
 void	save_exit_status(t_shell *shell);
 
-int		exec_cd(t_shell *shell, t_cmd *cmd);
-int		exec_echo(t_shell *shell, t_cmd *cmd);
-int		exec_env(t_shell *shell);
-int		exec_exit(t_shell *shell);
-int		exec_export(t_shell *shell, t_cmd *cmd);
-int		exec_pwd(t_shell *shell);
-int		exec_unset(t_shell *shell, t_cmd *cmd);
+/* builtins.c */
+void	exec_cd(t_shell *shell, t_cmd *cmd);
+void	exec_echo(t_shell *shell, t_cmd *cmd);
+void	exec_env(t_shell *shell);
+void	exec_exit(t_shell *shell);
+void	exec_export(t_shell *shell, t_cmd *cmd);
+void	exec_pwd(t_shell *shell);
+void	exec_unset(t_shell *shell, t_cmd *cmd);
 
 void	init_prompt(t_shell *shell);
 void	init_asciiart(void);
