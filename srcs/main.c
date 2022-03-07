@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:03 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 18:00:28 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 00:42:10 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,35 +33,6 @@ void	init_config(t_shell *shell)
 		shell->config = str_joins(cwd, CONFIGFILE, "/");
 }
 
-void	init_prompt(t_shell *shell)
-{
-	char	*prompt;
-
-	while (1)
-	{
-		prompt = get_env(shell, "PWD");
-		if (!prompt)
-			prompt = ft_strjoin(NAME, DOLLAR);
-		else
-			prompt = str_joins(NAME, DOLLAR, get_env(shell, "PWD"));
-		shell->cmdline = readline(prompt);
-		if (*shell->cmdline)
-		{
-			add_history(shell->cmdline);
-			if (parse_command_line(shell))
-			{
-				log_cmds(shell->cmds);
-				handle_commands(shell);
-				free_cmds(shell->cmds);
-			}
-			else
-				show_command_error(shell, NAME, MSG_SYNTAX_ERROR, 2);
-		}
-		free(shell->cmdline);
-		free(prompt);
-	}
-}
-
 void	*init_shell(t_shell *shell, int argc, char *argv[])
 {
 	(void)argc;
@@ -80,6 +51,8 @@ int	main(int argc, char *argv[], char *envs[])
 		init_envs(&shell, envs);
 		init_config(&shell);
 		init_prompt(&shell);
+		//while (1)
+		// 	sleep(5);
 	}
 	return (0);
 }
