@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
+/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 00:45:42 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 11:31:05 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/07 15:10:08 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*get_prompt_name(t_shell *shell)
+{
+	char	*prompt;
+
+	prompt = get_env(shell, "PWD");
+	if (!prompt)
+		prompt = ft_strjoin(NAME, DOLLAR);
+	else
+		prompt = str_joins(NAME, DOLLAR, get_env(shell, "PWD"));
+	return (prompt);
+}
 
 void	init_prompt(t_shell *shell)
 {
@@ -18,18 +30,11 @@ void	init_prompt(t_shell *shell)
 
 	while (!shell->stop)
 	{
-		prompt = get_env(shell, "PWD");
-		if (!prompt)
-			prompt = ft_strjoin(NAME, DOLLAR);
-		else
-			prompt = str_joins(NAME, DOLLAR, get_env(shell, "PWD"));
+		prompt = get_prompt_name(shell);
 		shell->cmdline = readline(prompt);
 		if (!shell->cmdline)
-		{
-			printf("exit\n");
-			shell->cmdline = ft_strdup("exit");
-		}
-		if (*shell->cmdline)
+			shell->stop = 1;
+		else if (*shell->cmdline)
 		{
 			add_history(shell->cmdline);
 			if (parse_command_line(shell))
@@ -40,8 +45,8 @@ void	init_prompt(t_shell *shell)
 			}
 			else
 				show_command_error(shell, NAME, MSG_SYNTAX_ERROR, 2);
+			free(shell->cmdline);
 		}
-		free(shell->cmdline);
 		free(prompt);
 	}
 }
