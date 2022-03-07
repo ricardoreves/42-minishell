@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 00:58:53 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 19:07:25 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	is_invalid_command(t_shell *shell, t_cmd *cmd)
 		show_command_error(shell, cmd->name, MSG_IS_DIRECTORY, 126);
 	else if (is_file_not_found(cmd->name))
 		show_command_error(shell, cmd->name, MSG_FILE_NOT_FOUND, 127);
-	else if (is_command_not_found(get_env(shell, "PATH"), &cmd->name))
+	else if (is_command_not_found(get_env(shell, "PATH"), &cmd->name, 0))
 		show_command_error(shell, cmd->name, MSG_COMMAND_NOT_FOUND, 127);
 	else if (is_file_permission_denied(cmd->name))
 		show_command_error(shell, cmd->name, MSG_PERMISSION_DENIED, 126);

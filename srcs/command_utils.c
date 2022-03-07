@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 21:21:21 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 18:33:43 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 19:06:22 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ int	is_file_not_found(char *name)
 	return (is_exec_file(name) && access(name, F_OK) == -1);
 }
 
-int	is_command_not_found(char *path, char **name)
+int	is_command_not_found(char *path, char **name, int i)
 {
-	int		i;
 	char	*pathname;
 	char	**paths;
 
-	i = 0;
 	if (is_exec_file(*name) && access(*name, F_OK) != -1)
 		return (0);
+	if (!path)
+		return (1);
 	paths = ft_split(path, ':');
-	if (!path || !paths)
+	if (!paths)
 		return (1);
 	while (paths[i])
 	{
