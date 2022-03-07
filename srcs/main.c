@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:03 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 00:42:10 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 15:43:37 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ int	main(int argc, char *argv[], char *envs[])
 		init_envs(&shell, envs);
 		init_config(&shell);
 		init_prompt(&shell);
+		free_shell(&shell);
 		//while (1)
 		// 	sleep(5);
-		free(shell.config);
 	}
 	return (0);
 }
