@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 01:04:42 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 01:36:53 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_shell
 	int		num_cmds;
 	int		num_pipes;
 	int		exit_status;
+	int		stop;
 }	t_shell;
 
 /* main.c */
