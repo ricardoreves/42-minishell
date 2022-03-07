@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 19:35:51 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 00:58:53 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	handle_commands(t_shell *shell)
 		create_pipes(shell);
 		while (cmd)
 		{
+			if (!cmd->name)
+				scan_stdin(cmd);
 			process_command(shell, cmd, i);
 			cmd = cmd->next;
 			i++;
