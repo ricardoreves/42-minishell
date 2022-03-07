@@ -6,12 +6,11 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 00:45:42 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 18:08:35 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:24:27 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-void handle_signals2(int signum);
 
 char	*get_prompt_name(t_shell *shell)
 {
