@@ -29,6 +29,7 @@ SRCS_NAME  = parser_token.c \
 			 parser_automaton.c \
 			 parser_automaton_utils.c \
 			 parser_automaton_string.c \
+			 parser_automaton_string2.c \
 			 parser_automaton_token.c \
 			 parser_automaton_reader.c \
 			 ascii.c
@@ -40,14 +41,11 @@ LIBFT_A    = $(LIBFT_DIR)/libft.a
 ### TESTS ###
 TEST       = tester
 TESTS_DIR  = ./tests
-TESTS_NAME = libparser_tester.c 			 
+TESTS_NAME = libparser_tester.c libparser_tester_print.c 
 TESTS_INCS = -I./srcs
 TESTS_LNK  = -L. -lparser -L$(LIBFT_DIR) -lft 
-TESTS_SRCS = $(addprefix $(TESTS_DIR)/, $(TESTS_NAME)) \
- 			../srcs/varenv.c \
-			../srcs/utils/utils.c \
-			../srcs/utils/env_utils.c \
-			../srcs/utils/array_utils.c
+TESTS_SRCS = $(addprefix $(TESTS_DIR)/, $(TESTS_NAME)) 
+
 TESTS_OBJS = $(TESTS_SRCS:.c=.o)
 ifeq ($(shell uname), Linux)
 	LEAKS = 

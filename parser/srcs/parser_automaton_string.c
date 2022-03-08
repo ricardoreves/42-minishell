@@ -26,7 +26,28 @@
 void	auto_load_str_size(char *str, t_automaton *au)
 {
 	au->cols = count_char_in_str(str) + 1;
-	au->rows = au->cols;
+	au->rows = ft_strlen(str) - count_char_of(str, '*') + 1;
+}
+
+/**
+ * @brief compte le nombre de caractère c contenu dans la chaine
+ * 
+ * @param str 
+ * @param c 
+ * @return int 
+ */
+int	count_char_of(char *str, char c)
+{
+	int	count;
+
+	count = 0;
+	while (str && *str)
+	{
+		if (*str == c)
+			count++;
+		str++;
+	}
+	return (count);
 }
 
 /**
@@ -70,50 +91,31 @@ void	auto_load_str_indexes(char *str, t_automaton *au)
 	int		c;
 	int		idx;
 
+	au->indexes_of_char = ft_calloc(sizeof(char), au->cols);
 	idx = 0;
 	c = 0;
 	while (str && *str)
 	{
 		if (idx < au->cols)
 		{
+			c = *str;
 			if (au->char_indexes[c] == 0)
 			{
 				idx++;
 				au->char_indexes[c] = idx;
+				au->indexes_of_char[idx] = c;
 			}
 		}
 		str++;
 	}
 }
 
-void	auto_load_str_transitions(char *str, t_automaton *au)
+/**
+ * @brief spécifie l'état d'acception pour la chaine de caractère
+ * 
+ * @param au 
+ */
+void	auto_load_str_accepting(t_automaton *au)
 {
-	int		row;
-	int		col;
-
-	row = -1;
-	while (++row < au->rows)
-	{
-		col = -1;
-		while (str && *str && ++col < au->cols)
-		{
-			if (*str == '*')
-			{
-
-			}
-			else
-			{
-
-			}
-			au->transitions[col + (row * au->cols)] = ft_atoi(str);
-			while (*str && is_space(*str))
-				str++;
-			while (*str && is_digit(*str))
-				str++;
-			while (*str && is_space(*str))
-				str++;
-			if (!is_space(*str) && !is_digit(*str))
-				break ;
-		}
-	}
+	au->accepting[au->rows - 1] = 1;
 }

@@ -45,7 +45,7 @@ t_automaton	*automaton_factory(char *filename)
 		auto_load_accepting(fd, oto);
 		dispose_list_line();
 		close(fd);
-	} 
+	}
 	else
 		perror("automaton");
 	return (oto);
@@ -58,12 +58,11 @@ t_automaton	*automaton_wildcard_factory(char *str)
 	oto = ft_calloc(sizeof(t_automaton), 1);
 	if (!oto)
 		return (NULL);
-	auto_load_str_size(str, oto);	
+	auto_load_str_size(str, oto);
 	allocate_automaton(oto);
 	auto_load_str_indexes(str, oto);
 	auto_load_str_transitions(str, oto);
-//	auto_load_str_accepting(str, oto);
-	dispose_list_line();
+	auto_load_str_accepting(oto);
 	return (oto);
 }
 
@@ -72,25 +71,25 @@ void	automaton_dispose(t_automaton *au)
 	free(au->char_indexes);
 	free(au->transitions);
 	free(au->accepting);
+	free(au->indexes_of_char);
 	free(au);
 }
 
 int	automaton_validator(t_automaton *au, char *str)
 {
 	int	step;
-	int	last_step;
+	int	last_accepted;
 	int	col;
 
 	step = 0;
-	last_step = 0;
+	last_accepted = 0;
 	while (step < au->rows && *str)
 	{
-		last_step = step;
 		col = get_char_index((int)*str, au);
 		step = au->transitions[col + (step * au->cols)];
+		if (step < au->rows)
+			last_accepted = au->accepting[step];
 		str++;
 	}
-	if (last_step >= au->rows)
-		return (0);
-	return (au->accepting[last_step]);
+	return (last_accepted);
 }

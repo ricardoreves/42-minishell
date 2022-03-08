@@ -28,10 +28,13 @@ t_automaton	*automaton_factory(char *filename);
 void		automaton_dispose(t_automaton *au);
 int			automaton_validator(t_automaton *au, char *str);
 int			get_char_index(const int c, t_automaton *au);
-
-void	auto_load_str_size(char *str, t_automaton *au);
-int		count_char_in_str(char *str);
-void	auto_load_str_indexes(char *str, t_automaton *au);
-void	auto_load_str_transitions(char *str, t_automaton *au);
-void	auto_load_str_accepting(char *str, t_automaton *au);
+void		auto_load_str_size(char *str, t_automaton *au);
+int			count_char_in_str(char *str);
+void		auto_load_str_indexes(char *str, t_automaton *au);
+void		auto_load_str_transitions(char *str, t_automaton *au);
+void		auto_load_str_accepting(t_automaton *au);
+void		auto_load_str_init_transitions(t_automaton *au);
+void		auto_load_str_transitions_other(char *s, int row, t_automaton *au);
+void		auto_load_transitions_star(char *s, int row, t_automaton *au);
+int			count_char_of(char *str, char c);
 #endif

@@ -55,6 +55,7 @@ typedef struct s_automaton
 	char	*char_indexes;
 	int		*transitions;
 	int		*accepting;
+	char	*indexes_of_char;
 }	t_automaton;
 void			token_dispose(t_token **token);
 int				count_token(t_token *from, t_token *to);
@@ -66,6 +67,7 @@ int				is_digit(int c);
 int				is_space(int c);
 char			*get_nextline(int fd);
 t_automaton		*automaton_factory(char *filename);
+t_automaton		*automaton_wildcard_factory(char *str);
 void			automaton_dispose(t_automaton *au);
 int				automaton_validator(t_automaton *au, char *str);
 void			automaton_token(t_token **token, t_automaton *au, char *str);

@@ -15,34 +15,36 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-//test_automaton();
+/**
+ * @brief effectue les différents tests de validité du parser
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 int	main(int __attribute__((unused)) argc, char __attribute__((unused)) **argv)
 {
 	test_automaton();
 	valid_automaton("blabla");
 	valid_automaton("\"blabla");
 	valid_automaton("\"blabla\" ");
+	valid_automaton_str("actu*", "actuel");
+	valid_automaton_str("actu*", "atuel");
+	valid_automaton_str("in*able", "incroyable");
+	valid_automaton_str("in*able", "incroyble");
+	valid_automaton_str("in*a*e", "incroyable");
 	token_automaton_tester("1234|1234");
 	token_automaton_tester("read -p | 'com\\\'' \t \"Entre | num : x\"i|nt1\n");
 	token_automaton_tester("read -p |  \t \"Entrez");
 	token_automaton_tester("commande>fichier");
 	return (0);
-	token_automaton_tester("read -p \"Entrez un numéro : \" int1\n");
-	token_automaton_tester("echo \"out\">>fichier");
-	token_automaton_tester("commande<fichier");
-	token_automaton_tester("commande|fichier");
-	token_automaton_tester("commande |fichier");
-	token_automaton_tester("commande | \"fichier\"");
-	token_automaton_tester
-		("commande |fichier << test >autre; ls /test/truc && autre");
-	token_automaton_tester("commande <<sep");
-	token_automaton_tester("'commande' fichier");
-	token_automaton_tester("echo te'st'");
-	token_automaton_tester("echo te\"st\";echo merci");
-	token_automaton_tester("ls *.c");
-	return (0);
 }
 
+/**
+ * @brief Vérifie le fonctionnement de la validité d'une chaine dans l'automate
+ * 
+ * @param str 
+ */
 void	valid_automaton(char *str)
 {
 	t_automaton	*oto;
@@ -54,31 +56,55 @@ void	valid_automaton(char *str)
 	automaton_dispose(oto);
 }
 
+/**
+ * @brief Vérifie le fonctionnement de la validité d'une chaine dans l'automate
+ * avec une base wildcard
+ * 
+ * @param str 
+ */
+void	valid_automaton_str(char *wildcard, char *str)
+{
+	t_automaton	*oto;
+	int			ret;
+	int			i;
+
+	i = 0;
+	oto = automaton_wildcard_factory(wildcard);
+	printf("indexes_of_char \n   ");
+	while (++i < oto->cols)
+		printf("%2c ", oto->indexes_of_char[i]);
+	test_print_transition(oto);
+	ret = automaton_validator(oto, str);
+	printf("wildcard : {%s}, value : {%s} return : %d\n", wildcard, str, ret);
+	automaton_dispose(oto);
+}
+
+/**
+ * @brief Teste la création d'un automate et affiche son état à l'écran
+ * 
+ */
 void	test_automaton(void)
 {
 	t_automaton	*oto;
 	int			i;
-	int			j;
 
 	oto = automaton_factory("tests/automate.conf");
 	printf("size\n%d %d \n", oto->cols, oto->rows);
 	printf("%d \n", oto->char_indexes['"']);
 	i = -1;
-	printf("transitions \n");
-	while (++i < oto->rows)
-	{
-		j = 0;
-		while (j < oto->cols)
-		{
-			printf("%d ", oto->transitions[j + (i * oto->cols)]);
-			j++;
-		}
-		printf("\n");
-	}
+	test_print_transition(oto);
 	i = -1;
 	printf("accepting \n");
 	while (++i < oto->rows)
 		printf("%d ", oto->accepting[i]);
+	automaton_dispose(oto);
+	printf("\n\nwild*ard\n");
+	oto = automaton_wildcard_factory("wild*ard");
+	i = 0;
+	printf("indexes_of_char \n   ");
+	while (++i < oto->cols)
+		printf("%2c ", oto->indexes_of_char[i]);
+	test_print_transition(oto);
 	automaton_dispose(oto);
 }
 
@@ -101,35 +127,3 @@ int	token_automaton_tester(char *input)
 	printf("\n\n");
 	return (1);
 }
-
-void	token_print(t_token *token)
-{
-	if (!token)
-	{
-		perror("input command line");
-	}
-	while (token)
-	{
-		printf("token : [%-15s], start : [%2d], id : [%2d]\n", token->str,
-			token->col, token->id);
-		token = token->next;
-	}
-}
-/*
-
-int	token_automaton_tester_old(char *input)
-{
-	t_token		*token;
-	t_automaton	*oto;
-
-	oto = automaton_factory("tests/automate.conf");
-	printf("\ninput : %s\n\n", input);
-	automaton_token(&token, oto, input);
-	token_print(token);
-	token_dispose(&token);
-	automaton_dispose(oto);
-	printf("\n\n");
-	return (1);
-}
-
-*/
