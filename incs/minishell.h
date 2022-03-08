@@ -41,7 +41,7 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <termios.h>
-
+#include <dirent.h>
 typedef enum e_bash_token_id
 {
 	id_notset = -2,
@@ -180,6 +180,9 @@ int		is_redirect_token_id(int id);
 int		is_word_token_id(int id);
 
 void	prepare_cmds(t_token *token, t_shell *shell);
+void	wildcard_cmds(t_shell *shell);
+char	**get_wildcard_files(char *wildcard, t_shell *shell);
+int		has_wildcard(char *str);
 void	print_cmds(t_cmd *cmds);
 void	free_cmds(t_cmd *cmds);
 int		count_cmds(t_cmd *cmds);

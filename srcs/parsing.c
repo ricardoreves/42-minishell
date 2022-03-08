@@ -32,7 +32,10 @@ int	parse_command_line(t_shell *shell)
 	shell->cmds = 0;
 	shell->num_cmds = 0;
 	if (token)
+	{
 		prepare_cmds(token, shell);
+		wildcard_cmds(shell);
+	}
 	log_token(token);
 	token_dispose(&token);
 	automaton_dispose(oto);
