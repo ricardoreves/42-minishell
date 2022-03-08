@@ -13,25 +13,26 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <sys/time.h>
 #include "minishell.h"
 
 /**
- * @brief Retourne le temps en microseconde 
- * 
- * ATTENTION DE SUPPRIMER CETTE PARTIE
- * CE N'EST PAS SUPPORTER PAR LE SUJET
+ * @brief Retourne le temps sous forme d'un compteur
  * 
  * @return int 
  */
 int	ft_gettime(void)
 {
-	struct timeval	tv;
+	static int	time;
 
-	gettimeofday(&tv, NULL);
-	return ((int)((tv.tv_sec * 1000) + (tv.tv_usec / 1000)));
+	time++;
+	return time;
 }
 
+/**
+ * @brief Ouvre un fichier log
+ * 
+ * @return int 
+ */
 int	log_open(void)
 {
 	mode_t		mode;
