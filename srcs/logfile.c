@@ -52,6 +52,11 @@ int	log_open(void)
 	return (open(logfilename, O_WRONLY | O_APPEND | O_CREAT, mode));
 }
 
+/**
+ * @brief enregistre un message dans le fichier log
+ * 
+ * @param msg 
+ */
 void	log_message(char *msg)
 {
 	int		fd;
@@ -59,13 +64,18 @@ void	log_message(char *msg)
 	fd = log_open();
 	if (fd > -1)
 	{
-		ft_fprintf(fd, "%d\t%s\n", ft_gettime(), msg);
+		ft_fprintf(fd, "%05d\t%s\n", ft_gettime(), msg);
 		close(fd);
 	}
 	else
 		perror("minishell");
 }
 
+/**
+ * @brief Enregistre les enregistrements des jetons dans le fichier log
+ * 
+ * @param token 
+ */
 void	log_token(t_token *token)
 {
 	int		fd;
@@ -75,7 +85,7 @@ void	log_token(t_token *token)
 	{
 		while (token)
 		{
-			ft_fprintf(fd, "%d\ttoken : [%-15s], start : [%2d], id : [%2d]\n",
+			ft_fprintf(fd, "%05d\ttoken : [%-15s], start : [%2d], id : [%2d]\n",
 				ft_gettime(), token->str, token->col, token->id);
 			token = token->next;
 		}
@@ -85,6 +95,11 @@ void	log_token(t_token *token)
 		perror("minishell");
 }
 
+/**
+ * @brief Enregistre le contenu de l'automate du parser dans le fichier log
+ * 
+ * @param au 
+ */
 void	log_automaton(t_automaton *au)
 {
 	int	fd;
@@ -112,6 +127,11 @@ void	log_automaton(t_automaton *au)
 	close(fd);
 }
 
+/**
+ * @brief Enregistre dans le fichier log les commandes
+ * 
+ * @param cmds 
+ */
 void	log_cmds(t_cmd *cmds)
 {
 	int		fd;
@@ -122,7 +142,7 @@ void	log_cmds(t_cmd *cmds)
 	{
 		while (cmds)
 		{
-			ft_fprintf(fd, "%d\tcmd name : [%s], redirect_id : [%d], args : ",
+			ft_fprintf(fd, "%05d\tcmd name : [%s], redirect_id : [%d], args : ",
 				ft_gettime(), cmds->name, cmds->redirect_id);
 			args = cmds->args;
 			while (args && *args)
