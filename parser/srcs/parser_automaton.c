@@ -91,5 +91,9 @@ int	automaton_validator(t_automaton *au, char *str)
 			last_accepted = au->accepting[step];
 		str++;
 	}
+	col = get_char_index((int)*str, au);
+	step = au->transitions[col + (step * au->cols)];
+	if (step < au->rows)
+		last_accepted = au->accepting[step];
 	return (last_accepted);
 }

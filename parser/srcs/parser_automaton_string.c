@@ -25,8 +25,8 @@
  */
 void	auto_load_str_size(char *str, t_automaton *au)
 {
-	au->cols = count_char_in_str(str) + 1;
-	au->rows = ft_strlen(str) - count_char_of(str, '*') + 1;
+	au->cols = count_char_in_str(str) + 2;
+	au->rows = ft_strlen(str) - count_char_of(str, '*') + 2;
 }
 
 /**
@@ -92,6 +92,7 @@ void	auto_load_str_indexes(char *str, t_automaton *au)
 	int		idx;
 
 	au->indexes_of_char = ft_calloc(sizeof(char), au->cols);
+	au->indexes_of_char[0] = 255;
 	idx = 0;
 	c = 0;
 	while (str && *str)
@@ -108,6 +109,9 @@ void	auto_load_str_indexes(char *str, t_automaton *au)
 		}
 		str++;
 	}
+	idx++;
+	au->char_indexes[0] = idx;
+	au->indexes_of_char[idx] = 0;
 }
 
 /**

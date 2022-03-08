@@ -28,9 +28,10 @@ int	main(int __attribute__((unused)) argc, char __attribute__((unused)) **argv)
 	valid_automaton("blabla");
 	valid_automaton("\"blabla");
 	valid_automaton("\"blabla\" ");
+	valid_automaton_str("*", "actuel");
 	valid_automaton_str("actu*", "actuel");
 	valid_automaton_str("actu*", "atuel");
-	valid_automaton_str("in*able", "incroyable");
+	valid_automaton_str("in*able", "incroyables");
 	valid_automaton_str("in*able", "incroyble");
 	valid_automaton_str("in*a*e", "incroyable");
 	token_automaton_tester("1234|1234");

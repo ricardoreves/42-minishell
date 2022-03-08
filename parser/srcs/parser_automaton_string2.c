@@ -52,7 +52,7 @@ void	auto_load_str_transitions_other(char *str, int row, t_automaton *au)
 	col = -1;
 	while (++col < au->cols)
 	{
-		if (*str && row < au->rows - 1)
+		if (row < au->rows - 1)
 		{
 			if (au->indexes_of_char[col] == *str)
 				au->transitions[col + (row * au->cols)] = row + 1;
@@ -91,4 +91,6 @@ void	auto_load_str_transitions(char *str, t_automaton *au)
 			auto_load_str_transitions_other(str, row, au);
 		str++;
 	}
+	++row;
+	auto_load_str_transitions_other(str, row, au);
 }
