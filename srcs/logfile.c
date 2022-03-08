@@ -72,10 +72,6 @@ void	log_token(t_token *token)
 	fd = log_open();
 	if (fd > -1)
 	{
-		if (!token)
-		{
-			perror("input command line");
-		}
 		while (token)
 		{
 			ft_fprintf(fd, "%d\ttoken : [%-15s], start : [%2d], id : [%2d]\n",
