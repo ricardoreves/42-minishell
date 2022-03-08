@@ -58,21 +58,3 @@ void	ft_read_modifier(char c, t_format *format)
 	if (c == '#')
 		format->sharp = 1;
 }
-
-char	*ft_strchr(const char *s, int c)
-{
-	char	*str;
-
-	str = (char *)s;
-	if (c > 127)
-		return (str);
-	while (*str)
-	{
-		if (*str == c)
-			return (str);
-		str++;
-	}
-	if (!c)
-		return (str);
-	return (0);
-}
