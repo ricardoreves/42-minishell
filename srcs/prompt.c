@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 00:45:42 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 18:24:27 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 23:08:09 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_prompt(t_shell *shell)
 		prompt = get_prompt_name(shell);
 		shell->cmdline = readline(prompt);
 		if (!shell->cmdline)
-			shell->stop = 1;
+			exec_exit(shell);
 		else if (*shell->cmdline)
 		{
 			init_signals(0);
@@ -47,8 +47,8 @@ void	init_prompt(t_shell *shell)
 			}
 			else
 				show_command_error(shell, NAME, MSG_SYNTAX_ERROR, 2);
-			free(shell->cmdline);
 		}
+		free(shell->cmdline);
 		free(prompt);
 	}
 }

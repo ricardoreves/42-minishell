@@ -6,16 +6,16 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 02:06:42 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 16:26:40 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 22:58:22 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_exit(t_shell *shell)
+void	exec_exit(t_shell *shell)
 {
 	shell->stop = 1;
 	ft_putendl_fd("exit", 1);
+	free_shell(shell);
 	exit(0);
-	return (0);
 }

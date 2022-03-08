@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 18:17:12 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/07 22:43:13 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <signal.h>
+# include <termios.h>
 
 typedef enum e_bash_token_id
 {
@@ -135,13 +136,14 @@ int		str_compare(char *str1, char *str2);
 int		show_command_error(t_shell *shell, char *cmd, char *msg, int num);
 void	save_exit_status(t_shell *shell);
 
-int		exec_cd(t_shell *shell, t_cmd *cmd);
-int		exec_echo(t_shell *shell, t_cmd *cmd);
-int		exec_env(t_shell *shell);
-int		exec_exit(t_shell *shell);
-int		exec_export(t_shell *shell, t_cmd *cmd);
-int		exec_pwd(t_shell *shell);
-int		exec_unset(t_shell *shell, t_cmd *cmd);
+/* builtins.c */
+void	exec_cd(t_shell *shell, t_cmd *cmd);
+void	exec_echo(t_shell *shell, t_cmd *cmd);
+void	exec_env(t_shell *shell);
+void	exec_exit(t_shell *shell);
+void	exec_export(t_shell *shell, t_cmd *cmd);
+void	exec_pwd(t_shell *shell);
+void	exec_unset(t_shell *shell, t_cmd *cmd);
 
 void	init_prompt(t_shell *shell);
 void	init_asciiart(void);
@@ -151,7 +153,7 @@ int		exec_single_command(t_shell *shell, t_cmd *cmd);
 
 /* command_utils.c */
 int		is_exec_file(char *name);
-int		is_command_not_found(char *path, char **name);
+int		is_command_not_found(char *path, char **name, int i);
 int		is_directory(char *name);
 int		is_file_permission_denied(char *name);
 int		is_file_not_found(char *name);
