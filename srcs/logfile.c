@@ -49,7 +49,7 @@ int	log_open(void)
 		}
 	}
 	mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-	return (open("minishell.log", O_WRONLY | O_APPEND | O_CREAT, mode));
+	return (open(logfilename, O_WRONLY | O_APPEND | O_CREAT, mode));
 }
 
 void	log_message(char *msg)
