@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/09 22:57:49 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/09 23:50:46 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_shell
 void	init_asciiart(void);
 void	init_config(t_shell *shell);
 void	*init_shell(t_shell *shell, int argc, char *argv[]);
+t_shell	*get_shell();
 
 /* prompt.c */
 char	*get_prompt_name(t_shell *shell);
