@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+         #
+#    By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 01:47:02 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/03/09 08:12:55 by dthalman         ###   ########.fr        #
+#    Updated: 2022/03/09 14:57:38 by rpinto-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ LIBFTPRINTF  = ./printf/libprintf.a
 all: $(NAME)
 
 .c.o:
-	$(CC) -I $(INC) -I $(LIBRL_INC) -I $(LIBPARSER_INC) -I $(LIBFTPRINTF_INC) $(CFLAGS) -c $< -o $@
+	$(CC) -I $(INC) -I $(LIBFT_INC) -I $(LIBRL_INC) -I $(LIBPARSER_INC) -I $(LIBFTPRINTF_INC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR)
