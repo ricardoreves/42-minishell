@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/09 10:57:14 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/09 16:34:56 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_shell
 	t_cmd	*cmds;
 	char	*cmdline;
 	char	*config;
+	char	*workink_dir;
 	char	**envs;
 	int		**pipes;
 	int		*pids;
@@ -166,11 +167,12 @@ void	wait_pids(t_shell *shell);
 void	create_pids(t_shell *shell);
 
 /* redirect.c */
-void	handle_redirect_file(t_cmd *cmd);
+void	handle_redirect_file(t_shell *shell, t_cmd *cmd);
 void	redirect_input_file(t_cmd *cmd);
-void	redirect_output_file(t_cmd *cmd);
+void	redirect_output_file(t_shell *shell, t_cmd *cmd);
 void	redirect_input(t_shell *shell, t_cmd *cmd, int num);
 void	redirect_output(t_shell *shell, t_cmd *cmd, int num);
+int		here_doc(t_shell *shell, char *eof);
 
 int		parse_command_line(t_shell *shell);
 void	sanitize_quotes_token(t_token *tokens);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   logfile.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 13:30:18 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/06 17:45:42 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/09 16:27:38 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void	log_cmds(t_cmd *cmds)
 		{
 			ft_fprintf(fd, "%05d\tcmd name : [%s], redirect_id : [%d], args : ",
 				ft_gettime(), cmds->name, cmds->redirect_id);
+			ft_fprintf(fd, ", redirect_path : [%s] ", cmds->redirect_path);
 			args = cmds->args;
 			while (args && *args)
 			{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:03 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 16:40:01 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/09 16:28:34 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ void	init_asciiart(void)
 
 void	init_config(t_shell *shell)
 {
-	char	cwd[256];
-
-	ft_bzero(cwd, sizeof(cwd));
-	if (getcwd(cwd, sizeof(cwd)))
-		shell->config = str_joins(cwd, CONFIGFILE, "/");
+	shell->workink_dir = malloc(256);
+	if (!shell->workink_dir)
+		exec_exit(shell);
+	//ft_bzero(shell->workink_dir, sizeof(cwd));
+	if (getcwd(shell->workink_dir, 256))
+		shell->config = str_joins(shell->workink_dir, CONFIGFILE, "/");
 }
 
 void	*init_shell(t_shell *shell, int argc, char *argv[])
