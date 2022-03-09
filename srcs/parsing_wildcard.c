@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 23:49:55 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/08 23:49:55 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/09 08:25:10 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void	wildcard_cmds(t_shell *shell)
 			{
 				lists = get_wildcard_files(cmd->args[i], shell);
 				if (lists)
-					i = i;
+				{
+					insert_array(lists, cmd->args[i], &cmd->args);
+					free_array(lists);
+				}
 			}
 		}
 		cmd = cmd->next;
@@ -60,7 +63,9 @@ char	**get_wildcard_files(char *wildcard, t_shell *shell)
 	DIR				*dir;
 	struct dirent	*entry;
 	t_automaton		*au;
+	char			**lists;
 
+	lists = 0;
 	au = automaton_wildcard_factory(wildcard);
 	if (!au)
 		return (0);
@@ -72,11 +77,12 @@ char	**get_wildcard_files(char *wildcard, t_shell *shell)
 		while(entry)
 		{
 			if (automaton_validator(au, entry->d_name))
-				printf("%s\n", entry->d_name);
+				push_array(entry->d_name, &lists);
+				//printf("%s\n", entry->d_name);
 			entry = readdir(dir);
 		}
 	}
 	closedir(dir);
 	automaton_dispose(au);
-	return (0);
+	return (lists);
 }
