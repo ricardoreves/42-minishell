@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 23:49:55 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/08 23:49:55 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/09 09:00:40 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	wildcard_cmds(t_shell *shell)
 			{
 				lists = get_wildcard_files(cmd->args[i], shell);
 				if (lists)
-					i = i;
+					i = i + 0;
 			}
 		}
 		cmd = cmd->next;
