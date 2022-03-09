@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:55:31 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/06 09:09:05 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/09 09:58:54 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,11 @@ int	automaton_validator(t_automaton *au, char *str)
 		str++;
 	}
 	col = get_char_index((int)*str, au);
-	step = au->transitions[col + (step * au->cols)];
 	if (step < au->rows)
-		last_accepted = au->accepting[step];
+	{
+		step = au->transitions[col + (step * au->cols)];
+		if (step < au->rows)
+			last_accepted = au->accepting[step];
+	}
 	return (last_accepted);
 }
