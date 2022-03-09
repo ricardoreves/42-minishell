@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 23:49:55 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/09 08:25:10 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/09 09:51:49 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,13 @@ int	has_wildcard(char *str)
 	return (0);
 }
 
+/**
+ * @brief Get the wildcard lists object
+ * 
+ * @param wildcard 
+ * @param shell 
+ * @return char** 
+ */
 char	**get_wildcard_files(char *wildcard, t_shell *shell)
 {
 	char			*pwd;
