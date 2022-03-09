@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 21:41:03 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/09 22:21:13 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/09 23:53:47 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,23 @@
  */
 int	main(int __attribute__((unused)) argc, char __attribute__((unused)) **argv, char *envs[])
 {
-	t_shell	shell;
+	t_shell	*shell;
 	char 	*file;
 
-	if (init_shell(&shell, argc, argv))
+	shell = get_shell();
+	printf("error 2 : %s \n", strerror(2));
+
+	if (init_shell(shell, argc, argv))
 	{
-		init_envs(&shell, envs);
-		init_config(&shell);
+		init_envs(shell, envs);
+		init_config(shell);
 		signal(SIGQUIT, SIG_DFL);
 		signal(SIGINT, SIG_DFL);	
 		printf("start\n");
-		file = get_tempfilename(&shell);
+		file = get_tempfilename(shell);
 		printf("test new tempfile : %s\n", file);
 		free(file);
-		free_shell(&shell);
+		free_shell(shell);
 	}
 	return (0);
 }
