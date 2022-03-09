@@ -6,14 +6,14 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/09 22:47:49 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/09 22:57:49 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define VERSION "0.1.1"
+# define VERSION "0.1.2"
 # define NAME "\e[1;33mminishell\e[0m:"
 # define DOLLAR "\e[1;37m$ \e[0m"
 # define CONFIGFILE ".config/parser/bash.conf"
