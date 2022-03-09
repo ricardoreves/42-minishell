@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/09 16:34:56 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/09 22:37:43 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,11 +168,12 @@ void	create_pids(t_shell *shell);
 
 /* redirect.c */
 void	handle_redirect_file(t_shell *shell, t_cmd *cmd);
-void	redirect_input_file(t_cmd *cmd);
-void	redirect_output_file(t_shell *shell, t_cmd *cmd);
+void	redirect_input_file(t_shell *shell, t_cmd *cmd);
+void	redirect_output_file(t_cmd *cmd);
 void	redirect_input(t_shell *shell, t_cmd *cmd, int num);
 void	redirect_output(t_shell *shell, t_cmd *cmd, int num);
 int		here_doc(t_shell *shell, char *eof);
+char	*here_doc_readline(void);
 
 int		parse_command_line(t_shell *shell);
 void	sanitize_quotes_token(t_token *tokens);
@@ -182,6 +183,8 @@ char	**token_to_string(t_token *token_from, t_token *token_to);
 int		is_builtin_token_id(int id);
 int		is_redirect_token_id(int id);
 int		is_word_token_id(int id);
+char	*get_tempfilename(t_shell *shell);
+char	*get_strnbr(int n);
 
 void	prepare_cmds(t_token *token, t_shell *shell);
 void	wildcard_cmds(t_shell *shell);
