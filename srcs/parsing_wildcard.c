@@ -6,7 +6,11 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 23:49:55 by dthalman          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/03/09 09:00:40 by dthalman         ###   ########.fr       */
+=======
+/*   Updated: 2022/03/09 11:23:02 by dthalman         ###   ########.fr       */
+>>>>>>> feature/wildcard
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +37,11 @@ void	wildcard_cmds(t_shell *shell)
 			{
 				lists = get_wildcard_files(cmd->args[i], shell);
 				if (lists)
-					i = i + 0;
+				{
+					insert_array(lists, cmd->args[i], &cmd->args);
+					remove_str_array(cmd->args[i], &cmd->args);
+					free_array(lists);
+				}
 			}
 		}
 		cmd = cmd->next;
@@ -54,13 +62,22 @@ int	has_wildcard(char *str)
 	return (0);
 }
 
+/**
+ * @brief Get the wildcard lists object
+ * 
+ * @param wildcard 
+ * @param shell 
+ * @return char** 
+ */
 char	**get_wildcard_files(char *wildcard, t_shell *shell)
 {
 	char			*pwd;
 	DIR				*dir;
 	struct dirent	*entry;
 	t_automaton		*au;
+	char			**lists;
 
+	lists = 0;
 	au = automaton_wildcard_factory(wildcard);
 	if (!au)
 		return (0);
@@ -72,11 +89,11 @@ char	**get_wildcard_files(char *wildcard, t_shell *shell)
 		while(entry)
 		{
 			if (automaton_validator(au, entry->d_name))
-				printf("%s\n", entry->d_name);
+				push_array(entry->d_name, &lists);
 			entry = readdir(dir);
 		}
 	}
 	closedir(dir);
 	automaton_dispose(au);
-	return (0);
+	return (lists);
 }

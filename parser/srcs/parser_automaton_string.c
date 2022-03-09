@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:55:31 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/06 09:09:54 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/09 09:57:43 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,13 @@ void	auto_load_str_indexes(char *str, t_automaton *au)
  */
 void	auto_load_str_accepting(t_automaton *au)
 {
-	au->accepting[au->rows - 1] = 1;
+	int	i;
+
+	i = -1;
+	while (++i < au->rows)
+	{
+		au->accepting[i] = 0;		
+		if (au->rows - 1 == i)
+			au->accepting[i] = 1;	
+	}
 }

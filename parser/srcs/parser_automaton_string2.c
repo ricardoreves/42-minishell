@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_automaton_string.c                          :+:      :+:    :+:   */
+/*   parser_automaton_string2.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:55:31 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/06 09:09:54 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/09 10:28:52 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,11 @@ void	auto_load_str_transitions_other(char *str, int row, t_automaton *au)
 }
 
 /**
- * @brief Crée les étapes de transition selon la chaine de caractère
+ * @brief clear toutes les transitions en appliquant la valeur 99
  * 
- * @param str 
  * @param au 
  */
-void	auto_load_str_transitions(char *str, t_automaton *au)
+void	auto_load_str_clear_transitions(t_automaton *au)
 {
 	int		row;
 	int		col;
@@ -76,8 +75,21 @@ void	auto_load_str_transitions(char *str, t_automaton *au)
 	{
 		col = -1;
 		while (++col < au->cols)
-			au->transitions[col + (row * au->cols)] = 99;
+			au->transitions[col + (row * au->cols)] = 1000;
 	}
+}
+
+/**
+ * @brief Crée les étapes de transition selon la chaine de caractère
+ * 
+ * @param str 
+ * @param au 
+ */
+void	auto_load_str_transitions(char *str, t_automaton *au)
+{
+	int		row;
+
+	auto_load_str_clear_transitions(au);
 	row = -1;
 	while (*str && ++row < au->rows)
 	{
@@ -89,8 +101,12 @@ void	auto_load_str_transitions(char *str, t_automaton *au)
 		}
 		else
 			auto_load_str_transitions_other(str, row, au);
-		str++;
+		if (*str)
+			str++;
 	}
-	++row;
-	auto_load_str_transitions_other(str, row, au);
+	if (row < au->rows)
+	{
+		++row;
+		auto_load_str_transitions_other(str, row, au);
+	}
 }
