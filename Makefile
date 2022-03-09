@@ -6,7 +6,7 @@
 #    By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 01:47:02 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/03/09 21:56:02 by dthalman         ###   ########.fr        #
+#    Updated: 2022/03/09 22:47:43 by dthalman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ LIBFTPRINTF  = ./printf/libprintf.a
 all: $(NAME)
 
 .c.o:
-	$(CC) -I $(INC) -I $(LIBRL_INC) -I $(LIBPARSER_INC) -I $(LIBFTPRINTF_INC) $(CFLAGS) -c $< -o $@
+	$(CC) -I $(INC) -I $(LIBFT_INC) -I $(LIBRL_INC) -I $(LIBPARSER_INC) -I $(LIBFTPRINTF_INC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR)

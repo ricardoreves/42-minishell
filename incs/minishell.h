@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/09 22:37:43 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/09 22:47:49 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 
 //# include <libft.h>
 //# include <libparser.h>
-# include "../libft/libft.h"
-# include "../parser/inc/libparser.h"
-# include "../printf/inc/ft_printf.h"
+# include "libft.h"
+# include "libparser.h"
+# include "ft_printf.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdio.h>

@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:18:01 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 17:51:42 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/09 15:59:58 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void	free_shell(t_shell *shell)
 {
 	if (shell->cmds)
 		free_cmds(shell->cmds);
-	if (shell->pipes)
-		free_pipes(shell->pipes, shell->num_pipes);
 	if (shell->envs)
 		free_array(shell->envs);
 	if (shell->config)
 		free(shell->config);
-	if (shell->pids)
-		free(shell->pids);
+	shell->cmds = 0;
+	shell->envs = 0;
+	shell->config = 0;
+	shell = 0;
 }
 
 /**
