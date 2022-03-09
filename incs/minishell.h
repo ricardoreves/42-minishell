@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/09 08:13:53 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/09 10:57:14 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	free_array(char *arr[]);
 int		array_length(char *arr[]);
 char	**clone_array(char *arr[]);
 void	push_array(char *str, char ***arr);
+void	remove_str_array(char *to_remove, char ***arr);
 void	insert_array(char **new_arr, char *after, char ***arr);
 
 char	*get_evaluate_value(t_shell *shell, char *str, int *i);
