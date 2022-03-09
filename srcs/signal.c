@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 14:58:20 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 21:45:53 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/09 23:04:39 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	handle_echoctl(void)
 
 void	handle_signals(int signum)
 {
-	handle_echoctl();
 	if (signum == SIGINT)
 	{
 		write(1, "\n", 1);
@@ -49,7 +48,6 @@ void	handle_signals(int signum)
 
 void	handle_signals_redisplay(int signum)
 {
-	handle_echoctl();
 	if (signum == SIGINT)
 	{
 		write(1, "\n", 1);
