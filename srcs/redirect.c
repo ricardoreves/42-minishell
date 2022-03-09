@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 21:00:04 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/09 16:56:24 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/09 16:57:25 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	redirect_output_file(t_shell *shell, t_cmd *cmd)
 	int	fd;
 
 	if (cmd->redirect_id == id_out_write)
-		fd = here_doc(cmd->redirect_path, shell);
+		fd = here_doc(shell, cmd->redirect_path);
 		//fd = open(cmd->redirect_path, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
 	if (cmd->redirect_id == id_out_append)
 		fd = open(cmd->redirect_path, O_WRONLY | O_CREAT | O_APPEND, S_IRWXU);
