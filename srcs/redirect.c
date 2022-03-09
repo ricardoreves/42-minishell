@@ -89,31 +89,3 @@ void	redirect_output(t_shell *shell, t_cmd *cmd, int num)
 	else if (num == shell->num_cmds - 1)
 		redirect_output_file(shell, cmd);
 }
-
-int	here_doc(t_shell *shell, char *eof)
-{
-	char	*tmp_file;
-	char	*line;
-	int		fd;
-	int		mode;
-
-	tmp_file = str_joins(shell->workink_dir, ".minishell.tmp", "/");
-	mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-	fd = open(tmp_file, O_WRONLY | O_APPEND | O_CREAT, mode);
-	if (fd > -1)
-	{
-		line = get_nextline(0);
-		while (!ft_strncmp(eof, line, ft_strlen(eof)) &&
-			(ft_strlen(eof) + 1) == ft_strlen(line))
-		{
-			write(fd, line, ft_strlen(line));
-			free(line);
-			line = get_nextline(0);
-		}
-		free(line);
-	}
-	close(fd);
-	fd = open(tmp_file, O_RDONLY, mode);
-	free(tmp_file);
-	return (fd);
-}
