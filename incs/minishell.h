@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
+/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/09 10:57:14 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/09 14:58:31 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 
 //# include <libft.h>
 //# include <libparser.h>
-# include "../libft/libft.h"
-# include "../parser/inc/libparser.h"
-# include "../printf/inc/ft_printf.h"
+# include "libft.h"
+# include "libparser.h"
+# include "ft_printf.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdio.h>
