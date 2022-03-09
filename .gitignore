@@ -7,3 +7,5 @@
 a.out
 minishell
 minishell.log
+.minishell*.tmp
+tester

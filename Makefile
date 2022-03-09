@@ -6,7 +6,7 @@
 #    By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 01:47:02 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/03/09 08:12:55 by dthalman         ###   ########.fr        #
+#    Updated: 2022/03/09 21:56:02 by dthalman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,11 @@ CFLAGS     = $(WARN_FLAG)
 RM         = rm -rf
 NORM       = norminette
 NAME       = minishell
+TEST_NAME  = tester
 INC        = ./incs
+TEST_DIR   = ./tests
 SRC_DIR    = ./srcs
-SRC_NAME   = main.c command.c error.c signal.c parsing.c parsing_wildcard.c parsing_sanitize.c parsing_utils.c redirect.c free.c pipe.c pids.c logfile_utils.c logfile.c command_utils.c prompt.c
+SRC_NAME   = main.c init.c command.c error.c signal.c parsing.c parsing_wildcard.c parsing_sanitize.c parsing_utils.c redirect.c redirect_heredoc.c free.c pipe.c pids.c logfile_utils.c logfile.c command_utils.c prompt.c
 SRC_NAME  += utils/array_utils.c utils/array_utils2.c utils/env_utils.c utils/env_utils2.c utils/utils.c utils/cmd_utils.c
 SRC_NAME  += builtins/cd.c builtins/echo.c builtins/env.c builtins/exit.c builtins/export.c builtins/pwd.c builtins/unset.c builtins/builtin.c
 SRCS       = $(addprefix $(SRC_DIR)/, $(SRC_NAME))
@@ -105,6 +107,13 @@ dev2:
 
 fd:
 	ls -la /proc/$$$/fd
+
+test: CFLAGS += $(DEBUG_FLAG)
+test: $(subst $(SRC_DIR)/main.o, $(TEST_DIR)/minishell_tester.o, $(OBJS))
+	$(MAKE) -C $(LIBFT_DIR) dev
+	$(MAKE) -C $(LIBPARSER_DIR) dev
+	$(MAKE) -C $(LIBFTPRINTF_DIR) dev
+	$(CC) $(subst $(SRC_DIR)/main.o, $(TEST_DIR)/minishell_tester.o, $(OBJS)) $(DEBUG_FLAG) $(LIBRL_FLAG) $(LIBPARSER_FLAG) $(LIBFT_FLAG) $(LIBFTPRINTF_FLAG) -L $(LIBPARSER_DIR) -L $(LIBFT_DIR) -L $(LIBRL_DIR) -L $(LIBFTPRINTF_DIR) -o $(TEST_NAME)
 
 valgrind:
 	valgrind --leak-check=full ./$(NAME)
