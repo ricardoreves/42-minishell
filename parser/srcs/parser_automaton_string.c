@@ -92,7 +92,7 @@ void	auto_load_str_indexes(char *str, t_automaton *au)
 	int		idx;
 
 	au->indexes_of_char = ft_calloc(sizeof(char), au->cols);
-	au->indexes_of_char[0] = 255;
+	au->indexes_of_char[0] = (char)255;
 	idx = 0;
 	c = 0;
 	while (str && *str)
