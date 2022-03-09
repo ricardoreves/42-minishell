@@ -6,7 +6,7 @@
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 23:49:55 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/09 09:51:49 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/09 11:23:02 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	wildcard_cmds(t_shell *shell)
 				if (lists)
 				{
 					insert_array(lists, cmd->args[i], &cmd->args);
+					remove_str_array(cmd->args[i], &cmd->args);
 					free_array(lists);
 				}
 			}
@@ -85,7 +86,6 @@ char	**get_wildcard_files(char *wildcard, t_shell *shell)
 		{
 			if (automaton_validator(au, entry->d_name))
 				push_array(entry->d_name, &lists);
-				//printf("%s\n", entry->d_name);
 			entry = readdir(dir);
 		}
 	}
