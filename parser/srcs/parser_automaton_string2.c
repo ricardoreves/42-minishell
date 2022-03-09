@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_automaton_string.c                          :+:      :+:    :+:   */
+/*   parser_automaton_string2.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:55:31 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/06 09:09:54 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/09 09:46:28 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,12 @@ void	auto_load_str_transitions(char *str, t_automaton *au)
 		}
 		else
 			auto_load_str_transitions_other(str, row, au);
-		str++;
+		if (*str)
+			str++;
 	}
-	++row;
-	auto_load_str_transitions_other(str, row, au);
+	if (row < au->rows)
+	{
+		++row;
+		auto_load_str_transitions_other(str, row, au);		
+	}
 }
