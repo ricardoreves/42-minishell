@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
+/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 21:54:07 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/09 23:49:58 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/10 15:30:56 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	*init_shell(t_shell *shell, int argc, char *argv[])
 	return (ft_memset(shell, 0, sizeof(t_shell)));
 }
 
-t_shell	*get_shell()
+t_shell	*get_shell(void)
 {
 	static t_shell	shell;
 
