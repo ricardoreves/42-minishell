@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/09 18:51:05 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/10 01:20:04 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,8 +172,11 @@ void	redirect_output_file(t_cmd *cmd);
 void	redirect_input(t_shell *shell, t_cmd *cmd, int num);
 void	redirect_output(t_shell *shell, t_cmd *cmd, int num);
 
+/* parsing.c */
 int		parse_command_line(t_shell *shell);
+void	evaluate_quotes_token(t_shell *shell, t_token *token);
 void	sanitize_quotes_token(t_shell *shell, t_token *tokens);
+
 void	evaluate_str_env_token(t_token *tokens, t_shell *shell);
 void	set_builtin_token_id(t_token *token);
 char	**token_to_string(t_token *token_from, t_token *token_to);
