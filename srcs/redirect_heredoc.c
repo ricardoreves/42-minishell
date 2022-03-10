@@ -12,16 +12,14 @@
 
 #include "minishell.h"
 
-int	here_doc(t_shell *shell, char *eof)
+void	here_doc(t_shell *shell, t_cmd *cmd, char *eof)
 {
 	char	*tmp_file;
 	char	*line;
 	int		fd;
-	int		mode;
 
 	tmp_file = get_tempfilename(shell);
-	mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-	fd = open(tmp_file, O_WRONLY | O_CREAT, mode);
+	fd = open(tmp_file, O_WRONLY | O_CREAT, 0664);
 	if (fd > -1)
 	{
 		line = here_doc_readline();
@@ -35,9 +33,9 @@ int	here_doc(t_shell *shell, char *eof)
 		free(line);
 	}
 	close(fd);
-	fd = open(tmp_file, O_RDONLY, mode);
-	free(tmp_file);
-	return (fd);
+	free(cmd->redirect_path);
+	cmd->redirect_path = tmp_file;
+	cmd->redirect_id = id_in_file;
 }
 
 /**

@@ -25,8 +25,8 @@ void	redirect_input_file(t_shell *shell, t_cmd *cmd)
 	int	fd;
 
 	if (cmd->redirect_id == id_in_std)
-		fd = here_doc(shell, cmd->redirect_path);
-		//fd = open(cmd->redirect_path, O_RDONLY, S_IRWXU);
+		here_doc(shell, cmd, cmd->redirect_path);
+		// fd = open(cmd->redirect_path, O_RDONLY, S_IRWXU);
 	if (cmd->redirect_id == id_in_file)
 		fd = open(cmd->redirect_path, O_RDONLY, S_IRWXU);
 	if (fd == -1)
