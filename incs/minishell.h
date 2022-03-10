@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/10 01:20:04 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/10 01:28:01 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 # define MSG_COMMAND_NOT_FOUND "command not found"
 # define MSG_PERMISSION_DENIED "permission denied"
 
-//# include <libft.h>
-//# include <libparser.h>
 # include "libft.h"
 # include "libparser.h"
 # include "ft_printf.h"
@@ -41,7 +39,8 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <termios.h>
-#include <dirent.h>
+# include <dirent.h>
+
 typedef enum e_bash_token_id
 {
 	id_notset = -2,
