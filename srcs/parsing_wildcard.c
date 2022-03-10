@@ -79,10 +79,10 @@ char	**get_wildcard_files(char *wildcard, t_shell *shell)
 		return (0);
 	pwd = get_env(shell, "PWD");
 	dir = opendir(pwd);
-    if(dir)
+	if (dir)
 	{
 		entry = readdir(dir);
-		while(entry)
+		while (entry)
 		{
 			if (automaton_validator(au, entry->d_name))
 				push_array(entry->d_name, &lists);

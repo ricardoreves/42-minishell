@@ -58,7 +58,7 @@ char	*here_doc_readline(void)
  */
 char	*get_tempfilename(t_shell *shell)
 {
-	int 	i;
+	int		i;
 	char	*base;
 	char	*number;
 	char	*filename;
@@ -116,7 +116,7 @@ char	*get_strnbr(int n)
  */
 void	prepare_here_doc_cmd(t_shell *shell)
 {
-	t_cmd *cmd;
+	t_cmd	*cmd;
 
 	cmd = shell->cmds;
 	while (cmd)

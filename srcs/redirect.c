@@ -26,7 +26,6 @@ void	redirect_input_file(t_shell *shell, t_cmd *cmd)
 
 	if (cmd->redirect_id == id_in_std)
 		here_doc(shell, cmd, cmd->redirect_path);
-		// fd = open(cmd->redirect_path, O_RDONLY, S_IRWXU);
 	if (cmd->redirect_id == id_in_file)
 		fd = open(cmd->redirect_path, O_RDONLY, S_IRWXU);
 	if (fd == -1)
@@ -65,7 +64,6 @@ void	redirect_input(t_shell *shell, t_cmd *cmd, int num)
 {
 	if (num > 0)
 	{
-		// printf("input -> %s pipe: [%d][0] std: 0\n", cmd->name, num - 1);
 		if (cmd->redirect_id == id_in_std || cmd->redirect_id == id_in_file)
 			redirect_input_file(shell, cmd);
 		else
@@ -79,7 +77,6 @@ void	redirect_output(t_shell *shell, t_cmd *cmd, int num)
 {
 	if (num < shell->num_cmds - 1)
 	{
-		// printf("output -> %s pipe: [%d][1] std: 1\n", cmd->name, num);
 		if (cmd->redirect_id == id_out_write
 			|| cmd->redirect_id == id_out_append)
 			redirect_output_file(cmd);
