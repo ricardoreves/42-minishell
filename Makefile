@@ -6,7 +6,7 @@
 #    By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 01:47:02 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/03/10 02:34:10 by rpinto-r         ###   ########.fr        #
+#    Updated: 2022/03/10 15:32:42 by rpinto-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,7 @@ run:
 	./$(NAME)
 
 norm:
-	$(NORM) $(INC) $(SRC_DIR) $(LIBFT_DIR) $(LIBFTPRINTF_DIR) $(LIBPARSER_DIR)
+	$(NORM) $(INC) $(SRC_DIR) $(LIBFT_DIR) $(LIBFTPRINTF_DIR) $(LIBPARSER_DIR)  | grep Error
 
 #dev: re all run
 dev: CFLAGS += $(DEBUG_FLAG)
