@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 14:58:20 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 21:45:53 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/10 00:01:09 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,17 @@ void	handle_echoctl(void)
 
 void	handle_signals(int signum)
 {
-	handle_echoctl();
+	t_shell *shell;
+
+	shell = get_shell();
 	if (signum == SIGINT)
 	{
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 1);
+		shell->exit_status = 1;
+		save_exit_status(shell);
+
 	}
 	if (signum == SIGQUIT)
 	{
@@ -49,13 +54,17 @@ void	handle_signals(int signum)
 
 void	handle_signals_redisplay(int signum)
 {
-	handle_echoctl();
+	t_shell *shell;
+
+	shell = get_shell();
 	if (signum == SIGINT)
 	{
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 1);
 		rl_redisplay();
+		shell->exit_status = 1;
+		save_exit_status(shell);
 	}
 	if (signum == SIGQUIT)
 	{

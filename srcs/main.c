@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:03 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/10 02:09:52 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/10 02:12:42 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	main(int argc, char *argv[], char *envs[])
 {
-	t_shell	shell;
+	t_shell	*shell;
 
-	if (init_shell(&shell, argc, argv))
+	shell = get_shell();
+	if (init_shell(shell, argc, argv))
 	{
 		init_asciiart();
 		init_envs(&shell, envs);
