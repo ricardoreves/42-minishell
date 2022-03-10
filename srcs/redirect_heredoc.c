@@ -110,3 +110,21 @@ char	*get_strnbr(int n)
 	}
 	return (str);
 }
+
+/**
+ * @brief crée un fichier temporaire par commande pour tous les here doc
+ * 
+ * @param shell 
+ */
+void	prepare_here_doc_cmd(t_shell *shell)
+{
+	t_cmd *cmd;
+
+	cmd = shell->cmds;
+	while (cmd)
+	{
+		if (cmd->redirect_id == id_in_std)
+			here_doc(shell, cmd, cmd->redirect_path);
+		cmd = cmd->next;
+	}
+}

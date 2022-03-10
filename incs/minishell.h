@@ -172,7 +172,7 @@ void	redirect_input_file(t_shell *shell, t_cmd *cmd);
 void	redirect_output_file(t_cmd *cmd);
 void	redirect_input(t_shell *shell, t_cmd *cmd, int num);
 void	redirect_output(t_shell *shell, t_cmd *cmd, int num);
-int		here_doc(t_shell *shell, char *eof);
+void	prepare_here_doc_cmd(t_shell *shell);
 char	*here_doc_readline(void);
 
 /* parsing.c */
