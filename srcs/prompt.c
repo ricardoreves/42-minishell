@@ -43,8 +43,7 @@ void	init_prompt(t_shell *shell)
 			{
 				log_cmds(shell->cmds);
 				handle_commands(shell);
-				free_cmds(shell->cmds);
-				shell->cmds = 0;
+				free_cmds(&(shell->cmds));
 			}
 			else
 				show_command_error(shell, NAME, MSG_SYNTAX_ERROR, 2);

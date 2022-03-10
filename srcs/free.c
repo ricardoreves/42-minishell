@@ -15,7 +15,7 @@
 void	free_shell(t_shell *shell)
 {
 	if (shell->cmds)
-		free_cmds(shell->cmds);
+		free_cmds(&(shell->cmds));
 	if (shell->envs)
 		free_array(shell->envs);
 	if (shell->config)
@@ -33,10 +33,12 @@ void	free_shell(t_shell *shell)
  * @brief Libère la mémoire de la liste des commandes
  * @param cmds
  */
-void	free_cmds(t_cmd *cmd)
+void	free_cmds(t_cmd **cmds)
 {
 	t_cmd	*last;
+	t_cmd	*cmd;
 
+	cmd = *cmds;
 	while (cmd)
 	{
 		last = cmd;
@@ -46,6 +48,7 @@ void	free_cmds(t_cmd *cmd)
 		cmd = cmd->next;
 		free(last);
 	}
+	*cmds = 0;
 }
 
 void	free_pipes(int **pipes, int size)

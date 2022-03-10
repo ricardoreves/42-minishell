@@ -195,7 +195,7 @@ void	wildcard_cmds(t_shell *shell);
 char	**get_wildcard_files(char *wildcard, t_shell *shell);
 int		has_wildcard(char *str);
 void	print_cmds(t_cmd *cmds);
-void	free_cmds(t_cmd *cmds);
+void	free_cmds(t_cmd **cmds);
 int		count_cmds(t_cmd *cmds);
 
 // Log
