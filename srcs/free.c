@@ -20,9 +20,12 @@ void	free_shell(t_shell *shell)
 		free_array(shell->envs);
 	if (shell->config)
 		free(shell->config);
+	if (shell->workink_dir)
+		free(shell->workink_dir);
 	shell->cmds = 0;
 	shell->envs = 0;
 	shell->config = 0;
+	shell->workink_dir = 0;
 	shell = 0;
 }
 
