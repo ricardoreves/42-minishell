@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 20:47:22 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 14:38:05 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/10 15:06:07 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ int	init_envs(t_shell *shell, char *envs[])
 		return (0);
 	while (i--)
 		shell->envs[i] = ft_strdup(envs[i]);
-	add_env(shell, ft_strdup("?"), ft_strdup("0"));
+	add_env(shell, ft_strdup("?"), ft_strdup("1"));
 	return (1);
 }
