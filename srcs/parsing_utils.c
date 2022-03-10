@@ -6,38 +6,11 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/06 15:28:31 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/10 01:16:41 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/**
- * @brief remplace les variables d'environnment et identifie si
- * c'est un executable
- *
- * @param token
- * @param shell
- */
-void	evaluate_str_env_token(t_token *tokens, t_shell *shell)
-{
-	char	*str;
-	t_token	*token;
-
-	token = tokens;
-	while (token)
-	{
-		if (token->id == id_word || token->id == id_dbl_quotes
-			|| token->id == id_single_quotes)
-		{
-			str = evaluate_str_env(shell, token->str, 0);
-			free(token->str);
-			token->str = str;
-			set_builtin_token_id(token);
-		}
-		token = token->next;
-	}
-}
 
 /**
  * @brief identifie les jetons de type builtin

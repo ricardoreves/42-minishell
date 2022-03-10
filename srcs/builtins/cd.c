@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 21:28:31 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 22:39:41 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/10 01:56:04 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*fix_home_path(t_shell *shell, t_cmd *cmd)
 	if (cmd->args[1])
 	{
 		if (ft_strncmp(cmd->args[1], "~/", 2) == 0)
-			path = ft_strjoin(ft_strdup(home), cmd->args[1] + 2);
+			path = ft_strjoin(home, cmd->args[1] + 1);
 		else if (str_compare(cmd->args[1], "~") == 0)
 			path = ft_strdup(home);
 		else

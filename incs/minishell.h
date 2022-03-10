@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
+/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/09 22:57:49 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/10 02:09:39 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 # define MSG_COMMAND_NOT_FOUND "command not found"
 # define MSG_PERMISSION_DENIED "permission denied"
 
-//# include <libft.h>
-//# include <libparser.h>
 # include "libft.h"
 # include "libparser.h"
 # include "ft_printf.h"
@@ -41,7 +39,8 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <termios.h>
-#include <dirent.h>
+# include <dirent.h>
+
 typedef enum e_bash_token_id
 {
 	id_notset = -2,
@@ -175,8 +174,11 @@ void	redirect_output(t_shell *shell, t_cmd *cmd, int num);
 int		here_doc(t_shell *shell, char *eof);
 char	*here_doc_readline(void);
 
+/* parsing.c */
 int		parse_command_line(t_shell *shell);
-void	sanitize_quotes_token(t_token *tokens);
+void	evaluate_quotes_token(t_shell *shell, t_token *token);
+void	sanitize_quotes_token(t_shell *shell, t_token *tokens);
+
 void	evaluate_str_env_token(t_token *tokens, t_shell *shell);
 void	set_builtin_token_id(t_token *token);
 char	**token_to_string(t_token *token_from, t_token *token_to);
