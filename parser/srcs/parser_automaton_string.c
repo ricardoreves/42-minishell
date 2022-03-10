@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_automaton_string.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
+/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 10:55:31 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/09 09:57:43 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/10 02:02:55 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,8 @@ void	auto_load_str_accepting(t_automaton *au)
 	i = -1;
 	while (++i < au->rows)
 	{
-		au->accepting[i] = 0;		
+		au->accepting[i] = 0;
 		if (au->rows - 1 == i)
-			au->accepting[i] = 1;	
+			au->accepting[i] = 1;
 	}
 }
