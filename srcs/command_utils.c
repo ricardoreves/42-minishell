@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 21:21:21 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 19:06:22 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/10 15:09:48 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	is_directory(char *name)
 
 	if (stat(name, &statbuf) != 0)
 		return (0);
-	return (S_ISDIR(statbuf.st_mode));
+	return ((S_ISDIR(statbuf.st_mode) && ft_strchr(name, '/') != 0));
 }
 
 int	is_file_permission_denied(char *name)
