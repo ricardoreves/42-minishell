@@ -18,6 +18,7 @@ void	handle_commands(t_shell *shell)
 	t_cmd	*cmd;
 
 	i = 0;
+	prepare_here_doc_cmd(shell);
 	cmd = shell->cmds;
 	if (shell->num_cmds == 1)
 		exec_single_command(shell, cmd);
