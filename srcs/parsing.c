@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 08:51:29 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/10 01:19:00 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/10 15:27:24 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ void	evaluate_quotes_token(t_shell *shell, t_token *token)
 			tmp[j++] = token->str[i++];
 	}
 	free(token->str);
-	token->str = tmp;
 	if (token->id != id_single_quotes)
-	{
-		tmp = evaluate_str_env(shell, token->str, 0);
-		free(token->str);
-		token->str = tmp;
+	{	
+		token->str = evaluate_str_env(shell, tmp, 0);
+		free(tmp);
 	}
+	else
+		token->str = tmp;
 }
 
 /**
