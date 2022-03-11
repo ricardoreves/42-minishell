@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_heredoc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
+/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 21:00:04 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/09 22:38:32 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/11 17:40:11 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	here_doc(t_shell *shell, t_cmd *cmd, char *eof)
 	fd = open(tmp_file, O_WRONLY | O_CREAT, 0664);
 	if (fd > -1)
 	{
-		line = here_doc_readline();
+		line = readline("> ");
 		while (!(ft_strncmp(eof, line, ft_strlen(eof)) == 0
 				&& (ft_strlen(eof) + 1) == ft_strlen(line)))
 		{
 			write(fd, line, ft_strlen(line));
 			free(line);
-			line = here_doc_readline();
+			line = readline("> ");
 		}
 		free(line);
 	}
@@ -36,18 +36,6 @@ void	here_doc(t_shell *shell, t_cmd *cmd, char *eof)
 	free(cmd->redirect_path);
 	cmd->redirect_path = tmp_file;
 	cmd->redirect_id = id_in_file;
-}
-
-/**
- * @brief lit la ligne sur l'entrée standard
- * 
- * @param fd 
- * @return char* 
- */
-char	*here_doc_readline(void)
-{
-	ft_printf("> ");
-	return (get_nextline(0));
 }
 
 /**
@@ -95,4 +83,29 @@ void	prepare_here_doc_cmd(t_shell *shell)
 			here_doc(shell, cmd, cmd->redirect_path);
 		cmd = cmd->next;
 	}
+}
+
+/**
+ * @brief retourne 1 si il n'y a pas de heredoc ou que ceux-si
+ * sont correctement configuré dans la commande
+ * 
+ * @param shell 
+ * @return int 
+ */
+int	is_valid_heredoc(t_shell *shell)
+{
+	t_cmd	*cmd;
+
+	cmd = shell->cmds;
+	while (cmd)
+	{
+		if (cmd->redirect_id == id_in_std && !cmd->redirect_path)
+		{
+			show_command_error(shell, "", MSG_SYNTAX_ERROR, 2);
+			save_exit_status(shell);
+			return (0);
+		}
+		cmd = cmd->next;
+	}
+	return (1);
 }
