@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
+/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/09 16:32:39 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/11 17:39:53 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,43 @@ void	process_command(t_shell *shell, t_cmd *cmd, int num)
 	}
 }
 
+// int	is_unexpected_token_command(t_shell *shell)
+// {
+// 	int	ret;
+
+// 	ret = 0;
+// 	if (!shell->cmds->name || shell->cmds->name)
+// 	{
+// 		show_command_error(shell, NULL,
+// 			"syntax error near unexpected token", 2);
+// 		save_exit_status(shell);
+// 		return (1);
+// 	}
+// 	return (0);
+// }
+
 int	is_unexpected_token_command(t_shell *shell)
 {
-	if (!shell->cmds->name)
+	t_cmd	*cmd;
+	int		ret;
+
+	ret = 0;
+	cmd = shell->cmds;
+	while (cmd)
 	{
-		show_command_error(shell, NULL,
-			"syntax error near unexpected token", 2);
+		if (!cmd->name)
+			ret = 1;
+		if (array_length(cmd->args) == 1 && ft_strncmp(cmd->name, "<", 1) == 0)
+			ret = 1;
+		if (array_length(cmd->args) == 1 && ft_strncmp(cmd->name, ">", 1) == 0)
+			ret = 1;
+		if (array_length(cmd->args) == 1 && ft_strncmp(cmd->name, "|", 1) == 0)
+			ret = 1;
+		cmd = cmd->next;
+	}
+	if (ret)
+	{
+		show_command_error(shell, "", MSG_SYNTAX_ERROR, 2);
 		save_exit_status(shell);
 		return (1);
 	}
