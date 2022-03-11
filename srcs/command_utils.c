@@ -12,11 +12,23 @@
 
 #include "minishell.h"
 
+/**
+ * @brief retourne 1 si name peut-être une commande
+ * 
+ * @param name 
+ * @return int 
+ */
 int	is_exec_file(char *name)
 {
 	return (ft_strncmp(name, "./", 2) == 0 || name[0] == '/');
 }
 
+/**
+ * @brief retourne 1 si name est un répertoire 
+ * 
+ * @param name 
+ * @return int 
+ */
 int	is_directory(char *name)
 {
 	struct stat	statbuf;
@@ -26,16 +38,37 @@ int	is_directory(char *name)
 	return ((S_ISDIR(statbuf.st_mode) && ft_strchr(name, '/') != 0));
 }
 
+/**
+ * @brief retourne 1 si name n'a pas d'accès d'execution
+ * 
+ * @param name 
+ * @return int 
+ */
 int	is_file_permission_denied(char *name)
 {
 	return (access(name, X_OK) == -1);
 }
 
+/**
+ * @brief retourne 1 si name est un fichier executable et
+ * qu'il n'est pas trouvé
+ * 
+ * @param name 
+ * @return int 
+ */
 int	is_file_not_found(char *name)
 {
 	return (is_exec_file(name) && access(name, F_OK) == -1);
 }
 
+/**
+ * @brief retourne 1 si la commande n'est pas trouvée
+ * 
+ * @param path liste des path de l'env PATH
+ * @param name 
+ * @param i 
+ * @return int 
+ */
 int	is_command_not_found(char *path, char **name, int i)
 {
 	char	*pathname;
