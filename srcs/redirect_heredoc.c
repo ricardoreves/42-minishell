@@ -3,30 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_heredoc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
+/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 21:00:04 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/09 22:38:32 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/11 02:30:26 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	here_doc(t_shell *shell, char *eof)
+int	here_doc(t_shell *shell, t_cmd *cmd, int num)
 {
-	char	*tmp_file;
-	char	*line;
 	int		fd;
-	int		mode;
+	char	*line;
+	char	*delimit;
+	char	*tmp_file;
 
-	tmp_file = get_tempfilename(shell);
-	mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-	fd = open(tmp_file, O_WRONLY | O_CREAT, mode);
+	tmp_file = here_doc_tmpfile(shell, num);
+	fd = open(tmp_file, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
 	if (fd > -1)
 	{
+		write(fd, "", 0);
 		line = here_doc_readline();
-		while (!(ft_strncmp(eof, line, ft_strlen(eof)) == 0
-				&& (ft_strlen(eof) + 1) == ft_strlen(line)))
+		delimit = cmd->redirect_path;
+		while (!(ft_strncmp(delimit, line, ft_strlen(delimit)) == 0
+				&& (ft_strlen(delimit) + 1) == ft_strlen(line)))
 		{
 			write(fd, line, ft_strlen(line));
 			free(line);
@@ -35,8 +36,8 @@ int	here_doc(t_shell *shell, char *eof)
 		free(line);
 	}
 	close(fd);
-	fd = open(tmp_file, O_RDONLY, mode);
-	free(tmp_file);
+	free(cmd->redirect_path);
+	cmd->redirect_path = tmp_file;
 	return (fd);
 }
 
@@ -58,55 +59,17 @@ char	*here_doc_readline(void)
  * @param shell 
  * @return char* 
  */
-char	*get_tempfilename(t_shell *shell)
+char	*here_doc_tmpfile(t_shell *shell, int num)
 {
-	int 	i;
-	char	*base;
-	char	*number;
-	char	*filename;
+	char	*tmp_id;
+	char	*tmp_file;
 
-	i = 1;
-	base = ft_strjoin(shell->workink_dir, "/.tmp/.minishell");
-	number = get_strnbr(i);
-	filename = str_joins(base, ".tmp", number);
-	while (access(filename, F_OK) == 0)
-	{	
-		free(number);
-		free(filename);
-		number = get_strnbr(++i);
-		filename = str_joins(base, ".tmp", number);
-	}
-	free(base);
-	free(number);
-	return (filename);
-}
-
-/**
- * @brief retourne une chaine de caractère représentant un entier uniquement
- * positif
- * 
- * @param n 
- * @return char* 
- */
-char	*get_strnbr(int n)
-{
-	int		len;
-	int		i;
-	char	*str;
-
-	len = 0;
-	i = n;
-	while (i != 0)
-	{
-		i = i / 10;
-		len++;
-	}
-	str = malloc(len + 1);
-	str[len] = 0;
-	while (len--)
-	{
-		str[len] = (n % 10) + '0';
-		n /= 10;
-	}
-	return (str);
+	tmp_id = ft_itoa(num);
+	if (!tmp_id)
+		return (0);
+	tmp_file = str_joins(shell->workink_dir, tmp_id, "/.tmp/.heredoc");
+	free(tmp_id);
+	if (!tmp_file)
+		return (0);
+	return (tmp_file);
 }
