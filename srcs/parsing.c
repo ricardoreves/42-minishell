@@ -38,6 +38,7 @@ int	parse_command_line(t_shell *shell)
 	log_token(token);
 	token_dispose(&token);
 	automaton_dispose(oto);
+	log_cmds(shell->cmds);
 	return (shell->num_cmds);
 }
 

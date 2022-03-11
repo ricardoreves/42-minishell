@@ -23,8 +23,6 @@ void	handle_commands(t_shell *shell)
 	t_cmd	*cmd;
 
 	i = -1;
-	if (is_unexpected_token_command(shell))
-		return ;
 	prepare_here_doc_cmd(shell);
 	cmd = shell->cmds;
 	if (shell->num_cmds == 1)

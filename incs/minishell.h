@@ -161,6 +161,8 @@ int		is_directory(char *name);
 int		is_file_permission_denied(char *name);
 int		is_file_not_found(char *name);
 int		is_unexpected_token_command(t_shell *shell);
+int		is_valid_commands(t_shell *shell);
+int		is_valid_heredoc(t_shell *shell);
 
 void	handle_commands(t_shell *shell);
 void	process_command(t_shell *shell, t_cmd *cmd, int num);
