@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 21:00:04 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/11 18:31:57 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/11 20:10:54 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@ void	here_doc(t_shell *shell, t_cmd *cmd, char *eof)
 	fd = open(tmp_file, O_WRONLY | O_CREAT, 0664);
 	if (fd > -1)
 	{
-		line = readline("> ");
-		while (!(ft_strncmp(eof, line, ft_strlen(eof)) == 0
-				&& (ft_strlen(eof) + 1) == ft_strlen(line)))
+		line = here_doc_readline();
+		//line = readline("> ");
+		//while (str_compare(line, eof) != 0)
+		while (!(ft_strncmp(eof, line, ft_strlen(eof)) == 0 && (ft_strlen(eof) + 1) == ft_strlen(line)))
 		{
 			write(fd, line, ft_strlen(line));
 			free(line);
-			line = readline("> ");
+			line = here_doc_readline();
+			//line = readline("> ");
 		}
 		free(line);
 	}
@@ -65,6 +67,18 @@ char	*get_tempfilename(t_shell *shell)
 	free(base);
 	free(number);
 	return (filename);
+}
+
+/**
+ * @brief lit la ligne sur l'entrée standard
+ * 
+ * @param fd 
+ * @return char* 
+ */
+char	*here_doc_readline(void)
+{
+	ft_printf("> ");
+	return (get_nextline(0));
 }
 
 /**
