@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
+/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 21:00:04 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/09 20:05:36 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/11 16:20:30 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@ void	redirect_input_file(t_shell *shell, t_cmd *cmd)
 {
 	int	fd;
 
-	if (cmd->redirect_id == id_in_std)
-		here_doc(shell, cmd, cmd->redirect_path);
-	if (cmd->redirect_id == id_in_file)
-		fd = open(cmd->redirect_path, O_RDONLY, S_IRWXU);
+	(void)shell;
+	fd = open(cmd->redirect_path, O_RDONLY, 0644);
 	if (fd == -1)
 	{
 		perror("Error: open() failed");
@@ -44,10 +42,11 @@ void	redirect_output_file(t_cmd *cmd)
 {
 	int	fd;
 
+	fd = -2;
 	if (cmd->redirect_id == id_out_write)
-		fd = open(cmd->redirect_path, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+		fd = open(cmd->redirect_path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (cmd->redirect_id == id_out_append)
-		fd = open(cmd->redirect_path, O_WRONLY | O_CREAT | O_APPEND, S_IRWXU);
+		fd = open(cmd->redirect_path, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
 		perror("Error: open() failed");
