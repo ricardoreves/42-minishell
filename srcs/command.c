@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
+/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 18:35:14 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/09 16:32:39 by dthalman         ###   ########.fr       */
+/*   Updated: 2022/03/11 02:20:57 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	handle_commands(t_shell *shell)
 		{
 			if (!cmd->name)
 				scan_stdin(cmd);
+			if (cmd->redirect_id == id_in_std)
+				here_doc(shell, cmd, i);
 			process_command(shell, cmd, i);
 			cmd = cmd->next;
 			i++;
@@ -61,6 +63,8 @@ int	exec_single_command(t_shell *shell, t_cmd *cmd)
 		exec_builtin_command(shell, cmd);
 	else if (is_invalid_command(shell, cmd) == 0)
 	{
+		if (cmd->redirect_id == id_in_std)
+			here_doc(shell, cmd, 0);
 		pid = fork();
 		if (pid == -1)
 			perror("Error: fork() failed\n");
