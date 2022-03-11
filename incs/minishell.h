@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/10 15:31:31 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/11 17:43:39 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,6 @@ void	redirect_input(t_shell *shell, t_cmd *cmd, int num);
 void	redirect_output(t_shell *shell, t_cmd *cmd, int num);
 void	prepare_here_doc_cmd(t_shell *shell);
 void	here_doc(t_shell *shell, t_cmd *cmd, char *eof);
-char	*here_doc_readline(void);
 
 /* parsing.c */
 int		parse_command_line(t_shell *shell);
