@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 00:45:42 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/07 23:08:09 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/11 17:41:05 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,34 +78,9 @@ void	scan_stdin(t_cmd *cmd)
 int	is_valid_commands(t_shell *shell)
 {
 	if (is_unexpected_token_command(shell))
-		return (1);
-	if (is_valid_heredoc(shell))
-		return (1);
-	return (0);
-}
-
-/**
- * @brief retourne 1 si il n'y a pas de heredoc ou que ceux-si
- * sont correctement configuré dans la commande
- * 
- * @param shell 
- * @return int 
- */
-int	is_valid_heredoc(t_shell *shell)
-{
-	t_cmd	*cmd;
-
-	cmd = shell->cmds;
-	while (cmd)
-	{
-		if (cmd->redirect_id == id_in_std && !cmd->redirect_path)
-		{
-			show_command_error(shell, NULL,
-				"syntax error near unexpected token", 2);
-			save_exit_status(shell);
-			return (0);
-		}
-		cmd = cmd->next;
-	}
+		return (0);
+	if (!is_valid_heredoc(shell))
+		return (0);
 	return (1);
 }
+
