@@ -67,9 +67,11 @@ void	prepare_cmds(t_token *token, t_shell *shell)
 		else if (is_redirect_token_id(token->id))
 		{
 			cmd->redirect_id = token->id;
-			token = token->next;
-			if (token)
+			if (token->next && is_word_token_id(token->next->id))
+			{
+				token = token->next;
 				cmd->redirect_path = ft_strdup(token->str);
+			}
 		}
 		else if (token->id == id_pipe)
 			cmd = create_cmd(shell);
