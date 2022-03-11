@@ -13,7 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define VERSION "0.1.2"
+# define VERSION "0.1.3"
 # define NAME "\e[1;33mminishell\e[0m:"
 # define DOLLAR "\e[1;37m$ \e[0m"
 # define CONFIGFILE ".config/parser/bash.conf"
