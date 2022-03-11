@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/10 15:31:31 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/11 01:53:47 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,8 +172,11 @@ void	redirect_input_file(t_shell *shell, t_cmd *cmd);
 void	redirect_output_file(t_cmd *cmd);
 void	redirect_input(t_shell *shell, t_cmd *cmd, int num);
 void	redirect_output(t_shell *shell, t_cmd *cmd, int num);
-int		here_doc(t_shell *shell, char *eof);
+
+/* redirect_heredoc.c */
+int		here_doc(t_shell *shell, t_cmd *cmd, int num);
 char	*here_doc_readline(void);
+char	*here_doc_tmpfile(t_shell *shell, int num);
 
 /* parsing.c */
 int		parse_command_line(t_shell *shell);
@@ -186,8 +189,6 @@ char	**token_to_string(t_token *token_from, t_token *token_to);
 int		is_builtin_token_id(int id);
 int		is_redirect_token_id(int id);
 int		is_word_token_id(int id);
-char	*get_tempfilename(t_shell *shell);
-char	*get_strnbr(int n);
 
 void	prepare_cmds(t_token *token, t_shell *shell);
 void	wildcard_cmds(t_shell *shell);
