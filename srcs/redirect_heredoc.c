@@ -65,48 +65,18 @@ char	*get_tempfilename(t_shell *shell)
 
 	i = 1;
 	base = ft_strjoin(shell->workink_dir, "/.tmp/.minishell");
-	number = get_strnbr(i);
+	number = ft_itoa(i);
 	filename = str_joins(base, ".tmp", number);
 	while (access(filename, F_OK) == 0)
 	{	
 		free(number);
 		free(filename);
-		number = get_strnbr(++i);
+		number = ft_itoa(++i);
 		filename = str_joins(base, ".tmp", number);
 	}
 	free(base);
 	free(number);
 	return (filename);
-}
-
-/**
- * @brief retourne une chaine de caractère représentant un entier uniquement
- * positif
- * 
- * @param n 
- * @return char* 
- */
-char	*get_strnbr(int n)
-{
-	int		len;
-	int		i;
-	char	*str;
-
-	len = 0;
-	i = n;
-	while (i != 0)
-	{
-		i = i / 10;
-		len++;
-	}
-	str = malloc(len + 1);
-	str[len] = 0;
-	while (len--)
-	{
-		str[len] = (n % 10) + '0';
-		n /= 10;
-	}
-	return (str);
 }
 
 /**

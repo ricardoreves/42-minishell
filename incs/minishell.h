@@ -188,7 +188,6 @@ int		is_builtin_token_id(int id);
 int		is_redirect_token_id(int id);
 int		is_word_token_id(int id);
 char	*get_tempfilename(t_shell *shell);
-char	*get_strnbr(int n);
 
 void	prepare_cmds(t_token *token, t_shell *shell);
 void	wildcard_cmds(t_shell *shell);
