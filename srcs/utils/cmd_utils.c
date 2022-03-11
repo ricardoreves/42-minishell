@@ -73,7 +73,8 @@ void	prepare_cmds(t_token *token, t_shell *shell)
 		}
 		else if (token->id == id_pipe)
 			cmd = create_cmd(shell);
-		token = token->next;
+		if (token)
+			token = token->next;
 	}
 }
 

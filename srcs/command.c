@@ -12,12 +12,19 @@
 
 #include "minishell.h"
 
+/**
+ * @brief execute toutes les commandes se trouvant dans shell->cmds
+ * 
+ * @param shell 
+ */
 void	handle_commands(t_shell *shell)
 {
 	int		i;
 	t_cmd	*cmd;
 
-	i = 0;
+	i = -1;
+	if (is_unexpected_token_command(shell))
+		return ;
 	prepare_here_doc_cmd(shell);
 	cmd = shell->cmds;
 	if (shell->num_cmds == 1)
@@ -30,9 +37,8 @@ void	handle_commands(t_shell *shell)
 		{
 			if (!cmd->name)
 				scan_stdin(cmd);
-			process_command(shell, cmd, i);
+			process_command(shell, cmd, ++i);
 			cmd = cmd->next;
-			i++;
 		}
 		close_pipes(shell);
 		wait_pids(shell);
@@ -98,4 +104,16 @@ void	process_command(t_shell *shell, t_cmd *cmd, int num)
 		}
 		exit(shell->exit_status);
 	}
+}
+
+int	is_unexpected_token_command(t_shell *shell)
+{
+	if (!shell->cmds->name)
+	{
+		show_command_error(shell, NULL,
+			"syntax error near unexpected token", 2);
+		save_exit_status(shell);
+		return (1);
+	}
+	return (0);
 }
