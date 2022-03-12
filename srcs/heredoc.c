@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 21:00:04 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/12 01:30:41 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/12 02:12:59 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,12 @@ void	here_doc(t_shell *shell, t_cmd *cmd, char *eof)
 	if (fd > -1)
 	{
 		line = here_doc_readline();
-		//line = readline("> ");
-		//while (str_compare(line, eof) != 0)
 		while (!(ft_strncmp(eof, line, ft_strlen(eof)) == 0
 				&& (ft_strlen(eof) + 1) == ft_strlen(line)))
 		{
 			write(fd, line, ft_strlen(line));
 			free(line);
 			line = here_doc_readline();
-			//line = readline("> ");
 		}
 		free(line);
 	}
