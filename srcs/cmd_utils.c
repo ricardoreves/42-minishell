@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 17:29:08 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/05 22:29:20 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/11 23:52:32 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,44 +81,23 @@ void	prepare_cmds(t_token *token, t_shell *shell)
 }
 
 /**
- * @brief Affiche le contenu de la liste des commandes
+ * @brief Libère la mémoire de la liste des commandes
  * @param cmds
  */
-void	print_cmds(t_cmd *cmds)
+void	free_cmds(t_cmd **cmds)
 {
+	t_cmd	*last;
 	t_cmd	*cmd;
 
-	cmd = cmds;
+	cmd = *cmds;
 	while (cmd)
 	{
-		printf("commande:\n");
-		printf("name: %s\n", cmd->name);
-		printf("args:\n");
-		print_array(cmd->args);
-		printf("redirect_id: %d\n", cmd->redirect_id);
-		printf("redirect_path: %s\n", cmd->redirect_path);
-		printf("---------------\n");
+		last = cmd;
+		free(cmd->name);
+		free(cmd->redirect_path);
+		free_array(cmd->args);
 		cmd = cmd->next;
+		free(last);
 	}
-}
-
-/**
- * @brief Compte le nombre de commandes
- * @param cmds
- */
-int	count_cmds(t_cmd *cmds)
-{
-	int		i;
-	t_cmd	*cmd;
-
-	if (!cmds)
-		return (0);
-	i = 0;
-	cmd = cmds;
-	while (cmd)
-	{
-		cmd = cmd->next;
-		i++;
-	}
-	return (i);
+	*cmds = 0;
 }
