@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 17:57:18 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/12 01:23:17 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/12 11:44:17 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	free_shell(t_shell *shell);
 /* prompt */
 char	*get_prompt_name(t_shell *shell);
 void	init_prompt(t_shell *shell);
+void	read_input_prompt(t_shell *shell, char *prompt);
 
 /* exec */
 void	exec_commands(t_shell *shell);
@@ -158,8 +159,11 @@ void	close_pipes(t_shell *shell);
 int		create_pipes(t_shell *shell);
 void	free_pipes(int **pipes, int size);
 
+/* terminal */
+void	stop_echoctl(void);
+void	start_echoctl(void);
+
 /* signals */
-void	handle_echoctl(void);
 void	handle_signals(int signum);
 void	handle_signals_redisplay(int signum);
 void	init_signals(int redisplay);

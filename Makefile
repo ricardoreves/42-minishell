@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+         #
+#    By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 01:47:02 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/03/12 10:56:30 by rpinto-r         ###   ########.fr        #
+#    Updated: 2022/03/12 11:29:51 by dthalman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ TEST_NAME  = tester
 INC        = ./incs
 TEST_DIR   = ./tests
 SRC_DIR    = ./srcs
-SRC_NAME   = main.c init.c exec.c check.c check2.c error.c signal.c parsing.c parsing_wildcard.c parsing_utils.c redirect.c heredoc.c pipe.c pids.c logfile.c logfile_utils.c prompt.c array_utils.c array_utils2.c env_utils.c env_utils2.c utils.c cmd_utils.c cd.c echo.c env.c exit.c export.c pwd.c unset.c
+SRC_NAME   = main.c init.c terminal.c exec.c check.c check2.c error.c signal.c parsing.c parsing_wildcard.c parsing_utils.c redirect.c heredoc.c pipe.c pids.c logfile.c logfile_utils.c prompt.c array_utils.c array_utils2.c env_utils.c env_utils2.c utils.c cmd_utils.c cd.c echo.c env.c exit.c export.c pwd.c unset.c
 SRCS       = $(addprefix $(SRC_DIR)/, $(SRC_NAME))
 OBJS       = $(SRCS:.c=.o)
 

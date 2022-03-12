@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 00:45:42 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/12 01:28:51 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/12 11:44:58 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,19 @@ char	*get_prompt_name(t_shell *shell)
 	return (prompt);
 }
 
+/**
+ * @brief Lit la ligne de commande en stoppant l'echoctl visuel
+ * 
+ * @param shell 
+ * @param prompt 
+ */
+void	read_input_prompt(t_shell *shell, char *prompt)
+{
+	stop_echoctl();
+	shell->cmdline = readline(prompt);
+	start_echoctl();
+}
+
 void	init_prompt(t_shell *shell)
 {
 	char	*prompt;
@@ -32,7 +45,7 @@ void	init_prompt(t_shell *shell)
 	{
 		init_signals(1);
 		prompt = get_prompt_name(shell);
-		shell->cmdline = readline(prompt);
+		read_input_prompt(shell, prompt);
 		if (!shell->cmdline)
 			exec_exit(shell);
 		else if (*shell->cmdline)

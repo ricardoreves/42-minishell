@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: dthalman <daniel@thalmann.li>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 21:54:07 by dthalman          #+#    #+#             */
-/*   Updated: 2022/03/12 01:20:02 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/12 11:28:54 by dthalman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	init_config(t_shell *shell)
 		exec_exit(shell);
 	if (getcwd(shell->working_dir, 256))
 		shell->config = str_joins(shell->working_dir, CONFIGFILE, "/");
-	handle_echoctl();
 }
 
 void	*init_shell(t_shell *shell, int argc, char *argv[])
