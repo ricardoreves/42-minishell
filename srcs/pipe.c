@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 00:26:04 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/06 15:13:16 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/11 23:51:32 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,14 @@ int	create_pipes(t_shell *shell)
 		i++;
 	}
 	return (1);
+}
+
+void	free_pipes(int **pipes, int size)
+{
+	if (pipes && size)
+	{
+		while (size--)
+			free(pipes[size]);
+		free(pipes);
+	}
 }
