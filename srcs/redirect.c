@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 21:00:04 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/11 16:20:30 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/12 01:56:39 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	redirect_input_file(t_shell *shell, t_cmd *cmd)
 	int	fd;
 
 	(void)shell;
-	fd = open(cmd->redirect_path, O_RDONLY, 0644);
+	fd = -2;
+	if (cmd->redirect_id == id_in_file)
+		fd = open(cmd->redirect_path, O_RDONLY, 0644);
 	if (fd == -1)
 	{
 		perror("Error: open() failed");
