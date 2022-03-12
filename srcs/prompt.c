@@ -6,7 +6,7 @@
 /*   By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 00:45:42 by rpinto-r          #+#    #+#             */
-/*   Updated: 2022/03/11 18:31:43 by rpinto-r         ###   ########.fr       */
+/*   Updated: 2022/03/12 01:28:51 by rpinto-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,44 +42,13 @@ void	init_prompt(t_shell *shell)
 			if (parse_command_line(shell))
 			{
 				if (is_valid_commands(shell))
-					handle_commands(shell);
+					exec_commands(shell);
 				free_cmds(&(shell->cmds));
 			}
 			else
-				show_command_error(shell, NAME, MSG_SYNTAX_ERROR, 2);
+				show_command_error(shell, NULL, MSG_SYNTAX_ERROR, 2);
 		}
 		free(shell->cmdline);
 		free(prompt);
 	}
-}
-
-void	scan_stdin(t_cmd *cmd)
-{
-	char	*line;
-
-	while (1)
-	{
-		line = readline(">\n");
-		if (*line)
-			break ;
-		else
-			free(line);
-	}
-	cmd->name = line;
-	cmd->args = ft_split(line, ' ');
-}
-
-/**
- * @brief contrôle que les commandes sont correctement formaté
- * 
- * @param shell 
- * @return int 
- */
-int	is_valid_commands(t_shell *shell)
-{
-	if (is_unexpected_token_command(shell))
-		return (0);
-	if (!is_valid_heredoc(shell))
-		return (0);
-	return (1);
 }
