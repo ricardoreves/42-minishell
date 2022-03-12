@@ -6,14 +6,13 @@
 #    By: rpinto-r <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/31 01:47:02 by rpinto-r          #+#    #+#              #
-#    Updated: 2022/03/10 15:32:42 by rpinto-r         ###   ########.fr        #
+#    Updated: 2022/03/12 01:26:14 by rpinto-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ### VARIABLES ###
 CC         = gcc
-WARN_FLAG  = -Werror -Wextra -Wall
-CFLAGS     = $(WARN_FLAG)
+CFLAGS     = -Werror -Wextra -Wall
 RM         = rm -rf
 NORM       = norminette
 NAME       = minishell
@@ -21,9 +20,7 @@ TEST_NAME  = tester
 INC        = ./incs
 TEST_DIR   = ./tests
 SRC_DIR    = ./srcs
-SRC_NAME   = main.c init.c command.c error.c signal.c parsing.c parsing_wildcard.c parsing_utils.c redirect.c redirect_heredoc.c free.c pipe.c pids.c logfile_utils.c logfile.c command_utils.c prompt.c
-SRC_NAME  += utils/array_utils.c utils/array_utils2.c utils/env_utils.c utils/env_utils2.c utils/utils.c utils/cmd_utils.c
-SRC_NAME  += builtins/cd.c builtins/echo.c builtins/env.c builtins/exit.c builtins/export.c builtins/pwd.c builtins/unset.c builtins/builtin.c
+SRC_NAME   = main.c init.c exec.c check.c check2.c error.c signal.c parsing.c parsing_wildcard.c parsing_utils.c redirect.c heredoc.c pipe.c pids.c logfile.c logfile_utils.c prompt.c array_utils.c array_utils2.c env_utils.c env_utils2.c utils.c cmd_utils.c cd.c echo.c env.c exit.c export.c pwd.c unset.c
 SRCS       = $(addprefix $(SRC_DIR)/, $(SRC_NAME))
 OBJS       = $(SRCS:.c=.o)
 
@@ -46,18 +43,14 @@ endif
 LIBFT_FLAG = -lft
 LIBFT_DIR  = ./libft
 LIBFT_INC  = ./libft
-LIBFT    = ./libft/libft.a
 
 LIBPARSER_INC = ./parser/inc
 LIBPARSER_FLAG = -lparser
 LIBPARSER_DIR  = ./parser
-LIBPARSER  = ./parser/libparser.a
 
 LIBFTPRINTF_INC = ./printf/inc
 LIBFTPRINTF_FLAG = -lprintf
 LIBFTPRINTF_DIR  = ./printf
-LIBFTPRINTF  = ./printf/libprintf.a
-
 
 ### RULES ###
 all: $(NAME)
@@ -69,7 +62,7 @@ $(NAME): $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR)
 	$(MAKE) -C $(LIBPARSER_DIR)
 	$(MAKE) -C $(LIBFTPRINTF_DIR)
-	$(CC) $(OBJS) $(DEBUG_FLAG) $(LIBRL_FLAG) $(LIBPARSER_FLAG) $(LIBFT_FLAG) $(LIBFTPRINTF_FLAG) -L $(LIBPARSER_DIR) -L $(LIBFT_DIR) -L $(LIBRL_DIR) -L $(LIBFTPRINTF_DIR) -o $(NAME) 
+	$(CC) $(OBJS) $(CFLAGS) $(DEBUG_FLAG) $(LIBRL_FLAG) $(LIBPARSER_FLAG) $(LIBFT_FLAG) $(LIBFTPRINTF_FLAG) -L $(LIBPARSER_DIR) -L $(LIBFT_DIR) -L $(LIBRL_DIR) -L $(LIBFTPRINTF_DIR) -o $(NAME) 
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
@@ -91,22 +84,12 @@ run:
 norm:
 	$(NORM) $(INC) $(SRC_DIR) $(LIBFT_DIR) $(LIBFTPRINTF_DIR) $(LIBPARSER_DIR)  | grep Error
 
-#dev: re all run
 dev: CFLAGS += $(DEBUG_FLAG)
 dev: $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR) dev
 	$(MAKE) -C $(LIBPARSER_DIR) dev
 	$(MAKE) -C $(LIBFTPRINTF_DIR) dev
-	$(CC) $(OBJS) $(DEBUG_FLAG) $(LIBRL_FLAG) $(LIBPARSER_FLAG) $(LIBFT_FLAG) $(LIBFTPRINTF_FLAG) -L $(LIBPARSER_DIR) -L $(LIBFT_DIR) -L $(LIBRL_DIR) -L $(LIBFTPRINTF_DIR) -o $(NAME) 
-
-sandbox:
-	$(CC) sandbox/pipe_unlimited.c  -I $(INC) $(LIBFT) $(LIBPARSER) -o $(NAME) && ./$(NAME) hello world
-
-dev2:
-	$(CC) sandbox/save_error.c $(DEBUG_FLAG) -I $(INC) $(LIBFT) $(LIBPARSER) -o $(NAME) && ./$(NAME)
-
-fd:
-	ls -la /proc/$$$/fd
+	$(CC) $(OBJS) $(DEBUG_FLAG) $(LIBRL_FLAG) $(LIBPARSER_FLAG) $(LIBFT_FLAG) $(LIBFTPRINTF_FLAG) -L $(LIBPARSER_DIR) -L $(LIBFT_DIR) -L $(LIBRL_DIR) -L $(LIBFTPRINTF_DIR) -o $(NAME)
 
 test: CFLAGS += $(DEBUG_FLAG)
 test: $(subst $(SRC_DIR)/main.o, $(TEST_DIR)/minishell_tester.o, $(OBJS))
