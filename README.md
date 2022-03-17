@@ -1,5 +1,5 @@
 
-# 42 MiniRT
+# 42 Minishell
 ![Language](https://img.shields.io/static/v1?label=language&message=c&color=blue) ![Licence](https://img.shields.io/badge/license-MIT-green) ![Score](https://42-project-badge.glitch.me/users/rpinto-r/project/minishell) [![norminette](https://github.com/ricardoreves/42-minishell/actions/workflows/norminette.yml/badge.svg)](https://github.com/ricardoreves/42-minishell/actions/workflows/norminette.yml) 
 
 ## 🪧 Overview
