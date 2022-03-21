@@ -9,6 +9,14 @@ This project is about creating a simple shell. Yes, your own little bash. You wi
 ![preview](imgs/preview.png)
 
 ## 🚀 Getting Started
+### Prerequisites
+
+Minishell for Linux requires `readline`, `rl_clear_history`, `rl_on_new_line`,
+`rl_replace_line`, `rl_redisplay`, `add_history`, therefore you will need to install the following dependencies: `libreadline8` `libreadline-dev`. Installing these dependencies on Ubuntu can be done as follows:
+```
+sudo apt-get install libreadline8 libreadline-dev
+```
+
 ### Installation
 1. Clone the project.
 ```
